@@ -5,27 +5,13 @@
     --accent: #ff85a2;
     --text: #5a3d3d;
     --light: #fff5f5;
-    --dark: #3d2c2c;
-    --shadow: 0 4px 8px rgba(0,0,0,0.1);
-    --transition: all 0.3s ease;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
 
 body {
     font-family: 'Comic Neue', cursive;
     background-color: var(--light);
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-.cute-font {
-    font-family: 'Indie Flower', cursive;
+    margin: 0;
+    padding: 0;
 }
 
 /* Loading Screen */
@@ -39,71 +25,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     z-index: 1000;
-    transition: opacity 0.5s ease;
-}
-
-.loading-content {
-    text-align: center;
-    padding: 20px;
-}
-
-.loading-screen h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    color: white;
-}
-
-.progress-container {
-    width: 80%;
-    max-width: 400px;
-    height: 20px;
-    background-color: white;
-    border-radius: 10px;
-    margin: 20px 0;
-    overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
     width: 0;
     background-color: var(--accent);
-    border-radius: 10px;
     transition: width 0.3s ease;
-}
-
-.loading-screen p {
-    color: white;
-    font-size: 1.2rem;
-    margin-top: 10px;
 }
 
 /* Welcome Section */
 .welcome {
     text-align: center;
     padding: 50px 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    opacity: 0;
-    animation-fill-mode: forwards;
-}
-
-.welcome h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    color: var(--accent);
-}
-
-.flower {
-    font-size: 2rem;
-    vertical-align: middle;
-}
-
-.subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-    color: var(--text);
 }
 
 .enter-btn {
@@ -111,256 +46,55 @@ body {
     color: white;
     border: none;
     padding: 15px 30px;
-    font-size: 1.2rem;
     border-radius: 50px;
     cursor: pointer;
-    transition: var(--transition);
-    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
 }
 
 .enter-btn:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    background-color: #ff6b8b;
-}
-
-/* Garden Content */
-.garden-content {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    color: var(--accent);
-    margin-bottom: 10px;
-}
-
-.hearts {
-    font-size: 1.5rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-.hearts span {
-    display: inline-block;
-    animation: float 3s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 0.3s);
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
 }
 
 /* Categories */
-.section-title {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: var(--accent);
-}
-
-.category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
-}
-
 .category {
-    background-color: white;
+    background: white;
     border-radius: 20px;
-    padding: 25px;
-    text-align: center;
-    transition: var(--transition);
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    border: 2px solid var(--secondary);
+    padding: 20px;
+    transition: transform 0.3s ease;
 }
 
 .category:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    border-color: var(--accent);
 }
 
-.category-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.category h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: var(--accent);
-}
-
-.category p {
-    color: var(--text);
-}
-
-/* Motivation Section */
-.motivation-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px;
-    background-color: white;
-    padding: 30px;
-    border-radius: 20px;
-    margin-top: 40px;
-    box-shadow: var(--shadow);
-    border: 2px solid var(--secondary);
-}
-
-.quotes, .affirmations {
-    flex: 1;
-    min-width: 300px;
-}
-
-.quotes h3, .affirmations h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: var(--accent);
-}
-
-.quote-text {
-    font-size: 1.2rem;
-    font-style: italic;
-    line-height: 1.8;
-}
-
-.affirmations ul {
-    list-style-type: none;
-}
-
-.affirmations li {
-    padding: 10px 0;
-    font-size: 1.2rem;
-    position: relative;
-    padding-left: 30px;
-}
-
-.affirmations li:before {
-    content: "🌸";
-    position: absolute;
-    left: 0;
-}
-
-/* Popup Styles */
+/* Popup */
 .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    display: flex;
+    background: rgba(0,0,0,0.7);
+    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.popup-overlay.active {
-    opacity: 1;
-    pointer-events: all;
 }
 
 .popup-content {
-    background-color: white;
+    background: white;
     border-radius: 20px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 80vh;
-    overflow-y: auto;
     padding: 30px;
+    width: 80%;
+    max-width: 600px;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-    border: 3px solid var(--primary);
-}
-
-.popup-overlay.active .popup-content {
-    transform: scale(1);
 }
 
 .close-popup {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     font-size: 1.5rem;
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--accent);
-    transition: var(--transition);
-}
-
-.close-popup:hover {
-    transform: rotate(90deg);
-    color: var(--text);
-}
-
-.popup-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--secondary);
-    padding-bottom: 15px;
-}
-
-.popup-title {
-    font-size: 2rem;
-    color: var(--accent);
-    flex: 1;
-}
-
-.popup-icon {
-    font-size: 2.5rem;
-    margin-left: 20px;
-}
-
-.popup-body {
-    padding: 10px 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .welcome h1 {
-        font-size: 2.2rem;
-    }
-    
-    .category-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .motivation-section {
-        flex-direction: column;
-    }
-}
-
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fadeInUp {
-    animation: fadeInUp 0.6s ease forwards;
 }
