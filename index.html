@@ -35,7 +35,7 @@
 
   <!-- Sushi Gallery -->
   <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 pb-12">
-    
+
     <!-- Sushi Card -->
     <div class="bg-white shadow-md rounded-xl p-4 text-center hover:shadow-lg transition">
       <img src="images/salmon-roll.jpg" alt="Salmon Roll" class="w-full h-40 object-cover rounded-md mb-4">
@@ -44,16 +44,34 @@
       <a href="https://www.ubereats.com" target="_blank" class="text-pink-500 underline text-sm">Order on Uber Eats</a>
     </div>
 
-    <!-- Add more sushi cards below -->
-    <!-- ... -->
+    <!-- Add more cards here... -->
 
   </main>
+
+  <!-- Love Note Section -->
+  <section class="noteSection">
+    <div class="noteCard">
+      <h2>💌 A Note from Tharhat</h2>
+      <p>
+        Hey Maisah...<br><br>
+        I made this special place just for you — a calm corner where it's all about peace, smiles, and sushi 🍣💖.<br><br>
+        You mean the world to me. You're not just someone special — you're <strong>my someone</strong>. This isn't a restaurant... it's a little reminder that you’re loved, respected, and cared for deeply, always.<br><br>
+        If you're ever tired, anxious, or just want to feel okay... come back here. It’s your space. Just for you, Maisah 🌸
+      </p>
+      <p class="from">— Tharhat</p>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="text-center py-4 text-sm text-gray-400">
     Made for Maisah with love by Tharhat | Private & Personal Only
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Script -->
+  <script>
+    function closeModal() {
+      document.getElementById('welcomeModal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
