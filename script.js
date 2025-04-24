@@ -1,65 +1,64 @@
 // script.js
 
-function closeModal() {
-  const modal = document.getElementById("welcomeModal");
-  modal.classList.add("hidden");
-}
+// Modal control
+const welcomeModal = document.getElementById('welcomeModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const openModalBtn = document.getElementById('openModalBtn');
 
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById("myModal");
-  const closeBtn = document.getElementById("closeBtn");
+// Show the welcome modal when page loads
+window.onload = () => {
+  welcomeModal.style.display = 'flex';
+};
 
-  // Show modal on page load
-  modal.classList.remove("hidden");
+// Close the welcome modal when clicking the close button
+closeModalBtn.addEventListener('click', () => {
+  welcomeModal.style.display = 'none';
+});
 
-  closeBtn.addEventListener("click", () => {
-    modal.classList.add("hidden");
-  });
+// Close the modal if clicked outside of the modal content
+window.addEventListener('click', (e) => {
+  if (e.target === welcomeModal) {
+    welcomeModal.style.display = 'none';
+  }
+});
 
-  // Sushi data
-  const sushiList = [
-    {
-      name: "Salmon Nigiri",
-      description: "Fresh slices of salmon over seasoned rice 🍣",
-      image: "https://example.com/salmon-nigiri.jpg",
-      link: "https://www.ubereats.com/ca/store/sushi-place-1"
-    },
-    {
-      name: "California Roll",
-      description: "Crab, avocado & cucumber wrapped in rice & seaweed 🌊",
-      image: "https://example.com/california-roll.jpg",
-      link: "https://www.ubereats.com/ca/store/sushi-place-2"
-    },
-    {
-      name: "Tuna Sashimi",
-      description: "Thinly sliced raw tuna, rich and delicious 🐟",
-      image: "https://example.com/tuna-sashimi.jpg",
-      link: "https://www.ubereats.com/ca/store/sushi-place-3"
-    },
-    {
-      name: "Shrimp Tempura Roll",
-      description: "Crispy shrimp tempura with avocado and sauce 🍤",
-      image: "https://example.com/shrimp-tempura.jpg",
-      link: "https://www.ubereats.com/ca/store/sushi-place-4"
-    }
-  ];
+// Sushi card modal functionality
+const sushiCards = document.querySelectorAll('.sushiCard');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+const closeModal = document.getElementById('closeModal');
 
-  const sushiSection = document.getElementById("sushiSection");
+// Function to open modal with sushi card details
+sushiCards.forEach(card => {
+  card.addEventListener('click', () => {
+    const sushiName = card.querySelector('.content h3').innerText;
+    const sushiDescription = card.querySelector('.content p').innerText;
+    const sushiImage = card.querySelector('img').src;
 
-  // Generate sushi cards
-  sushiList.forEach((sushi) => {
-    const card = document.createElement("div");
-    card.className = "sushiCard";
-
-    card.innerHTML = `
-      <img src="${sushi.image}" alt="${sushi.name}" />
-      <div class="content">
-        <h3>${sushi.name}</h3>
-        <p>${sushi.description}</p>
-        <a href="${sushi.link}" target="_blank">Order Now</a>
-      </div>
+    modalContent.innerHTML = `
+      <h3>${sushiName}</h3>
+      <img src="${sushiImage}" alt="${sushiName}" class="modalImage">
+      <p>${sushiDescription}</p>
     `;
-
-    sushiSection.appendChild(card);
+    
+    modal.style.display = 'flex';
   });
 });
+
+// Close the modal when clicking the close button inside the modal
+closeModal.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+// Close the modal if clicked outside of the modal content
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
+// Function to open the "Notes" section with content
+const showNotes = () => {
+  const noteSection = document.querySelector('.noteSection');
+  noteSection.classList.toggle('hidden');
+};
