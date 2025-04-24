@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show the enter button after a short delay
             setTimeout(() => {
                 enterButton.style.display = 'block';
+                // Ensure main content is ready but still hidden
+                mainContent.style.opacity = '0'; // Start transparent before fade-in
+                mainContent.classList.remove('hidden'); // Allow transitions/animations
             }, 300);
         }
         progressBar.style.width = progress + '%';
@@ -32,27 +35,31 @@ document.addEventListener('DOMContentLoaded', () => {
     enterButton.addEventListener('click', () => {
         // Fade out loading screen
         loadingScreen.style.opacity = '0';
-        // After fade out, hide it completely and show main content
+        // After fade out, hide it completely and fade in main content
         setTimeout(() => {
             loadingScreen.style.display = 'none';
-            mainContent.classList.remove('hidden');
-             // Trigger fly-in animations by adding class might not be needed
-             // if CSS animation starts automatically once displayed.
-             // Let's ensure they are visible.
-            document.querySelectorAll('.fly-in').forEach(el => {
-                 el.style.opacity = '1'; // Ensure visible if animation didn't trigger correctly
-            });
-        }, 800); // Match CSS transition duration
+            // Fade in the main content
+            mainContent.style.opacity = '1'; // This triggers the CSS transition on #main-content
+             // Note: The 'fly-in' CSS animation should trigger automatically now
+             // because the parent #main-content is no longer display:none or opacity:0
+        }, 800); // Match CSS transition duration for loading screen fade-out
     });
 
     // --- Scrolling Progress Bar ---
     window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
         const docHeight = document.documentElement.scrollHeight;
         const winHeight = window.innerHeight;
-        const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+        const scrollableHeight = docHeight - winHeight;
 
-        scrollProgressBar.style.width = scrollPercent + '%';
+        // Prevent division by zero if content height is less than window height
+        if (scrollableHeight <= 0) {
+             scrollProgressBar.style.width = '0%';
+             return;
+        }
+
+        const scrollPercent = (scrollTop / scrollableHeight) * 100;
+        scrollProgressBar.style.width = Math.min(scrollPercent, 100) + '%'; // Cap at 100%
     });
 
     // --- Modal Logic ---
@@ -69,14 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeModal(modal) {
         if (modal) {
             modal.classList.remove('active');
-             // Restore background scrolling
-             document.body.style.overflow = '';
+             // Restore background scrolling only if no other modals are open
+            const anyActiveModal = document.querySelector('.modal.active');
+            if (!anyActiveModal) {
+                document.body.style.overflow = '';
+            }
         }
     }
 
     // Add click listeners to all modal triggers
     modalTriggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
+        trigger.addEventListener('click', (event) => {
+             event.preventDefault(); // Good practice for clickable elements acting like buttons
             const modalId = trigger.getAttribute('data-modal-target');
             const modal = document.getElementById(modalId);
             openModal(modal);
