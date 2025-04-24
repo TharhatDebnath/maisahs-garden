@@ -3,385 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maisah's Garden 🪴</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Maisah's Garden</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
-
-    <div id="loading-screen">
-        <div class="loading-text">Initializing...</div>
-        <div id="progress-bar-container">
-            <div id="progress-bar"></div>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-content">
+            <h1 class="cute-font">Maisah's Garden</h1>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <p>Planting seeds of joy just for you...</p>
         </div>
-        <button id="enter-button" style="display: none;">Enter Site</button>
     </div>
 
-    <div id="scroll-progress-bar"></div>
+    <!-- Main Content -->
+    <div class="main-content" style="display:none;">
+        <!-- Welcome Section -->
+        <section class="welcome animate__animated animate__zoomIn">
+            <h1 class="cute-font">Welcome to Your Garden, Maisah! <span class="flower">🌸</span></h1>
+            <p class="subtitle">A cozy place just for you</p>
+            <button class="enter-btn cute-font">Enter the Garden</button>
+        </section>
 
-    <div id="main-content" class="hidden">
-        <header>
-            <h1>Welcome to Maisah's Garden</h1> </header>
-
-        <main>
-            <aside class="content-section fly-in">
-                This is your personalized guide for managing IBS through a Low FODMAP diet, focusing on halal sushi options in Toronto/Scarborough. All recommendations are lactose-free and IBS-friendly!
-            </aside>
-
-            <section class="content-section fly-in">
-                <p>Hi! This page is made just for <strong>you</strong>, with love and care. Everything here is:</p>
-                <ul>
-                    <li>✅ <strong>Halal</strong></li>
-                    <li>✅ <strong>Low FODMAP</strong> (gentle on IBS)</li>
-                    <li>✅ <strong>Savory, not sweet</strong></li>
-                    <li>✅ <strong>No eggs, no fruits you don’t like</strong></li>
-                    <li>✅ <strong>Careful with avocado (yes, you can still have some but only a tiny bit)</strong></li>
-                    <li>✅ <strong>Chocolate-friendly (no dark chocolate! Dark chocolate yucky)</strong></li>
-                </ul>
-                <p>Let’s dig into the good stuff.</p>
-                <p>ALSO INCLUDES YOUR FAVOURITE STUFF - Sushi :3</p>
-            </section>
-
-            <section class="content-section fly-in">
-                <h2>Detailed Restaurant Menus - Safe Options</h2>
-
-                <div class="menu-category hover-lift">
-                    <h3 class="modal-trigger" data-modal-target="kibo-modal">Kibo Sushi Picks</h3>
+        <!-- Main Garden Content (hidden until button click) -->
+        <div class="garden-content" style="display:none;">
+            <!-- Header -->
+            <header>
+                <h1 class="cute-font">Maisah's Garden</h1>
+                <div class="hearts">
+                    <span>💖</span>
+                    <span>💖</span>
+                    <span>💖</span>
                 </div>
+            </header>
 
-                <div class="menu-category hover-lift">
-                    <h3 class="modal-trigger" data-modal-target="sushi-q-modal">Sushi Q</h3>
+            <!-- Categories -->
+            <section class="categories">
+                <h2 class="section-title cute-font">Pick a Flower <span class="flower">🌼</span></h2>
+                
+                <div class="category-grid">
+                    <!-- Sushi Guide -->
+                    <div class="category" data-category="sushi">
+                        <div class="category-icon">🍣</div>
+                        <h3>Sushi Guide</h3>
+                        <p>Your personalized halal, low-FODMAP sushi options</p>
+                    </div>
+
+                    <!-- Meal Plans -->
+                    <div class="category" data-category="meals">
+                        <div class="category-icon">🍱</div>
+                        <h3>Meal Plans</h3>
+                        <p>Weekly meal suggestions for happy tummy</p>
+                    </div>
+
+                    <!-- Snacks -->
+                    <div class="category" data-category="snacks">
+                        <div class="category-icon">🍟</div>
+                        <h3>Snack Attack</h3>
+                        <p>Safe & yummy snack ideas</p>
+                    </div>
+
+                    <!-- Chocolate -->
+                    <div class="category" data-category="chocolate">
+                        <div class="category-icon">🍫</div>
+                        <h3>Chocolate Heaven</h3>
+                        <p>Because you deserve treats!</p>
+                    </div>
+
+                    <!-- Relaxation -->
+                    <div class="category" data-category="relax">
+                        <div class="category-icon">🧘‍♀️</div>
+                        <h3>Relaxation Corner</h3>
+                        <p>Meditation & mental health tools</p>
+                    </div>
+
+                    <!-- Affirmations -->
+                    <div class="category" data-category="affirmations">
+                        <div class="category-icon">💝</div>
+                        <h3>Love Notes</h3>
+                        <p>Reminders of how amazing you are</p>
+                    </div>
                 </div>
-
-                 <div class="menu-category hover-lift">
-                    <h3 class="modal-trigger" data-modal-target="sushi-tea-modal">Sushi and Tea Favorites</h3>
-                 </div>
             </section>
 
-            <aside class="content-section fly-in">
-                <strong>About Avocados:</strong> You're right about being careful with avocados! On a Low FODMAP diet, you can only have very small amounts (1/8 of an avocado). For your IBS, it's safer to skip it completely in sushi.
-            </aside>
-
-            <section class="content-section fly-in hover-lift">
-                <h2 class="modal-trigger" data-modal-target="ordering-modal">How to Order Smart</h2>
+            <!-- Motivation Section -->
+            <section class="motivation-section">
+                <div class="quotes">
+                    <h3 class="cute-font">Daily Quote</h3>
+                    <p class="quote-text">"You're braver than you believe, stronger than you seem, and smarter than you think."</p>
+                </div>
+                <div class="affirmations">
+                    <h3 class="cute-font">Remember:</h3>
+                    <ul>
+                        <li>You are beautiful today</li>
+                        <li>Your smile brightens the world</li>
+                        <li>You're stronger than you think</li>
+                        <li>You deserve happiness</li>
+                    </ul>
+                </div>
             </section>
-
-            <section class="content-section fly-in hover-lift">
-                 <h2 class="modal-trigger" data-modal-target="value-combos-modal">Best Value Combos</h2>
-            </section>
-
-            <aside class="content-section fly-in">
-                <strong>Pro Tips:</strong>
-                <ul>
-                    <li>Extra ginger = Good for digestion!</li>
-                    <li>Best times to order: Tuesday-Thursday (fresher fish days).</li>
-                    <li>Save money with lunch specials (usually 11am-3pm).</li>
-                </ul>
-            </aside>
-
-            <section class="content-section fly-in hover-lift">
-                <h2 class="modal-trigger" data-modal-target="fruits-modal">IBS-Friendly Fruit Options</h2>
-            </section>
-
-            <section class="content-section fly-in hover-lift">
-                 <h2 class="modal-trigger" data-modal-target="meal-plan-modal">Weekly Meal Plan Suggestion</h2>
-            </section>
-
-            <aside class="content-section fly-in">
-                <strong>Reminder:</strong> All these options are: Halal-certified, Low FODMAP, Lactose-free, IBS-friendly, Avocado-conscious, Budget-friendly with combos.
-            </aside>
-
-            <section class="content-section fly-in hover-lift">
-                <h2 class="modal-trigger" data-modal-target="main-dishes-modal">Main Dish Ideas (Low FODMAP, Halal)</h2>
-            </section>
-
-             <section class="content-section fly-in hover-lift">
-                <h2 class="modal-trigger" data-modal-target="snacks-modal">Savory Snack Ideas</h2>
-            </section>
-
-            <section class="content-section fly-in hover-lift">
-                 <h2 class="modal-trigger" data-modal-target="chocolate-modal">Safe Chocolate Options</h2>
-            </section>
-
-            <section class="content-section fly-in hover-lift">
-                 <h2 class="modal-trigger" data-modal-target="liked-fruits-modal">Okay-List Fruits</h2>
-            </section>
-
-            <section class="content-section fly-in hover-lift">
-                 <h2 class="modal-trigger" data-modal-target="avoid-modal">Foods to Avoid / Limit</h2>
-            </section>
-
-            <section class="content-section fly-in">
-                <h2>Final Tips</h2>
-                <ul>
-                    <li>When eating out: Specify Halal, no onion/garlic, check sauces.</li>
-                    <li>Safe bets with friends: Fries (check oil/seasoning), grilled meats, rice.</li>
-                    <li>Keep enjoying your favorite boba (lactose-free versions!).</li>
-                </ul>
-            </section>
-
-            <section class="content-section fly-in">
-                <h2>Final Notes</h2>
-                <p>Managing IBS and dietary needs takes effort, and you're doing great! This guide is here to make finding delicious, safe food easier.</p>
-                <ul>
-                    <li>You deserve food that makes you feel good.</li>
-                    <li>You deserve treats that don't cause discomfort.</li>
-                    <li>You deserve clarity and ease when choosing meals.</li>
-                </ul>
-                <p>If you need updates or different suggestions, just ask.</p>
-                <p>Ready to eat well? Let's go!</p>
-            </section>
-
-            <section class="content-section fly-in">
-                <h2>Relaxation Corner (Coming Soon)</h2>
-                <p>Tools and resources for mental well-being.</p>
-                </section>
-
-        </main>
-
-        <div class="bottom-fixed-container">
-            <div id="quotes">"Progress, not perfection."</div>
-            <div id="affirmations">You've got this.</div>
-        </div>
-
-    </div> <div id="kibo-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h3>Kibo Sushi Picks</h3>
-            <p><strong>Signature Rolls (Halal-friendly)</strong></p>
-            <ul>
-                <li>Salmon Lover Roll (no avocado) - <code>$14.99</code></li>
-                <li>Cucumber Special Roll - <code>$11.99</code></li>
-                <li>Vegetable Dragon Roll (no avocado) - <code>$13.99</code></li>
-            </ul>
-            <p><strong>Combos</strong></p>
-            <ul>
-                <li>Salmon Sushi & Roll Combo A (specify no avocado) - <code>$19.99</code>
-                    <ul><li>4 pcs salmon nigiri</li><li>8 pcs salmon roll</li></ul>
-                </li>
-                <li>Vegetable Combo B - <code>$16.99</code>
-                    <ul><li>Cucumber roll</li><li>Carrot roll</li><li>Spinach roll</li></ul>
-                </li>
-            </ul>
-            <p><strong>Drinks</strong></p>
-            <ul>
-                <li>Green Tea Boba (lactose-free)</li>
-                <li>Mango Fruit Tea</li>
-            </ul>
         </div>
     </div>
 
-    <div id="sushi-q-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-             <h3>Sushi Q</h3>
-             <p><strong>Special Rolls</strong></p>
-            <ul>
-                <li>Fresh Salmon Roll - <code>$13.99</code></li>
-                <li>Cucumber Delight - <code>$10.99</code></li>
-                <li>Carrot Paradise Roll - <code>$11.99</code></li>
-            </ul>
-            <p><strong>Value Combos</strong></p>
-            <ul>
-                <li>Salmon Lover Set - <code>$24.99</code>
-                    <ul><li>6 pcs salmon nigiri</li><li>8 pcs salmon roll</li><li>6 pcs cucumber roll</li></ul>
-                </li>
-                <li>Veggie Paradise - <code>$19.99</code>
-                    <ul><li>8 pcs cucumber roll</li><li>8 pcs carrot roll</li><li>6 pcs spinach roll</li></ul>
-                </li>
-            </ul>
-             <p><strong>Bubble Tea Options</strong></p>
-             <ul>
-                 <li>Classic Milk Tea (with lactose-free milk)</li>
-                 <li>Taro Milk Tea (with lactose-free milk)</li>
-                 <li>Fruit Tea Series (IBS-friendly)</li>
-             </ul>
+    <!-- Popup Overlay -->
+    <div class="popup-overlay">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <div class="popup-header">
+                <h2 class="popup-title cute-font"></h2>
+                <div class="popup-icon"></div>
+            </div>
+            <div class="popup-body"></div>
         </div>
     </div>
 
-    <div id="sushi-tea-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h3>Sushi and Tea Favorites</h3>
-             <p><strong>Classic Rolls</strong></p>
-             <ul>
-                 <li>Simple Salmon Roll - <code>$12.99</code></li>
-                 <li>Cucumber Classic - <code>$9.99</code></li>
-                 <li>Carrot Roll - <code>$9.99</code></li>
-             </ul>
-             <p><strong>Special Sets</strong></p>
-             <ul>
-                <li>Salmon Special - <code>$22.99</code>
-                    <ul><li>4 pcs salmon nigiri</li><li>8 pcs salmon roll</li><li>4 pcs cucumber roll</li></ul>
-                </li>
-                 <li>Veggie Delight Box - <code>$18.99</code>
-                    <ul><li>Mixed vegetable rolls</li><li>No avocado, dairy-free</li></ul>
-                </li>
-             </ul>
-             <p><strong>Signature Bubble Tea</strong></p>
-             <ul>
-                 <li>Brown Sugar Pearl (lactose-free)</li>
-                 <li>Passion Fruit Green Tea</li>
-                 <li>Lychee Bubble Tea (no dairy)</li>
-             </ul>
-        </div>
-    </div>
-
-    <div id="ordering-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>How to Order Smart</h2>
-            <p>Key phrases to use:</p>
-            <ul>
-                <li>"No avocado, please."</li>
-                <li>"No mayo-based sauces, please."</li>
-                <li>"No cream cheese, please."</li>
-                <li>"Does this contain onion or garlic?" (Or: "No onion or garlic in sauces, please.")</li>
-                <li>"Are lactose-free milk options available?" (Oat, soy, lactose-free dairy)</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="value-combos-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Best Value Combos</h2>
-             <ul>
-                <li>Kibo's Salmon Sushi & Roll Combo A</li>
-                <li>Sushi Q's Veggie Paradise</li>
-                <li>Sushi and Tea's Salmon Special</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="fruits-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-             <h2>IBS-Friendly Fruit Options</h2>
-             <p>Try these instead of high-FODMAP fruits:</p>
-             <ul>
-                 <li>Fruit-infused water (strawberry, orange, cucumber)</li>
-                 <li>Small servings of safe fruits (see Okay-List)</li>
-                 <li>Smoothies with carefully measured safe fruits</li>
-            </ul>
-        </div>
-    </div>
-
-     <div id="meal-plan-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Weekly Meal Plan Suggestion</h2>
-             <ul>
-                 <li><strong>Monday Lunch:</strong> Kibo Sushi - Salmon Lover Roll</li>
-                 <li><strong>Wednesday Dinner:</strong> Sushi Q - Veggie Paradise Combo</li>
-                 <li><strong>Friday Treat:</strong> Sushi and Tea - Salmon Special</li>
-                 <li><strong>Weekend Option:</strong> Mix and match vegetable rolls</li>
-             </ul>
-        </div>
-    </div>
-
-    <div id="main-dishes-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-             <h2>Main Dish Ideas</h2>
-             <hr>
-             <h4>1. Grilled Halal Beef Steak</h4>
-             <p>Ribeye or sirloin (Zabiha halal). Season with garlic-infused olive oil, rosemary, black pepper, salt, paprika. Serve with roasted carrots & lactose-free mashed potatoes.</p>
-             <hr>
-             <h4>2. Crispy Fried Chicken (Egg-Free)</h4>
-             <p>Halal chicken thighs/drumsticks. Coat in rice flour or gluten-free flour mix (paprika, cumin, salt, pepper). Fry in suitable oil. Serve with safe fries.</p>
-              <hr>
-             <h4>3. Chicken Skewers</h4>
-             <p>Grilled chicken marinated in ginger, turmeric, garlic-infused oil, salt, pepper. Serve with safe peanut sauce (check ingredients) and rice.</p>
-             <hr>
-             <h4>4. Low FODMAP Chicken Bowl</h4>
-            <p>Grilled chicken strips, jasmine rice, roasted zucchini/carrots. Optional: Max 1/8 avocado.</p>
-            <hr>
-             <h4>5. Stuffed Bell Peppers (Egg-Free)</h4>
-            <p>Fill peppers with seasoned ground halal beef, rice (optional), carrots, spinach, chives. Top with lactose-free cheese. Bake until tender.</p>
-            <hr>
-            <h4>6. Low FODMAP Butter Chicken</h4>
-            <p>Use garlic-infused oil, ginger, appropriate spices. Creamy sauce with lactose-free yogurt or coconut cream. Serve with rice or GF naan.</p>
-             <hr>
-            <h4>7. Halal Kofta Patties</h4>
-            <p>Ground beef/lamb mixed with cumin, coriander, paprika, chives, salt, pepper. Pan-sear. Serve with Low FODMAP sides (e.g., cucumber salad, rice).</p>
-            <hr>
-            <h4>8. Low FODMAP Chicken Wrap</h4>
-            <p>Use rice paper or gluten-free tortilla. Fill with grilled chicken, lettuce, chives, safe dressing, maybe a few avocado cubes.</p>
-        </div>
-    </div>
-
-    <div id="snacks-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-             <h2>Savory Snack Ideas</h2>
-              <hr>
-             <h4>Potato Wedges</h4>
-             <p>Baked or air-fried, seasoned with rosemary, paprika, salt, garlic-infused oil.</p>
-            <hr>
-            <h4>Halal Charcuterie (Simplified)</h4>
-            <p>Smoked halal turkey/roast beef slices, lactose-free cheddar cubes, olives, pickled carrots, Low FODMAP crackers.</p>
-            <hr>
-            <h4>Avocado Toast (Limited)</h4>
-            <p>Gluten-free toast, max 1/8 mashed avocado, salt, pepper, chives.</p>
-             <hr>
-            <h4>Lactose-Free Yogurt Dip</h4>
-            <p>Plain lactose-free yogurt with chopped cucumber, dill, chives, salt.</p>
-        </div>
-    </div>
-
-    <div id="chocolate-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Safe Chocolate Options</h2>
-            <p>Low FODMAP choices (check ingredients, moderation is key):</p>
-             <ul>
-                 <li>Milk chocolate (small amounts)</li>
-                 <li>Lactose-free chocolate</li>
-                 <li>Dark chocolate (check portion sizes for FODMAPs, if tolerated)</li>
-                 <li>Chocolate rice cakes</li>
-                 <li>Lactose-free hot cocoa</li>
-             </ul>
-        </div>
-    </div>
-
-    <div id="liked-fruits-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-             <h2>Okay-List Fruits (Low FODMAP Portions)</h2>
-             <p>Stick to recommended serving sizes:</p>
-             <ul>
-                 <li>Pineapple (fresh, canned in juice - check portion)</li>
-                 <li>Mango (very small portion - check Monash app)</li>
-                 <li>Blackberries (very small portion - check Monash app)</li>
-                 <li>Strawberries (fresh - check portion)</li>
-                 <li>Oranges / Mandarins</li>
-                 <li>Firm Bananas (ripe bananas are high FODMAP)</li>
-             </ul>
-             <p><em>Always check the Monash FODMAP app for current portion sizes.</em></p>
-        </div>
-    </div>
-
-    <div id="avoid-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-             <h2>Foods to Avoid / Limit</h2>
-             <p>Common High FODMAP / IBS Triggers:</p>
-             <ul>
-                <li>Avocado (limit to 1/8 portion max)</li>
-                <li>Garlic & Onions (use garlic-infused oil instead)</li>
-                <li>Eggs (based on your preference)</li>
-                <li>High FODMAP Fruits (apples, ripe bananas, pears, watermelon, etc.)</li>
-                <li>Lentils, Beans, Chickpeas (unless prepared to reduce FODMAPs, small portions)</li>
-                <li>Cauliflower, Broccoli (check portion sizes)</li>
-                <li>Wheat, Rye (unless sourdough or specific GF products)</li>
-                <li>Dairy (unless lactose-free)</li>
-             </ul>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
