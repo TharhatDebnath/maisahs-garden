@@ -1,54 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBS-Friendly Halal Meals 🍣</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sushii for Maisah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <h1>Sweet Eats 🍣</h1>
-            <p>Halal & Low FODMAP Meals for Every Tummy 💕</p>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-pink-50 text-gray-800 font-sans">
 
-    <section id="home" class="home-section">
-        <h2>Welcome to Sweet Eats 💖</h2>
-        <p>Explore our collection of delicious, IBS-friendly, Halal meals that will make your tummy happy and your taste buds dance!</p>
-        <button>Start Exploring</button>
-    </section>
+  <!-- Welcome Modal -->
+  <div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full text-center shadow-xl">
+      <h2 class="text-2xl font-semibold mb-4">Welcome, Maisah!</h2>
+      <p class="mb-4 text-sm text-gray-600">This cozy little sushi place is just for you. Made with love and comfort only.</p>
+      <button onclick="closeModal()" class="bg-pink-500 text-white px-4 py-2 rounded-full hover:bg-pink-600 transition">
+        Enter
+      </button>
+    </div>
+  </div>
 
-    <section id="menu" class="menu-section">
-        <h2>Our Menu 🍱</h2>
-        <div class="menu-items">
-            <div class="menu-item">
-                <img src="sushi.jpg" alt="Sushi Plate">
-                <h3>Delicious Sushi Rolls</h3>
-                <p>Fresh, halal-friendly sushi rolls with an IBS-friendly twist!</p>
-            </div>
-            <div class="menu-item">
-                <img src="salad.jpg" alt="Salad">
-                <h3>Fresh Salad Bowls</h3>
-                <p>Crunchy and refreshing, perfect for your tummy.</p>
-            </div>
-            <!-- Add more items as needed -->
-        </div>
-    </section>
+  <!-- Header -->
+  <header class="text-center py-6">
+    <h1 class="text-4xl font-bold text-pink-600">Sushii for Maisah</h1>
+    <p class="text-sm text-gray-600 mt-2 italic">Your cozy digital sushi spot</p>
+  </header>
 
-    <footer id="contact">
-        <p>© 2025 Sweet Eats | Made with 💕</p>
-        <p>Contact us for more details!</p>
-    </footer>
+  <!-- Cozy Quote -->
+  <section class="text-center mb-6 px-4">
+    <blockquote class="italic text-lg text-gray-500">
+      “You deserve warmth, joy, and all the sushi in the world.”
+    </blockquote>
+  </section>
+
+  <!-- Sushi Gallery -->
+  <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 pb-12">
+    
+    <!-- Sushi Card -->
+    <div class="bg-white shadow-md rounded-xl p-4 text-center hover:shadow-lg transition">
+      <img src="images/salmon-roll.jpg" alt="Salmon Roll" class="w-full h-40 object-cover rounded-md mb-4">
+      <h3 class="text-xl font-semibold">Salmon Roll</h3>
+      <p class="text-sm text-gray-500 mb-2">Fresh, warm, and soft – just like your smile.</p>
+      <a href="https://www.ubereats.com" target="_blank" class="text-pink-500 underline text-sm">Order on Uber Eats</a>
+    </div>
+
+    <!-- Add more sushi cards below -->
+    <!-- ... -->
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 text-sm text-gray-400">
+    Made for Maisah with love by Tharhat | Private & Personal Only
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
