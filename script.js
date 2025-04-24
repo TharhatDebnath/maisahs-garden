@@ -1,49 +1,34 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Loading Animation
-    const progressBar = document.querySelector('.progress-bar');
-    const loadingScreen = document.querySelector('.loading-screen');
-    const mainContent = document.querySelector('.main-content');
+document.addEventListener('DOMContentLoaded', () => {
+    // Enter Button Click
+    const enterBtn = document.querySelector('.enter-btn');
     const welcomeSection = document.querySelector('.welcome');
     const gardenContent = document.querySelector('.garden-content');
 
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 2;
-        progressBar.style.width = `${progress}%`;
-        
-        if (progress >= 100) {
-            clearInterval(interval);
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                mainContent.style.display = 'block';
-                welcomeSection.style.opacity = '1';
-            }, 500);
-        }
-    }, 50);
-
-    // Enter Button
-    document.querySelector('.enter-btn').addEventListener('click', function() {
+    enterBtn.addEventListener('click', () => {
         welcomeSection.style.opacity = '0';
         setTimeout(() => {
             gardenContent.style.display = 'block';
         }, 500);
     });
 
-    // Popup Logic
-    const popupOverlay = document.querySelector('.popup-overlay');
-    const popupBody = document.querySelector('.popup-body');
-    const closePopup = document.querySelector('.close-popup');
-
+    // Category Click
     document.querySelectorAll('.category').forEach(category => {
-        category.addEventListener('click', function() {
-            const categoryType = this.getAttribute('data-category');
-            popupBody.innerHTML = `<h2>${categoryType} Content</h2><p>Details go here!</p>`;
+        category.addEventListener('click', () => {
+            const categoryType = category.getAttribute('data-category');
+            const popupBody = document.querySelector('.popup-body');
+            const popupOverlay = document.querySelector('.popup-overlay');
+
+            // Simple content example
+            popupBody.innerHTML = `
+                <h2 class="cute-font">${categoryType}</h2>
+                <p>Your personalized content goes here! 🍣💖</p>
+            `;
             popupOverlay.style.display = 'flex';
         });
     });
 
-    closePopup.addEventListener('click', function() {
-        popupOverlay.style.display = 'none';
+    // Close Popup
+    document.querySelector('.close-popup').addEventListener('click', () => {
+        document.querySelector('.popup-overlay').style.display = 'none';
     });
 });
