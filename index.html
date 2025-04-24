@@ -8,68 +8,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loading-content">
-            <h1 class="cute-font">Maisah's Garden</h1>
-            <div class="progress-container">
-                <div class="progress-bar"></div>
-            </div>
-            <p>Planting seeds of joy just for you...</p>
-        </div>
-    </div>
+    <!-- Welcome Screen -->
+    <section class="welcome animate__animated animate__zoomIn">
+        <h1 class="cute-font">Welcome to Maisah's Garden! <span class="flower">🌸</span></h1>
+        <p class="subtitle">A cozy place just for you</p>
+        <button class="enter-btn cute-font">Enter the Garden</button>
+    </section>
 
-    <!-- Main Content (hidden until loading completes) -->
-    <div class="main-content" style="display:none;">
-        <!-- Welcome Section -->
-        <section class="welcome">
-            <h1 class="cute-font">Welcome to Your Garden, Maisah! <span class="flower">🌸</span></h1>
-            <p class="subtitle">A cozy place just for you</p>
-            <button class="enter-btn cute-font">Enter the Garden</button>
+    <!-- Main Garden Content (hidden until button click) -->
+    <div class="garden-content" style="display:none;">
+        <header>
+            <h1 class="cute-font">Maisah's Garden</h1>
+            <div class="hearts">
+                <span>💖</span>
+                <span>💖</span>
+                <span>💖</span>
+            </div>
+        </header>
+
+        <!-- Categories -->
+        <section class="categories">
+            <h2 class="section-title cute-font">Pick a Flower <span class="flower">🌼</span></h2>
+            <div class="category-grid">
+                <div class="category" data-category="sushi">
+                    <div class="category-icon">🍣</div>
+                    <h3>Sushi Guide</h3>
+                    <p>Your personalized halal, low-FODMAP sushi options</p>
+                </div>
+                <!-- Add other categories here -->
+            </div>
         </section>
 
-        <!-- Main Garden Content -->
-        <div class="garden-content" style="display:none;">
-            <header>
-                <h1 class="cute-font">Maisah's Garden</h1>
-                <div class="hearts">
-                    <span>💖</span>
-                    <span>💖</span>
-                    <span>💖</span>
-                </div>
-            </header>
-
-            <!-- Categories -->
-            <section class="categories">
-                <h2 class="section-title cute-font">Pick a Flower <span class="flower">🌼</span></h2>
-                <div class="category-grid">
-                    <div class="category" data-category="sushi">
-                        <div class="category-icon">🍣</div>
-                        <h3>Sushi Guide</h3>
-                        <p>Your personalized halal, low-FODMAP sushi options</p>
-                    </div>
-                    <!-- Other categories here (same structure) -->
-                </div>
-            </section>
-
-            <!-- Motivation Section -->
-            <section class="motivation-section">
-                <div class="quotes">
-                    <h3 class="cute-font">Daily Quote</h3>
-                    <p class="quote-text">"You're braver than you believe..."</p>
-                </div>
-                <div class="affirmations">
-                    <h3 class="cute-font">Remember:</h3>
-                    <ul>
-                        <li>You are beautiful today</li>
-                        <li>Your smile brightens the world</li>
-                    </ul>
-                </div>
-            </section>
-        </div>
+        <!-- Motivation Section -->
+        <section class="motivation-section">
+            <div class="quotes">
+                <h3 class="cute-font">Daily Quote</h3>
+                <p class="quote-text">"You're braver than you believe..."</p>
+            </div>
+            <div class="affirmations">
+                <h3 class="cute-font">Remember:</h3>
+                <ul>
+                    <li>You are beautiful today</li>
+                    <li>Your smile brightens the world</li>
+                </ul>
+            </div>
+        </section>
     </div>
 
-    <!-- Popup Overlay -->
+    <!-- Popup -->
     <div class="popup-overlay">
         <div class="popup-content">
             <button class="close-popup">&times;</button>
