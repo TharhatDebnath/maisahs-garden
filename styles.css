@@ -5,12 +5,26 @@
     padding: 0;
 }
 
+:root {
+    --bg-color: #1a1a1a; /* Near black */
+    --surface-color: #252525; /* Slightly lighter for sections */
+    --surface-alt-color: #2a2a2a; /* Slightly lighter for asides */
+    --text-color: #e0e0e0; /* Light grey */
+    --text-strong-color: #ffffff; /* White for emphasis */
+    --accent-color: #4db6ac; /* Muted Teal */
+    --accent-hover-color: #80cbc4; /* Lighter Teal */
+    --border-color: #333333; /* Dark grey border */
+    --code-bg-color: #333333;
+    --code-text-color: #b2dfdb; /* Light teal for code */
+}
+
 body {
-    font-family: 'Comfortaa', cursive; /* Cute custom font */
-    line-height: 1.6;
-    color: #333;
-    background-color: #fdf6f9; /* Soft pink background */
+    font-family: 'Inter', sans-serif; /* Clean sans-serif font */
+    line-height: 1.7; /* Increased line-height for readability */
+    color: var(--text-color);
+    background-color: var(--bg-color);
     padding-bottom: 60px; /* Space for bottom fixed elements */
+    font-weight: 300; /* Lighter default font weight */
 }
 
 /* Loading Screen Styling */
@@ -20,7 +34,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #fceef3; /* Slightly different pink */
+    background-color: var(--bg-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,44 +44,45 @@ body {
 }
 
 .loading-text {
-    font-size: 1.5em;
-    color: #e18aaa; /* Cute pink text color */
+    font-size: 1.3em;
+    color: var(--text-strong-color);
     margin-bottom: 20px;
+    font-weight: 400;
 }
 
 #progress-bar-container {
     width: 60%;
     max-width: 400px;
-    height: 20px;
-    background-color: #f8d7e8; /* Lighter progress bar background */
-    border-radius: 10px;
+    height: 8px; /* Thinner bar */
+    background-color: var(--border-color);
+    border-radius: 4px;
     overflow: hidden;
     margin-bottom: 30px;
 }
 
 #progress-bar {
-    width: 0; /* Starts at 0 */
+    width: 0;
     height: 100%;
-    background-color: #e18aaa; /* Progress bar color */
-    border-radius: 10px;
-    transition: width 0.2s linear; /* Smooth progress update */
+    background-color: var(--accent-color);
+    border-radius: 4px;
+    transition: width 0.2s linear;
 }
 
 #enter-button {
-    padding: 12px 25px;
-    font-size: 1.2em;
-    font-family: 'Comfortaa', cursive;
-    color: white;
-    background-color: #e18aaa;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--bg-color); /* Dark text on button */
+    background-color: var(--accent-color);
     border: none;
-    border-radius: 25px;
+    border-radius: 4px; /* Sharper corners */
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
 #enter-button:hover {
-    background-color: #d66f9a;
-    transform: scale(1.05);
+    background-color: var(--accent-hover-color);
 }
 
 /* Scrolling Progress Bar */
@@ -75,87 +90,125 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    height: 5px;
-    background-color: #e18aaa; /* Same pink as progress bar */
-    width: 0%; /* Initial width */
+    height: 4px; /* Thinner scroll bar */
+    background-color: var(--accent-color);
+    width: 0%;
     z-index: 999;
-    transition: width 0.1s linear; /* Smooth scroll update */
+    transition: width 0.1s linear;
 }
 
 /* Main Content Styling */
 #main-content {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    opacity: 1; /* Initially visible after loading */
+    max-width: 850px; /* Slightly wider */
+    margin: 40px auto;
+    padding: 30px 40px; /* More padding */
+    background-color: var(--bg-color); /* Match body */
+    border-radius: 0; /* Sharp corners */
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    opacity: 1;
     transition: opacity 1s ease-in;
 }
 
 #main-content.hidden {
     opacity: 0;
-    pointer-events: none; /* Prevent interaction while hidden */
+    pointer-events: none;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    color: #d66f9a; /* Header color */
+    margin-bottom: 40px;
+    color: var(--text-strong-color);
 }
 
-h1, h2, h3 {
-    margin-bottom: 15px;
-    color: #d66f9a;
+h1 {
+    font-size: 2.5em; /* Larger H1 */
+    font-weight: 700; /* Bold */
+    margin-bottom: 10px;
+}
+
+h2, h3 {
+    color: var(--text-strong-color);
+    font-weight: 600; /* Semi-bold */
+    margin-top: 2em; /* More space above headings */
+    margin-bottom: 1em;
 }
 
 h2 {
-    border-bottom: 2px solid #fceef3;
-    padding-bottom: 5px;
+    font-size: 1.8em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
 }
 
 h3 {
-    color: #e18aaa;
+    font-size: 1.4em;
+    color: var(--accent-hover-color); /* Use lighter accent for H3 */
 }
 
 .content-section, .menu-category {
     margin-bottom: 30px;
-    padding: 20px;
-    background-color: #fff9fb; /* Very light pink for sections */
-    border-radius: 10px;
-    border-left: 5px solid #f8d7e8; /* Accent border */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effect */
+    padding: 25px; /* Consistent padding */
+    background-color: var(--surface-color); /* Section background */
+    border-radius: 4px; /* Slightly rounded corners */
+    border: 1px solid var(--border-color); /* Subtle border */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 aside.content-section {
-    background-color: #fdf6f9; /* Slightly different for asides */
-    border-left-color: #e18aaa;
-    font-style: italic;
+    background-color: var(--surface-alt-color); /* Different bg for asides */
+    border-left: 3px solid var(--accent-color); /* Accent border */
+    font-style: normal; /* Remove italics */
+    padding-left: 22px;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 0 4px 4px 0;
 }
 
 ul {
-    list-style: none; /* Remove default bullets */
+    list-style: none;
     padding-left: 0;
 }
 
 li {
-    margin-bottom: 8px;
+    margin-bottom: 10px; /* More space between list items */
+    padding-left: 20px; /* Indent list items */
+    position: relative;
 }
+
+li::before { /* Custom bullet point */
+    content: '›'; /* Chevron bullet */
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Style checkmark list items differently */
+li:has(> strong)::before {
+     content: '✓'; /* Checkmark for the initial list */
+     color: var(--accent-color); /* Green checkmark */
+     left: 0px;
+}
+li:has(> strong) {
+    padding-left: 25px; /* Adjust padding for checkmarks */
+}
+
 
 strong {
-    color: #c75b8a; /* Highlight color for strong text */
+    color: var(--text-strong-color);
+    font-weight: 600;
 }
 
-code { /* Styling for prices */
-    background-color: #fceef3;
-    padding: 2px 5px;
-    border-radius: 4px;
+code {
+    background-color: var(--code-bg-color);
+    padding: 3px 6px;
+    border-radius: 3px;
     font-family: monospace;
-    color: #b84d7a;
+    color: var(--code-text-color);
+    font-size: 0.95em;
 }
 
-/* Fly-in Animation */
+/* Fly-in Animation - Keep as is, effect works on dark bg */
 @keyframes flyIn {
     from {
         opacity: 0;
@@ -168,63 +221,71 @@ code { /* Styling for prices */
 }
 
 .fly-in {
-    /* We manage opacity via JS now for initial load, but keep animation */
     animation: flyIn 0.8s ease-out forwards;
-    /* Start animation paused or rely on JS to remove .hidden */
 }
 
 /* Hover Lift Effect */
 .hover-lift:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(225, 138, 170, 0.2); /* Pinkish shadow */
+    background-color: var(--surface-alt-color); /* Slightly change bg on hover */
+    transform: translateY(-3px); /* Subtle lift */
+    border-color: #444;
 }
 
 /* Modal Trigger Styling */
 .modal-trigger {
     cursor: pointer;
-    display: inline-block; /* Allow hover effect */
+    display: inline-block;
     transition: color 0.3s ease;
+    color: var(--text-strong-color); /* Make trigger stand out */
+    font-weight: 600;
+    font-size: 1.2em; /* Match H2 style if it's an H2 */
+}
+h3.modal-trigger { /* Specific style if H3 is the trigger */
+    font-size: 1.4em;
+    color: var(--accent-hover-color);
 }
 
 .modal-trigger:hover {
-    color: #c75b8a; /* Darker pink on hover */
+    color: var(--accent-color); /* Accent color on hover */
 }
 
 /* Modal (Popup) Styles */
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
-    z-index: 1001; /* Above loading screen if needed, definitely above content */
+    z-index: 1001;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Enable scroll if content is long */
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-    opacity: 0; /* Start faded out */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+    opacity: 0;
     transition: opacity 0.4s ease;
 }
 
 .modal.active {
-    display: block; /* Show when active */
-    opacity: 1; /* Fade in */
+    display: block;
+    opacity: 1;
 }
 
 .modal-content {
     position: relative;
-    background-color: #fff;
-    margin: 10% auto; /* Centered vertically and horizontally */
-    padding: 30px;
-    border-radius: 15px; /* Rounded corners */
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.4s ease-out; /* Slide in animation */
+    background-color: var(--surface-color); /* Dark modal background */
+    margin: 10% auto;
+    padding: 30px 40px; /* More padding */
+    border-radius: 4px; /* Sharper corners */
+    border: 1px solid var(--border-color);
+    width: 85%;
+    max-width: 700px; /* Wider modal */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.4s ease-out;
+    color: var(--text-color); /* Ensure text is light */
 }
 
 @keyframes slideIn {
     from {
-        transform: translateY(-50px);
+        transform: translateY(-30px);
         opacity: 0;
     }
     to {
@@ -234,31 +295,41 @@ code { /* Styling for prices */
 }
 
 .close-button {
-    color: #aaa;
+    color: #999; /* Grey close button */
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: 300; /* Lighter weight */
+    line-height: 1;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .close-button:hover,
 .close-button:focus {
-    color: #e18aaa; /* Pink hover */
+    color: var(--accent-hover-color); /* Accent hover */
     text-decoration: none;
 }
 
 .modal-content h3, .modal-content h2, .modal-content h4 {
-     color: #d66f9a;
-     margin-top: 15px;
+     color: var(--text-strong-color);
+     margin-top: 1.5em;
+     margin-bottom: 0.8em;
+     border-bottom: 1px solid var(--border-color);
+     padding-bottom: 8px;
 }
+.modal-content h4 {
+     font-size: 1.1em;
+     color: var(--accent-hover-color);
+     border-bottom: none; /* No border for H4 */
+}
+
 .modal-content hr {
     border: none;
     height: 1px;
-    background-color: #fceef3;
-    margin: 20px 0;
+    background-color: var(--border-color);
+    margin: 25px 0;
 }
 
 /* Bottom Fixed Elements */
@@ -269,54 +340,59 @@ code { /* Styling for prices */
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
-    background-color: rgba(253, 246, 249, 0.9); /* Semi-transparent background */
-    backdrop-filter: blur(5px); /* Blur effect for modern look */
-    z-index: 998; /* Below scrollbar, above content potentially */
-    font-size: 0.9em;
+    padding: 12px 25px;
+    background-color: rgba(26, 26, 26, 0.9); /* Dark semi-transparent bg */
+    backdrop-filter: blur(8px);
+    z-index: 998;
+    font-size: 0.85em;
+    border-top: 1px solid var(--border-color);
 }
 
-#quotes {
-    color: #a06d8a; /* Muted color */
-}
-
-#affirmations {
-    color: #a06d8a; /* Muted color */
-    text-align: right;
+#quotes, #affirmations {
+    color: #aaa; /* Muted grey */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     #main-content {
         margin: 20px 10px;
-        padding: 15px;
+        padding: 20px;
     }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+    h3 { font-size: 1.2em; }
 
     .modal-content {
         width: 90%;
+        padding: 20px;
         margin: 15% auto;
     }
 
     .bottom-fixed-container {
-        padding: 8px 10px;
+        padding: 10px 15px;
         font-size: 0.8em;
     }
-     h1 { font-size: 1.8em;}
-     h2 { font-size: 1.4em;}
 }
 
 @media (max-width: 480px) {
-     h1 { font-size: 1.5em;}
-     h2 { font-size: 1.2em;}
-     .loading-text { font-size: 1.2em;}
-     #enter-button { font-size: 1em; padding: 10px 20px;}
+     body { line-height: 1.6; } /* Adjust line height for small screens */
+     h1 { font-size: 1.8em; }
+     h2 { font-size: 1.3em; }
+     h3 { font-size: 1.1em; }
+     .loading-text { font-size: 1.1em;}
+     #enter-button { font-size: 0.9em; padding: 8px 16px;}
 
      .bottom-fixed-container {
-        flex-direction: column; /* Stack elements */
+        flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 8px 10px;
      }
      #quotes { margin-bottom: 5px;}
      #affirmations { text-align: center;}
 
+     li { padding-left: 15px; }
+     li::before { left: -2px; }
+     li:has(> strong) { padding-left: 20px; }
+     li:has(> strong)::before { left: 0; }
 }
