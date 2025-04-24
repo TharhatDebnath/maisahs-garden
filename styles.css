@@ -168,25 +168,10 @@ code { /* Styling for prices */
 }
 
 .fly-in {
-    opacity: 0; /* Start hidden */
+    /* We manage opacity via JS now for initial load, but keep animation */
     animation: flyIn 0.8s ease-out forwards;
+    /* Start animation paused or rely on JS to remove .hidden */
 }
-
-/* Add delays for staggered effect */
-.fly-in:nth-child(1) { animation-delay: 0.1s; }
-.fly-in:nth-child(2) { animation-delay: 0.2s; }
-.fly-in:nth-child(3) { animation-delay: 0.3s; }
-.fly-in:nth-child(4) { animation-delay: 0.4s; }
-/* Add more if needed */
-main > .fly-in:nth-of-type(1) { animation-delay: 0.5s; }
-main > .fly-in:nth-of-type(2) { animation-delay: 0.6s; }
-main > .fly-in:nth-of-type(3) { animation-delay: 0.7s; }
-main > .fly-in:nth-of-type(4) { animation-delay: 0.8s; }
-main > .fly-in:nth-of-type(5) { animation-delay: 0.9s; }
-main > .fly-in:nth-of-type(6) { animation-delay: 1.0s; }
-main > .fly-in:nth-of-type(7) { animation-delay: 1.1s; }
-/* Adjust delays as needed */
-
 
 /* Hover Lift Effect */
 .hover-lift:hover {
