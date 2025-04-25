@@ -4,531 +4,613 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maisah's Garden 🌸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --pink: #ffb6c1;
-            --pink-dark: #ff9aae;
-            --pastel: #f8e9e9;
-            --text: #4a4a4a;
-            --green: #b5ead7;
-            --blue: #c7ceea;
-        }
+        /* Custom Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue&family=Nunito&display=swap');
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Base Styles */
         body {
-            font-family: 'Comic Neue', cursive;
-            background: var(--pastel);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            font-family: 'Nunito', sans-serif;
+            background: #fff0f5; /* Light pink background */
+            margin: 0;
+            color: #8b4a65; /* Darker pink text color */
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Indie Flower', cursive;
-            color: #ff6b8b;
-            margin-bottom: 15px;
-        }
-
-        h1 { font-size: 2.5rem; }
-        h2 { font-size: 2rem; }
-        h3 { font-size: 1.7rem; }
-
-        .welcome {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 3px dashed var(--pink);
-            animation: fadeIn 1s ease;
-        }
-
-        .category {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border-left: 5px solid var(--pink);
-            display: none;
-        }
-
-        .category.active {
-            display: block;
-            animation: slideUp 0.5s ease;
-        }
-
-        .category-header {
+        /* Loading Screen */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffe6ee; /* Lighter pink for loading */
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            cursor: pointer;
-            padding: 15px;
-            background: linear-gradient(to right, var(--pink), var(--pink-dark));
-            color: white;
-            border-radius: 15px;
-            margin-bottom: 15px;
-        }
-
-        .menu-item {
-            background: #fff9f9;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 3px solid var(--pink);
-            transition: transform 0.3s ease;
-        }
-
-        .menu-item:hover {
-            transform: translateX(5px);
-        }
-
-        .buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
             justify-content: center;
+            z-index: 1000;
         }
 
-        button {
-            background: var(--pink);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 50px;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            font-family: 'Comic Neue', cursive;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        button:hover {
-            background: var(--pink-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        .affirmation {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            animation: float 5s infinite;
-            z-index: 100;
-            max-width: 250px;
-            border: 2px solid var(--pink);
-            font-family: 'Indie Flower', cursive;
-            font-size: 1.2rem;
-        }
-
-        .help-button {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--pink);
+        .flower {
             width: 60px;
             height: 60px;
-            border-radius: 50%;
+            animation: bloom 2s infinite;
+            font-size: 40px; /* Make emoji larger */
+        }
+
+        #loading p {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #b56a89; /* Medium pink */
+        }
+
+        /* Welcome Page */
+        #welcome {
+            text-align: center;
+            padding: 2rem;
+            min-height: 100vh; /* Full height */
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            z-index: 100;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
+        }
+
+        #welcome h1 {
+             font-family: 'Comic Neue', cursive;
+             font-size: 2.5rem; /* Larger title */
+             color: #ff69b4; /* Hot pink */
+             margin-bottom: 0.5rem;
+        }
+         #welcome p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #b56a89;
+         }
+
+        .pink-btn {
+            background: #ff85a2; /* Medium-light pink */
             color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            font-size: 1.2rem;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow */
+        }
+        .pink-btn:hover {
+             transform: scale(1.05);
+             background-color: #ff7096; /* Slightly darker pink on hover */
         }
 
-        .help-button:hover {
-            transform: scale(1.1) rotate(10deg);
+
+        /* Navigation */
+        .nav-bar {
+            background: #ffb3c6; /* Light pink nav background */
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
+            position: sticky; /* Make nav sticky */
+            top: 0; /* Stick to the top */
+            z-index: 500; /* Ensure it's above content */
         }
 
-        aside {
-            background: #f0f8ff;
-            border-left: 4px solid var(--blue);
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 10px 10px 0;
+        .nav-btn {
+            background: #ff7096; /* Hotter pink buttons */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: none; /* Removed default border */
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+         .nav-btn:hover {
+             background-color: #ff85a2; /* Lighter pink on hover */
+             transform: translateY(-2px); /* Slight lift on hover */
+         }
+         .nav-btn.active { /* Style for the active button */
+             background-color: #e06387; /* Darker shade for active */
+             font-weight: bold;
+         }
+
+
+        /* Content Sections */
+        .section {
+            display: none; /* Hidden by default */
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2rem auto; /* Added top/bottom margin */
+            background-color: #ffffff; /* White background for content */
+            border-radius: 15px; /* Rounded corners for sections */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Softer shadow */
+        }
+         .section h2 {
+             color: #ff69b4; /* Hot pink heading */
+             font-family: 'Comic Neue', cursive;
+             border-bottom: 2px solid #ffe6ee; /* Light pink underline */
+             padding-bottom: 0.5rem;
+             margin-bottom: 1.5rem;
+         }
+         .section h3 {
+             color: #b56a89; /* Medium pink sub-heading */
+             margin-top: 1.5rem;
+             margin-bottom: 0.8rem;
+         }
+          .section h4 {
+             color: #8b4a65; /* Darker pink for sub-sub-heading */
+             margin-top: 1rem;
+             margin-bottom: 0.5rem;
+             font-weight: bold;
+         }
+         .section p, .section li {
+             line-height: 1.6; /* Improve readability */
+             color: #6d5a62; /* Slightly muted text color */
+         }
+         .section ul {
+             list-style: none; /* Remove default bullets */
+             padding-left: 0;
+         }
+          .section li {
+             padding-left: 1.5em;
+             position: relative;
+             margin-bottom: 0.5rem;
+          }
+         .section li::before {
+             content: '🌸'; /* Use flower emoji as bullet */
+             position: absolute;
+             left: 0;
+             top: 0px;
+             font-size: 0.9em;
+         }
+          .section ul ul li::before {
+                content: '✨'; /* Different bullet for nested lists */
+          }
+
+        .badge {
+            background: #ff85a2;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 5px 5px 10px 0; /* Adjusted margin */
+            font-size: 0.9rem;
         }
 
-        ul, ol {
-            padding-left: 20px;
-            margin: 10px 0;
+        .tip {
+            background-color: #ffe6ee; /* Light pink background for tips */
+            border-left: 5px solid #ff85a2; /* Pink accent line */
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+         .tip h3 {
+             margin-top: 0; /* Remove extra top margin inside tip */
+             color: #b56a89;
+         }
+
+        hr {
+          border: none;
+          height: 1px;
+          background-color: #ffb3c6; /* Light pink separator */
+          margin: 2rem 0; /* Space around separator */
         }
 
-        li {
-            margin-bottom: 8px;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { 
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .buttons-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            button {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .affirmation {
-                max-width: 200px;
-                font-size: 1rem;
-                bottom: 80px;
-                right: 10px;
-            }
-        }
-
-        /* Emoji sizes */
-        .emoji-large {
-            font-size: 1.5rem;
-        }
-
-        /* Price tag styling */
-        .price {
-            color: #ff6b8b;
-            font-weight: bold;
-            margin-left: 5px;
-        }
-
-        /* Highlight for important notes */
-        .highlight {
-            background: #fffacd;
-            padding: 2px 5px;
-            border-radius: 3px;
+        /* Animation */
+        @keyframes bloom {
+            0% { transform: rotate(0deg) scale(0.9); opacity: 0.8; }
+            50% { transform: rotate(180deg) scale(1.1); opacity: 1; }
+            100% { transform: rotate(360deg) scale(0.9); opacity: 0.8; }
         }
     </style>
 </head>
 <body>
-    <!-- Welcome Section -->
-    <div class="welcome">
-        <h1>Maisah's Garden! 🌸</h1>
-        <p>Hello, There, Maisah! 😊<br>
-        Welcome to your secret garden — a peaceful little corner of the digital world made just for you.</p>
-        
-        <p>Here in Maisah's Garden, everything blooms with care, calm, and love. This is a place where you can breathe, smile, and just be. 😊</p>
-        
-        <p>Everything here is:</p>
-        <ul>
-            <li>✅ <span class="highlight">Halal-certified</span></li>
-            <li>✅ <span class="highlight">Low FODMAP</span> (gentle on IBS)</li>
-            <li>✅ <span class="highlight">Savory & Tummy-safe</span></li>
-            <li>✅ <span class="highlight">No eggs</span>, no fruits you don't like</li>
-            <li>✅ <span class="highlight">Avocado-conscious</span> (just a tiny bit!)</li>
-            <li>✅ <span class="highlight">Chocolate-friendly</span> (no dark chocolate! yucky)</li>
-        </ul>
-        
-        <p>Let's dig into the good stuff! 💫</p>
+    <div id="loading">
+        <div class="flower">🌸</div>
+        <p>Watering your garden...</p>
     </div>
 
-    <!-- Category Buttons -->
-    <div class="buttons-container">
-        <button onclick="showCategory('sushi')">🍣 Sushi Picks</button>
-        <button onclick="showCategory('main')">🍖 Main Dishes</button>
-        <button onclick="showCategory('snacks')">🧀 Snacks</button>
-        <button onclick="showCategory('chocolate')">🍫 Chocolate</button>
-        <button onclick="showCategory('fruits')">🍍 Friendly Fruits</button>
-        <button onclick="showCategory('avoid')">🚫 Avoid These</button>
-        <button onclick="showCategory('tips')">🌟 Pro Tips</button>
+    <div id="welcome" style="display: none;">
+        <h1 style="font-family: 'Comic Neue', cursive;">Welcome to Maisah's Garden 🌸</h1>
+        <p>Your cozy self-care corner</p>
+        <button class="pink-btn" onclick="enterGarden()">Enter the Garden</button>
     </div>
 
-    <!-- Sushi Category -->
-    <div id="sushi" class="category">
-        <div class="category-header" onclick="toggleCategory('sushi-content')">
-            <h2>🍣 Sushi Heaven</h2>
-            <span class="emoji-large">👇</span>
-        </div>
-        
-        <div id="sushi-content">
-            <!-- Kibo Sushi -->
-            <div class="menu-item">
-                <h3>Kibo Sushi Picks 💕</h3>
-                <h4>Signature Rolls (Halal-friendly)</h4>
-                <ul>
-                    <li>Salmon Lover Roll (no avocado) <span class="price">$14.99</span></li>
-                    <li>Cucumber Special Roll <span class="price">$11.99</span></li>
-                    <li>Vegetable Dragon Roll (no avocado) <span class="price">$13.99</span></li>
-                </ul>
-                
-                <h4>Combos</h4>
-                <ul>
-                    <li>Salmon Sushi & Roll Combo A (no avocado) <span class="price">$19.99</span>
-                        <ul>
-                            <li>4 pcs salmon nigiri</li>
-                            <li>8 pcs salmon roll</li>
-                        </ul>
-                    </li>
-                    <li>Vegetable Combo B <span class="price">$16.99</span>
-                        <ul>
-                            <li>Cucumber roll</li>
-                            <li>Carrot roll</li>
-                            <li>Spinach roll</li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <h4>🫠Whoa! Drinkies</h4>
-                <ul>
-                    <li>Green Tea Boba (lactose-free)</li>
-                    <li>Mango Fruit Tea</li>
-                </ul>
-            </div>
-            
-            <!-- Sushi Q -->
-            <div class="menu-item">
-                <h3>Sushi Q 🎀 (THE GOAT! THATS WHAT I AM TALKING ABOUT!)</h3>
-                <h4>🌟 Speicial Rolls Just for you :3</h4>
-                <ul>
-                    <li>Fresh Salmon Roll (no avocado) <span class="price">$13.99</span></li>
-                    <li>Cucumber Delight <span class="price">$10.99</span></li>
-                    <li>Carrot Paradise Roll <span class="price">$19.99</span></li>
-                </ul>
-                
-                <h4>🍣 Value Combos</h4>
-                <ul>
-                    <li>Salmon Lover Set <span class="price">$24.99</span>
-                        <ul>
-                            <li>6 pcs salmon nigiri</li>
-                            <li>8 pcs salmon roll</li>
-                            <li>6 pcs cucumber roll</li>
-                        </ul>
-                    </li>
-                    <li>Veggie Paradise <span class="price">$19.99</span>
-                        <ul>
-                            <li>8 pcs Cucumber roll</li>
-                            <li>8 pcs Carrot roll</li>
-                            <li>6 pcs Spinach roll</li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <h4>Drinks</h4>
-                <ul>
-                    <li>Green Tea Boba (lactose-free)</li>
-                    <li>Mango Fruit Tea</li>
-                    <li>Classic Milk Tea (with lactose-free milk)</li>
-                    <li>Taro Milk Tea (with lactose-free milk)</li>
-                    <li>Fruit Tea Series (IBS-friendly)</li>
-                </ul>
-            </div>
-            
-            <!-- Sushi and Tea -->
-            <div class="menu-item">
-                <h3>Sushi and Tea Favorites 👍</h3>
-                <h4>⏰ Classic Rolls bringing that vibe</h4>
-                <ul>
-                    <li>Fresh Salmon Roll (no avocado) <span class="price">$13.99</span></li>
-                    <li>Cucumber Delight <span class="price">$10.99</span></li>
-                    <li>Carrot Paradise Roll <span class="price">$19.99</span></li>
-                </ul>
-                
-                <h4>🙃 Special Sets for you</h4>
-                <ul>
-                    <li>Salmon Lover Set <span class="price">$22.99</span>
-                        <ul>
-                            <li>4 pcs salmon nigiri</li>
-                            <li>8 pcs salmon roll</li>
-                            <li>4 pcs cucumber roll</li>
-                        </ul>
-                    </li>
-                    <li>Veggie Paradise <span class="price">$18.99</span>
-                        <ul>
-                            <li>4 pcs salmon nigiri</li>
-                            <li>8 pcs salmon roll</li>
-                            <li>4 pcs cucumber roll</li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <h4>👌 Signature Bubble Tea just right</h4>
-                <ul>
-                    <li>Brown Sugar Pearl (lactose-free)</li>
-                    <li>Passion Fruit Green Tea</li>
-                    <li>Lychee Bubble Tea (no dairy)</li>
-                </ul>
-            </div>
-            
-            <aside>
-                <h4>About Avocados</h4>
-                <p>You're right about being careful with avocados! On a Low FODMAP diet, you can only have very small amounts (1/8 of an avocado). For your IBS, it's safer to skip it completely in sushi.</p>
-            </aside>
-        </div>
-    </div>
+    <div id="main-content" style="display: none;">
+        <nav class="nav-bar">
+            <button id="nav-food" class="nav-btn" onclick="showSection('food')">🍣 Food Guide</button>
+            <button id="nav-period" class="nav-btn" onclick="showSection('period')">🩸 Period Care</button>
+            <button id="nav-selfcare" class="nav-btn" onclick="showSection('selfcare')">💆 Self Care</button>
+        </nav>
 
-    <!-- Main Dishes Category -->
-    <div id="main" class="category">
-        <div class="category-header" onclick="toggleCategory('main-content')">
-            <h2>🍖 Big Girl Meals</h2>
-            <span class="emoji-large">👇</span>
-        </div>
-        
-        <div id="main-content">
-            <div class="menu-item">
-                <h3>1. Grilled Halal Beef Steak</h3>
-                <ul>
-                    <li>Ribeye or sirloin, Zabiha halal</li>
-                    <li>Seasoned with garlic-infused olive oil, rosemary, black pepper, paprika</li>
-                    <li>Served with roasted carrots & mashed potatoes (lactose-free)</li>
-                </ul>
-                <p>🔥 <em>Why it rocks:</em> Classic, juicy, super savoury</p>
-            </div>
-            
-            <!-- ... other main dishes in same format ... -->
-        </div>
-    </div>
+        <section id="food" class="section">
+            <h2>🍱 Maisah's Halal Low FODMAP Guide</h2>
+             <h3>Tummy-Friendly Foods Just for You!</h3>
 
-    <!-- Other Categories (Snacks, Chocolate, Fruits, Avoid, Tips) -->
-    <!-- Structure similar to above categories -->
+            <p>Hi! This is your personalized guide for managing IBS through a Low FODMAP diet, focusing on halal sushi options in Toronto/Scarborough. All recommendations are lactose-free and IBS-friendly!</p>
+            <p>Everything here is:</p>
+            <div class="badge">✅ Halal</div>
+            <div class="badge">✅ Low FODMAP (gentle on IBS)</div>
+            <div class="badge">✅ Savory, not sweet</div>
+            <div class="badge">✅ No eggs, no fruits you don’t like</div>
+            <div class="badge">✅ Careful with avocado (tiny bit okay!)</div>
+            <div class="badge">✅ Chocolate-friendly (no dark chocolate!)</div>
+            <p><em>Let’s dig into the good stuff 💫 ALSO INCLUDES YOUR FAVOURITE STUFF - Sushi :3</em></p>
 
-    <!-- Foodie-Smartie Category -->
-    <div id="foodie-smartie" class="category">
-        <h2>🍱 Foodie-Smartie Tips</h2>
-        <div class="menu-item">
-            <h3>Order Like a Pro!</h3>
-            <p>Always say these magic words:</p>
+            <hr>
+
+            <h3>🍣 Detailed Restaurant Menus - Safe Options</h3>
+
+            <h4>Kibo Sushi Picks 💕 (Just for you :3)</h4>
+            <h5>😎 Signature Rolls (Halal-friendly)</h5>
             <ul>
-                <li>"No avocdos pwess"</li>
-                <li>"No mayo-based sauces pwess"</li>
-                <li>"No cream cheese pwesss"</li>
-                <li>"No onion or garlic in sauces pwesss"</li>
-                <li>Ask for non-dairy alternatives (Oat milk, lactose free dairy, Soy milk)</li>
+                <li>Salmon Lover Roll (no avocado) - $14.99</li>
+                <li>Cucumber Special Roll - $11.99</li>
+                <li>Vegetable Dragon Roll (no avocado) - $13.99</li>
             </ul>
-        </div>
-        
-        <div class="menu-item">
-            <h3>Best Value Combos</h3>
+            <h5>😲 Boom! Combo Time!</h5>
             <ul>
-                <li>Kibo's Salmon Sushi & Roll Combo A (pure salmon love! :3)</li>
-                <li>Sushi Q's Veggie Paradise (Super Safe & Cute!)</li>
-                <li>Sushi and Tea's Salmon Special (yummy and cozyyy)</li>
+                <li><strong>Salmon Sushi & Roll Combo A</strong> (specify no avocado) - $19.99
+                    <ul>
+                        <li>4 pcs salmon nigiri</li>
+                        <li>8 pcs salmon roll</li>
+                    </ul>
+                </li>
+                <li><strong>Vegetable Combo B</strong> - $16.99
+                    <ul>
+                        <li>Cucumber roll</li>
+                        <li>Carrot roll</li>
+                        <li>Spinach roll</li>
+                     </ul>
+                 </li>
             </ul>
-        </div>
-    </div>
+             <h5>🫠 Whoa! Drinkies</h5>
+             <ul>
+                 <li>Green Tea Boba (lactose-free)</li>
+                 <li>Mango Fruit Tea</li>
+             </ul>
 
-    <!-- Affirmation Bubble -->
-    <div class="affirmation" id="affirmation">
-        🌸 You're beautiful inside and out! 🌸
-    </div>
+             <hr style="border-top: 1px dashed #ffb3c6;"> {/* Dashed separator */}
 
-    <!-- Help Button -->
-    <div class="help-button" onclick="showHelp()">
-        ?
+             <h4>Sushi Q 🎀 (THE GOAT!)</h4>
+             <h5>🌟 Special Rolls Just for you :3</h5>
+             <ul>
+                 <li>Fresh Salmon Roll - $13.99</li>
+                 <li>Cucumber Delight - $10.99</li>
+                 <li>Carrot Paradise Roll - $11.99</li>
+             </ul>
+             <h5>🍣 Value Combos</h5>
+             <ul>
+                <li><strong>Salmon Lover Set</strong> - $24.99
+                    <ul>
+                        <li>6 pcs salmon nigiri</li>
+                        <li>8 pcs salmon roll</li>
+                        <li>6 pcs cucumber roll</li>
+                    </ul>
+                </li>
+                <li><strong>Veggie Paradise</strong> - $19.99
+                    <ul>
+                        <li>8 pcs cucumber roll</li>
+                        <li>8 pcs carrot roll</li>
+                        <li>6 pcs spinach roll</li>
+                     </ul>
+                 </li>
+             </ul>
+             <h5>🍼 Bubble Tea Options</h5>
+             <ul>
+                <li>Classic Milk Tea (with lactose-free milk)</li>
+                <li>Taro Milk Tea (with lactose-free milk)</li>
+                <li>Fruit Tea Series (IBS-friendly)</li>
+             </ul>
+
+             <hr style="border-top: 1px dashed #ffb3c6;">
+
+             <h4>Sushi and Tea Favorites 👍 (Cost-Effective. Tummy Hapi, Mind Hapi)</h4>
+             <h5>⏰ Classic Rolls bringing that vibe</h5>
+             <ul>
+                 <li>Simple Salmon Roll - $12.99</li>
+                 <li>Cucumber Classic - $9.99</li>
+                 <li>Carrot Roll - $9.99</li>
+             </ul>
+             <h5>🙃 Special Sets for you</h5>
+             <ul>
+                 <li><strong>Salmon Special</strong> - $22.99
+                     <ul>
+                         <li>4 pcs salmon nigiri</li>
+                         <li>8 pcs salmon roll</li>
+                         <li>4 pcs cucumber roll</li>
+                     </ul>
+                 </li>
+                 <li><strong>Veggie Delight Box</strong> - $18.99
+                     <ul>
+                         <li>Mixed vegetable rolls</li>
+                         <li>No avocado, dairy-free</li>
+                     </ul>
+                 </li>
+            </ul>
+             <h5>👌 Signature Bubble Tea just right</h5>
+             <ul>
+                 <li>Brown Sugar Pearl (lactose-free)</li>
+                 <li>Passion Fruit Green Tea</li>
+                 <li>Lychee Bubble Tea (no dairy)</li>
+             </ul>
+
+             <hr>
+
+             <h3>🥑 About Avocados</h3>
+             <p>You're right about being careful with avocados! On a Low FODMAP diet, you can only have very small amounts (1/8 of an avocado). For your IBS, it's safer to skip it completely in sushi or ask for just a tiny bit.</p>
+
+             <h3>🪄 Now lets order like a Smartie together!</h3>
+             <p><em>Lets say the magic words together!</em></p>
+             <ul>
+                 <li>Always mention <strong>“No avocado pwess”</strong></li>
+                 <li>Specify <strong>"no mayo-based sauces pwess"</strong></li>
+                 <li>Ask for <strong>"no cream cheese pwesss"</strong></li>
+                 <li>Say <strong>"no onion or garlic in sauces pwesss"</strong></li>
+                 <li>If able, ask for non-dairy alternatives. (Oat milk, lactose free dairy, Soy milk)</li>
+             </ul>
+             <p><em>Those are yummy for your tum tum and it wont get hurt!</em></p>
+
+             <h4>🏆 Best Value Combos for You</h4>
+             <ul>
+                 <li>Kibo's Salmon Sushi & Roll Combo A (best for a pure salmon lover like you! :3)</li>
+                 <li>Sushi Q's Veggie Paradise (Super Safe & Cute!)</li>
+                 <li>Sushi and Tea's Salmon Special (mmm so yummy and cozyyy)</li>
+             </ul>
+
+             <h4>💡 Pro Tips</h4>
+             <ul>
+                 <li>Extra ginger = Your tummies bestie! 💕</li>
+                 <li>Best times to order: Tuesday-Thursday = freshest fish days!</li>
+                 <li>Save money with lunch specials (11am-3pm) - Money saved = More Boba just for you! 😍</li>
+             </ul>
+
+             <hr>
+
+             <h3>😎 Fruits? Hell Naw - Just try these instead</h3>
+             <p>Instead of regular fruits, try these IBS-friendly options:</p>
+             <ul>
+                 <li>✨ Fruit-infused water (strawberry or mandarin 💧)</li>
+                 <li>✨ Teas with cute fruit flavors</li>
+                 <li>✨ Smoothies where the fruits are sneaky 😋</li>
+             </ul>
+
+             <hr>
+
+             <h3>📅 Weekly Meal Plan Suggestion - SUSHI STYLE (。‧ω‧。)</h3>
+             <p>So Ms. Tummy is hapi!</p>
+             <ul>
+                 <li><strong>Monday Lunch:</strong> Kibo Sushi - Salmon Lover Roll (no avo)</li>
+                 <li><strong>Wednesday Dinner:</strong> Sushi Q - Veggie Paradise Combo</li>
+                 <li><strong>Friday Treat:</strong> Sushi and Tea - Salmon Special</li>
+                 <li><strong>Weekend Option:</strong> Mix and match from any location's safe vegetable rolls</li>
+             </ul>
+             <p><strong>Remember:</strong> All these options are: ✓ Halal-certified ✓ Low FODMAP ✓ Lactose-free ✓ IBS-friendly ✓ Avocado-conscious ✓ Budget-friendly with combos</p>
+
+             <hr>
+
+             <h3>🍖 Main Dishes — Big Girl Meals (That Don’t Make Your Tummy Cry)</h3>
+             <ol style="list-style-type: decimal; padding-left: 20px;"> {/* Using ordered list */}
+                 <li>
+                    <strong>Grilled Halal Beef Steak</strong><br>
+                    Ribeye or sirloin (Zabiha halal). Seasoned with garlic-infused olive oil, rosemary, black pepper, paprika. Cooked medium/well-done. Served with roasted carrots & mashed potatoes (lactose-free).<br>
+                    <em>🔥 Why it rocks: Classic, juicy, super savoury</em>
+                 </li>
+                 <li>
+                    <strong>Crispy Fried Chicken (Egg-Free)</strong><br>
+                    Halal chicken thighs/drumsticks coated in rice/gluten-free flour + spices (paprika, cumin, turmeric). Fried in canola/avocado oil. Side: Garlic-infused fries 🍟.<br>
+                    <em>🔥 It’s crispy, spicy, and just satisfying.</em>
+                 </li>
+                 <li>
+                    <strong>Chicken Skewers (Satay Vibes)</strong><br>
+                    Grilled chicken with ginger, turmeric, garlic oil. Dip: FODMAP-safe peanut sauce (no garlic/honey). Serve with basmati rice or Low FODMAP quinoa salad.<br>
+                    <em>🔥 Satisfying & simple. Eat with hands for full joy.</em>
+                 </li>
+                 <li>
+                     <strong>Avocado Chicken Bowl (Low FODMAP Style)</strong><br>
+                     Grilled chicken strips, Jasmine rice, roasted zucchini, carrots. 🥑 Avocado: Max 1/8 sliced on top.<br>
+                    <em>🔥 Creamy, warm, and totally your style.</em>
+                 </li>
+                 <li>
+                     <strong>Stuffed Bell Peppers (Savory & Egg-Free)</strong><br>
+                     Filled with seasoned ground halal beef, carrots, spinach, chives. Topped with lactose-free cheese. No rice needed.<br>
+                     <em>🔥 Melty and flavorful inside every bite.</em>
+                 </li>
+                 <li>
+                     <strong>Butter Chicken (Low FODMAP & Halal)</strong><br>
+                     No onion/garlic (uses garlic oil & ginger). Creamy sauce: lactose-free yogurt or coconut cream. Served with rice or gluten-free naan.<br>
+                     <em>🔥 A cozy meal for cold days, totally tummy-safe.</em>
+                 </li>
+                  <li>
+                     <strong>Halal Kofta Patties</strong><br>
+                     Ground beef/lamb seasoned with cumin, coriander, paprika, chives. Pan-seared. Served with Low FODMAP tabbouleh (no onions) + yogurt dip (lactose-free).<br>
+                     <em>🔥 Spicy, juicy, & just hits right.</em>
+                 </li>
+                 <li>
+                     <strong>Low FODMAP Chicken Wrap</strong><br>
+                     Rice paper or gluten-free wrap. Grilled chicken, lettuce, chives, safe dressing, maybe a few avo cubes.<br>
+                     <em>🔥 Grab-n-go vibes, savory and snacky.</em>
+                 </li>
+             </ol>
+
+             <hr>
+
+            <h3>🧀 Smol Snacks for Biiig Savoury Cravings</h3>
+             <ul>
+                 <li>
+                     <strong>Potato Wedges (cripsy yum yum joy!)</strong><br>
+                     Crispy, seasoned with rosemary, paprika, garlic oil. Pair with a Low FODMAP dipping sauce = 🔥
+                 </li>
+                 <li>
+                    <strong>Halal Charcuterie Board (Savory Plater // Fancy Snack Princess👑)</strong><br>
+                    Smoked halal turkey, roast beef slices, lactose-free cheddar, olives, pickled carrots, Low FODMAP crackers.<br>
+                    <em>🔥 You and this board? Besties.</em>
+                 </li>
+                 <li>
+                     <strong>Avocado Toast (Smol & Safe // smol slice, lots of love 💝)</strong><br>
+                     Gluten-free toast, mashed 1/8 avocado, sprinkle paprika, chives, maybe a chicken strip on top.
+                 </li>
+                 <li>
+                    <strong>Yogurt Dip (Lactose-Free) with Cucumber - crunchy and cool (▀̿Ĺ̯▀̿ ̿)</strong><br>
+                    Cool, fresh, perfect side to fried or grilled dishes.
+                 </li>
+             </ul>
+
+             <hr>
+
+             <h3>🍫 Chocolate Section (Your Favorite :3🍫)</h3>
+             <p>You love chocolate (just not dark!), so here are some Low FODMAP-safe picks:</p>
+             <ul>
+                 <li>✅ Milk chocolate in moderation (like Lindt or Kinder, in smol baby bites)</li>
+                 <li>✅ Lactose-free chocolate chips</li>
+                 <li>✅ Chocolate rice cakes</li>
+                 <li>✅ Lactose-free hot cocoa (Remember it has to be cozy too!)</li>
+             </ul>
+             <p><em>🔥 Sweet enough to enjoy, but still on the savoury side of life.</em></p>
+
+             <hr>
+
+             <h3>🍍 Fruity-Fruits You Actually Like</h3>
+             <p>(‘Cause you’re picky and perfect, and we love that.)</p>
+              <ul>
+                 <li><strong>Pineapple:</strong> Juicy and sweet — tummy says yes!</li>
+                 <li><strong>Tiny mango pieces:</strong> Only a little tho or tummy throws a tantrum</li>
+                 <li><strong>Blackberries:</strong> Just 4-5 berries, like a baby bear snack</li>
+                 <li><strong>Strawberries:</strong> Fresh only, no fake syrupy nonsense</li>
+             </ul>
+             <p><em>Tummy says: “Hehe thank you for listening!”</em></p>
+
+             <hr>
+
+             <h3>🚫 Things to Avoid (For Your Tummy because tummy no likey)</h3>
+             <ul>
+                 <li>❌ Avocado in big amounts (stick to 1/8) thats a big no no!</li>
+                 <li>❌ Garlic or onions (Except garlic oil! OMG SLAY 💅)</li>
+                 <li>❌ Eggs (unless you change your mind)</li>
+                 <li>❌ Most fruits (since you don’t like them)</li>
+                 <li>❌ Lentils, beans, cauliflower, and broccoli (Since they start world war 3 with Ms Tummy. Beware! 😡)</li>
+                 <li>❌ Unhealthy/unnecessary carbs (Keep it cute and simple)</li>
+             </ul>
+
+             <hr>
+
+             <h3>🌟 Final Tips (From Someone Who Cares ~)</h3>
+             <ul>
+                <li><strong>When eating out:</strong> Halal + no onion/garlic + check sauce pwesss 💕</li>
+                <li><strong>When with friends:</strong> Fries, grilled meats, rice = safe picks 🍟</li>
+                <li><strong>Your favorite boba</strong> = keep sipping (just no dairy ok mai mai? it bad for you! 🧋💘)</li>
+             </ul>
+
+             <hr>
+
+            <h3>💡 Final Notes Just for You precious! YES YOU! 🌟</h3>
+            <p>Hey, just a reminder from your cozy food buddy — you’re doing amazing. Managing IBS and keeping it good, delicious, and low FODMAP isn’t easy, but look at you go!! 🍱💪</p>
+            <p>You deserve food that makes you feel good.<br>
+            You deserve treats that don’t betray your tummy.<br>
+            You deserve joy in every bite (with no onions lurking in the shadows 👀 literally.).</p>
+            <p>If you ever want updates, or a new seasonal version (like “Sushi Winter Edition ❄️” or “My Low FODMAP Special 🍽”), just say the word.</p>
+            <p>Ready to eat like a sushi superstar with a gentle belly? Let’s GOOOO 😤🍣✨ RAHHHHHHHHHHHHHHHH</p>
+
+        </section>
+        <section id="period" class="section">
+            <h2>🌸 Period Care Tips</h2>
+             <div class="tip">
+                <h3>Heating Pad Hack</h3>
+                <p>Use rice socks (just fill a clean sock with uncooked rice, tie it, and microwave for 1-2 mins) + add a few drops of essential oils like lavender or chamomile for cozy warmth and relaxation.</p>
+            </div>
+             <div class="tip">
+                 <h3>Comforting Teas</h3>
+                 <p>Sip on ginger tea (good for nausea), peppermint tea (helps with bloating), or raspberry leaf tea (often recommended for cramps).</p>
+             </div>
+             <div class="tip">
+                 <h3>Gentle Movement</h3>
+                 <p>Light stretching, yoga, or a short walk can sometimes help ease cramps. Listen to your body!</p>
+            </div>
+        </section>
+
+        <section id="selfcare" class="section">
+            <h2>🧘 Mindfulness Moments</h2>
+            <p>Try this simple breathing exercise when you need to calm your mind:</p>
+            <div class="badge">4-7-8 Breathing Technique</div>
+            <div class="tip">
+                 <h3>How to do it:</h3>
+                 <ol style="list-style-type: decimal; padding-left: 20px;">
+                     <li>Exhale completely through your mouth, making a whoosh sound.</li>
+                     <li>Close your mouth and inhale quietly through your nose to a mental count of <strong>four</strong>.</li>
+                     <li>Hold your breath for a count of <strong>seven</strong>.</li>
+                     <li>Exhale completely through your mouth, making a whoosh sound to a count of <strong>eight</strong>.</li>
+                     <li>This is one breath. Inhale again and repeat the cycle three more times for a total of four breaths.</li>
+                 </ol>
+                 <p>Focus on the breath and the counting.</p>
+            </div>
+             <div class="tip">
+                <h3>Mindful Observation</h3>
+                <p>Take 60 seconds to just notice your surroundings without judgment. What do you see, hear, smell, feel? Ground yourself in the present moment.</p>
+            </div>
+        </section>
     </div>
 
     <script>
-        // 100+ affirmations
-        const affirmations = [
-            "🌸 You look cute today!",
-            "💖 Your smile lights up the room!",
-            "✨ You're stronger than you think!",
-            "🍣 Sushi queen incoming!",
-            "🎀 Today is your day to shine!",
-            "💫 You deserve all the good tummy feels!",
-            "🥑 You're doing amazing!",
-            "🌺 Your kindness makes the world better!",
-            "🍫 Chocolate loves you as much as we do!",
-            "🌟 You're perfect just as you are!",
-            // ... 90+ more affirmations
-        ];
+        // Simulate loading
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading');
+            if (loadingScreen) {
+                 loadingScreen.style.display = 'none';
+            }
+            const welcomeScreen = document.getElementById('welcome');
+            if (welcomeScreen) {
+                 welcomeScreen.style.display = 'flex'; // Use flex to center content vertically
+            }
+        }, 2000); // Load for 2 seconds
 
-        // Show specific category
-        function showCategory(catId) {
-            // Hide all categories first
-            document.querySelectorAll('.category').forEach(cat => {
-                cat.classList.remove('active');
+        function enterGarden() {
+            const welcomeScreen = document.getElementById('welcome');
+             if (welcomeScreen) {
+                 welcomeScreen.style.display = 'none';
+            }
+            const mainContent = document.getElementById('main-content');
+             if (mainContent) {
+                 mainContent.style.display = 'block';
+             }
+             // Show the 'food' section by default and mark its button as active
+            showSection('food');
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.style.display = 'none';
             });
-            
-            // Show selected category
-            document.getElementById(catId).classList.add('active');
-            
-            // Scroll to category
-            document.getElementById(catId).scrollIntoView({ behavior: 'smooth' });
+             // Remove 'active' class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show the selected section
+            const sectionToShow = document.getElementById(sectionId);
+            if (sectionToShow) {
+                 sectionToShow.style.display = 'block';
+            }
+
+             // Add 'active' class to the clicked nav button
+             const activeButton = document.getElementById('nav-' + sectionId);
+             if (activeButton) {
+                 activeButton.classList.add('active');
+             }
         }
 
-        // Toggle category content
-        function toggleCategory(contentId) {
-            const content = document.getElementById(contentId);
-            content.style.display = content.style.display === 'none' ? 'block' : 'none';
-        }
+         // Optional: Add smooth scrolling if sections become very long
+         // document.querySelectorAll('.nav-btn').forEach(button => {
+         //     button.addEventListener('click', () => {
+         //         window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top when section changes
+         //     });
+         // });
 
-        // Update affirmation every 5 seconds
-        function updateAffirmation() {
-            const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
-            const affirmationElement = document.getElementById('affirmation');
-            
-            // Fade out
-            affirmationElement.style.opacity = 0;
-            
-            // After fade out completes, change text and fade in
-            setTimeout(() => {
-                affirmationElement.textContent = randomAffirmation;
-                affirmationElement.style.opacity = 1;
-                affirmationElement.style.animation = 'none';
-                void affirmationElement.offsetWidth; // Trigger reflow
-                affirmationElement.style.animation = 'float 5s infinite';
-            }, 500);
-            
-            setTimeout(updateAffirmation, 8000);
-        }
-
-        // Show help
-        function showHelp() {
-            alert("🌸 Maisah's Garden Help 🌸\n\n1. Click the category buttons to explore\n2. Always mention special requests when ordering\n3. Check portion sizes for IBS triggers\n4. Enjoy your tummy-friendly meals!\n\n💖 You're doing amazing!");
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            updateAffirmation();
-            
-            // Show sushi category by default
-            showCategory('sushi');
-        });
     </script>
 </body>
 </html>
