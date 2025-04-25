@@ -3,66 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maisah's Garden</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Maisah's Garden 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ffb6c1;
+            --pink-dark: #ff9aae;
+            --pastel: #f8e9e9;
+            --text: #4a4a4a;
+            --green: #b5ead7;
+            --blue: #c7ceea;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: var(--pastel);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Indie Flower', cursive;
+            color: #ff6b8b;
+            margin-bottom: 15px;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.7rem; }
+
+        .welcome {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 3px dashed var(--pink);
+            animation: fadeIn 1s ease;
+        }
+
+        .category {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--pink);
+            display: none;
+        }
+
+        .category.active {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 15px;
+            background: linear-gradient(to right, var(--pink), var(--pink-dark));
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .menu-item {
+            background: #fff9f9;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid var(--pink);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateX(5px);
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        button {
+            background: var(--pink);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            font-family: 'Comic Neue', cursive;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background: var(--pink-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .affirmation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: float 5s infinite;
+            z-index: 100;
+            max-width: 250px;
+            border: 2px solid var(--pink);
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.2rem;
+        }
+
+        .help-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--pink);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .help-button:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        aside {
+            background: #f0f8ff;
+            border-left: 4px solid var(--blue);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .buttons-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .affirmation {
+                max-width: 200px;
+                font-size: 1rem;
+                bottom: 80px;
+                right: 10px;
+            }
+        }
+
+        /* Emoji sizes */
+        .emoji-large {
+            font-size: 1.5rem;
+        }
+
+        /* Price tag styling */
+        .price {
+            color: #ff6b8b;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        /* Highlight for important notes */
+        .highlight {
+            background: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Welcome Screen -->
-    <section class="welcome animate__animated animate__zoomIn">
-        <h1 class="cute-font">Welcome to Maisah's Garden! <span class="flower">🌸</span></h1>
-        <p class="subtitle">A cozy place just for you</p>
-        <button class="enter-btn cute-font">Enter the Garden</button>
-    </section>
-
-    <!-- Main Garden Content (hidden until button click) -->
-    <div class="garden-content" style="display:none;">
-        <header>
-            <h1 class="cute-font">Maisah's Garden</h1>
-            <div class="hearts">
-                <span>💖</span>
-                <span>💖</span>
-                <span>💖</span>
-            </div>
-        </header>
-
-        <!-- Categories -->
-        <section class="categories">
-            <h2 class="section-title cute-font">Pick a Flower <span class="flower">🌼</span></h2>
-            <div class="category-grid">
-                <div class="category" data-category="sushi">
-                    <div class="category-icon">🍣</div>
-                    <h3>Sushi Guide</h3>
-                    <p>Your personalized halal, low-FODMAP sushi options</p>
-                </div>
-                <!-- Add other categories here -->
-            </div>
-        </section>
-
-        <!-- Motivation Section -->
-        <section class="motivation-section">
-            <div class="quotes">
-                <h3 class="cute-font">Daily Quote</h3>
-                <p class="quote-text">"You're braver than you believe..."</p>
-            </div>
-            <div class="affirmations">
-                <h3 class="cute-font">Remember:</h3>
-                <ul>
-                    <li>You are beautiful today</li>
-                    <li>Your smile brightens the world</li>
-                </ul>
-            </div>
-        </section>
+    <!-- Welcome Section -->
+    <div class="welcome">
+        <h1>Maisah's Garden! 🌸</h1>
+        <p>Hello, There, Maisah! 😊<br>
+        Welcome to your secret garden — a peaceful little corner of the digital world made just for you.</p>
+        
+        <p>Here in Maisah's Garden, everything blooms with care, calm, and love. This is a place where you can breathe, smile, and just be. 😊</p>
+        
+        <p>Everything here is:</p>
+        <ul>
+            <li>✅ <span class="highlight">Halal-certified</span></li>
+            <li>✅ <span class="highlight">Low FODMAP</span> (gentle on IBS)</li>
+            <li>✅ <span class="highlight">Savory & Tummy-safe</span></li>
+            <li>✅ <span class="highlight">No eggs</span>, no fruits you don't like</li>
+            <li>✅ <span class="highlight">Avocado-conscious</span> (just a tiny bit!)</li>
+            <li>✅ <span class="highlight">Chocolate-friendly</span> (no dark chocolate! yucky)</li>
+        </ul>
+        
+        <p>Let's dig into the good stuff! 💫</p>
     </div>
 
-    <!-- Popup -->
-    <div class="popup-overlay">
-        <div class="popup-content">
-            <button class="close-popup">&times;</button>
-            <div class="popup-body"></div>
+    <!-- Category Buttons -->
+    <div class="buttons-container">
+        <button onclick="showCategory('sushi')">🍣 Sushi Picks</button>
+        <button onclick="showCategory('main')">🍖 Main Dishes</button>
+        <button onclick="showCategory('snacks')">🧀 Snacks</button>
+        <button onclick="showCategory('chocolate')">🍫 Chocolate</button>
+        <button onclick="showCategory('fruits')">🍍 Friendly Fruits</button>
+        <button onclick="showCategory('avoid')">🚫 Avoid These</button>
+        <button onclick="showCategory('tips')">🌟 Pro Tips</button>
+    </div>
+
+    <!-- Sushi Category -->
+    <div id="sushi" class="category">
+        <div class="category-header" onclick="toggleCategory('sushi-content')">
+            <h2>🍣 Sushi Heaven</h2>
+            <span class="emoji-large">👇</span>
+        </div>
+        
+        <div id="sushi-content">
+            <!-- Kibo Sushi -->
+            <div class="menu-item">
+                <h3>Kibo Sushi Picks 💕</h3>
+                <h4>Signature Rolls (Halal-friendly)</h4>
+                <ul>
+                    <li>Salmon Lover Roll (no avocado) <span class="price">$14.99</span></li>
+                    <li>Cucumber Special Roll <span class="price">$11.99</span></li>
+                    <li>Vegetable Dragon Roll (no avocado) <span class="price">$13.99</span></li>
+                </ul>
+                
+                <h4>Combos</h4>
+                <ul>
+                    <li>Salmon Sushi & Roll Combo A (no avocado) <span class="price">$19.99</span>
+                        <ul>
+                            <li>4 pcs salmon nigiri</li>
+                            <li>8 pcs salmon roll</li>
+                        </ul>
+                    </li>
+                    <li>Vegetable Combo B <span class="price">$16.99</span>
+                        <ul>
+                            <li>Cucumber roll</li>
+                            <li>Carrot roll</li>
+                            <li>Spinach roll</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h4>Drinks</h4>
+                <ul>
+                    <li>Green Tea Boba (lactose-free)</li>
+                    <li>Mango Fruit Tea</li>
+                </ul>
+            </div>
+            
+            <!-- Sushi Q -->
+            <div class="menu-item">
+                <h3>Sushi Q 🎀 (THE GOAT!)</h3>
+                <!-- ... similar structure for other sushi restaurants -->
+            </div>
+            
+            <!-- Sushi and Tea -->
+            <div class="menu-item">
+                <h3>Sushi and Tea Favorites 👍</h3>
+                <!-- ... similar structure for other sushi restaurants -->
+            </div>
+            
+            <aside>
+                <h4>About Avocados</h4>
+                <p>You're right about being careful with avocados! On a Low FODMAP diet, you can only have very small amounts (1/8 of an avocado). For your IBS, it's safer to skip it completely in sushi.</p>
+            </aside>
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <!-- Main Dishes Category -->
+    <div id="main" class="category">
+        <div class="category-header" onclick="toggleCategory('main-content')">
+            <h2>🍖 Big Girl Meals</h2>
+            <span class="emoji-large">👇</span>
+        </div>
+        
+        <div id="main-content">
+            <div class="menu-item">
+                <h3>1. Grilled Halal Beef Steak</h3>
+                <ul>
+                    <li>Ribeye or sirloin, Zabiha halal</li>
+                    <li>Seasoned with garlic-infused olive oil, rosemary, black pepper, paprika</li>
+                    <li>Served with roasted carrots & mashed potatoes (lactose-free)</li>
+                </ul>
+                <p>🔥 <em>Why it rocks:</em> Classic, juicy, super savoury</p>
+            </div>
+            
+            <!-- ... other main dishes in same format ... -->
+        </div>
+    </div>
+
+    <!-- Other Categories (Snacks, Chocolate, Fruits, Avoid, Tips) -->
+    <!-- Structure similar to above categories -->
+
+    <!-- Foodie-Smartie Category -->
+    <div id="foodie-smartie" class="category">
+        <h2>🍱 Foodie-Smartie Tips</h2>
+        <div class="menu-item">
+            <h3>Order Like a Pro!</h3>
+            <p>Always say these magic words:</p>
+            <ul>
+                <li>"No avocdos pwess"</li>
+                <li>"No mayo-based sauces pwess"</li>
+                <li>"No cream cheese pwesss"</li>
+                <li>"No onion or garlic in sauces pwesss"</li>
+                <li>Ask for non-dairy alternatives (Oat milk, lactose free dairy, Soy milk)</li>
+            </ul>
+        </div>
+        
+        <div class="menu-item">
+            <h3>Best Value Combos</h3>
+            <ul>
+                <li>Kibo's Salmon Sushi & Roll Combo A (pure salmon love! :3)</li>
+                <li>Sushi Q's Veggie Paradise (Super Safe & Cute!)</li>
+                <li>Sushi and Tea's Salmon Special (yummy and cozyyy)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Affirmation Bubble -->
+    <div class="affirmation" id="affirmation">
+        🌸 You're beautiful inside and out! 🌸
+    </div>
+
+    <!-- Help Button -->
+    <div class="help-button" onclick="showHelp()">
+        ?
+    </div>
+
+    <script>
+        // 100+ affirmations
+        const affirmations = [
+            "🌸 You look cute today!",
+            "💖 Your smile lights up the room!",
+            "✨ You're stronger than you think!",
+            "🍣 Sushi queen incoming!",
+            "🎀 Today is your day to shine!",
+            "💫 You deserve all the good tummy feels!",
+            "🥑 You're doing amazing!",
+            "🌺 Your kindness makes the world better!",
+            "🍫 Chocolate loves you as much as we do!",
+            "🌟 You're perfect just as you are!",
+            // ... 90+ more affirmations
+        ];
+
+        // Show specific category
+        function showCategory(catId) {
+            // Hide all categories first
+            document.querySelectorAll('.category').forEach(cat => {
+                cat.classList.remove('active');
+            });
+            
+            // Show selected category
+            document.getElementById(catId).classList.add('active');
+            
+            // Scroll to category
+            document.getElementById(catId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle category content
+        function toggleCategory(contentId) {
+            const content = document.getElementById(contentId);
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Update affirmation every 5 seconds
+        function updateAffirmation() {
+            const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+            const affirmationElement = document.getElementById('affirmation');
+            
+            // Fade out
+            affirmationElement.style.opacity = 0;
+            
+            // After fade out completes, change text and fade in
+            setTimeout(() => {
+                affirmationElement.textContent = randomAffirmation;
+                affirmationElement.style.opacity = 1;
+                affirmationElement.style.animation = 'none';
+                void affirmationElement.offsetWidth; // Trigger reflow
+                affirmationElement.style.animation = 'float 5s infinite';
+            }, 500);
+            
+            setTimeout(updateAffirmation, 8000);
+        }
+
+        // Show help
+        function showHelp() {
+            alert("🌸 Maisah's Garden Help 🌸\n\n1. Click the category buttons to explore\n2. Always mention special requests when ordering\n3. Check portion sizes for IBS triggers\n4. Enjoy your tummy-friendly meals!\n\n💖 You're doing amazing!");
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAffirmation();
+            
+            // Show sushi category by default
+            showCategory('sushi');
+        });
+    </script>
 </body>
 </html>
