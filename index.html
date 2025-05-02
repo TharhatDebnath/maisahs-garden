@@ -9,287 +9,222 @@
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue&family=Nunito&display=swap');
 
         /* Base Styles */
+        :root {
+            --bg-color: #fff0f5;
+            --header-bg: #ffc2d1;
+            --nav-bg: #ffb3c6;
+            --nav-btn-bg: #ff7096;
+            --nav-btn-hover: #ff85a2;
+            --nav-btn-active: #e06387;
+            --text-dark: #8b4a65;
+            --text-medium: #b56a89;
+            --text-light: #6d5a62;
+            --accent-pink: #ff69b4;
+            --white: #ffffff;
+            --shadow-color: rgba(139, 74, 101, 0.15);
+            --modal-overlay-bg: rgba(255, 240, 245, 0.6);
+            --scrollbar-thumb-color: var(--nav-btn-bg);
+            --scrollbar-track-color: var(--header-bg);
+            --scrollbar-thumb-hover-color: var(--nav-btn-hover);
+        }
+
         body {
             font-family: 'Nunito', sans-serif;
-            background: #fff0f5; /* Light pink background */
+            background: linear-gradient(to bottom, #fff7fa, var(--bg-color));
             margin: 0;
-            padding-top: 120px; /* Add padding to body top to prevent content from hiding under sticky header/nav */
-            color: #8b4a65; /* Darker pink text color */
-            /* --- NEW: Custom Cursor --- */
-            /* Uses an SVG Data URI for the emoji. Fallback is 'auto'. Hotspot is center (16,16) */
+            padding-top: 150px; /* Adjust based on final nav height */
+            color: var(--text-dark);
             cursor: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%270%27%20y%3D%2724%27%20font-size%3D%2724%27%3E%F0%9F%8C%B8%3C%2Ftext%3E%3C%2Fsvg%3E") 16 16, auto;
-            /* Note: For maximum browser compatibility, using a .png or .cur file is often more reliable: */
-            /* cursor: url('path/to/flower.png') 16 16, auto; */
+            overflow-x: hidden;
+            /* Firefox Scrollbar Styles */
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
         }
 
-        /* Sticky Container for Header + Nav */
+        body.modal-open { overflow: hidden; }
+
+        /* Webkit Scrollbar Styles */
+        body::-webkit-scrollbar,
+        .modal::-webkit-scrollbar { width: 10px; }
+        body::-webkit-scrollbar-track,
+        .modal::-webkit-scrollbar-track { background: var(--scrollbar-track-color); border-radius: 5px; }
+        body::-webkit-scrollbar-thumb,
+        .modal::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb-color); border-radius: 5px; border: 2px solid var(--scrollbar-track-color); }
+        body::-webkit-scrollbar-thumb:hover,
+        .modal::-webkit-scrollbar-thumb:hover { background-color: var(--scrollbar-thumb-hover-color); }
+
+        /* Sticky Container */
         .sticky-top-container {
-            position: fixed; /* Make it stick */
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000; /* High z-index to stay on top */
-            background: #fff0f5; /* Match body background */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add shadow */
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: linear-gradient(to bottom, #fff7fa, var(--bg-color));
+            box-shadow: 0 2px 8px var(--shadow-color);
         }
 
-        /* Header Styling */
+        /* Header */
         header.main-header {
-            background: #ffc2d1; /* Slightly different pink */
-            padding: 0.5rem 1rem;
-            text-align: center;
-            font-family: 'Comic Neue', cursive;
-            font-size: 1.8rem;
-            color: #8b4a65;
+            background: var(--header-bg); padding: 0.5rem 1rem; text-align: center;
+            font-family: 'Comic Neue', cursive; font-size: 1.8rem; color: var(--text-dark);
+            border-bottom: 1px solid rgba(139, 74, 101, 0.1);
         }
 
-        /* Loading Screen - Modified for Fade Out */
+        /* Loading Screen */
         #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ffe6ee;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000; /* Higher than sticky header */
-            opacity: 1; /* Start visible */
-            transition: opacity 0.5s ease-out; /* Fade out smoothly */
-            /* Ensure loading screen uses default cursor initially */
-            cursor: default;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #ffe6ee; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 1; transition: opacity 0.6s ease-out 0.2s; cursor: default;
         }
-        #loading.hidden {
-             opacity: 0;
-             pointer-events: none; /* Disable interaction when faded out */
-        }
-
-        .flower {
-            width: 60px;
-            height: 60px;
-            animation: bloom 2s infinite;
-            font-size: 40px;
-        }
-
-        #loading p {
-            margin-top: 1rem;
-            font-size: 1.1rem;
-            color: #b56a89;
-        }
+        #loading.hidden { opacity: 0; pointer-events: none; }
+        .flower { width: 60px; height: 60px; animation: bloom 2s infinite; font-size: 40px; }
+        #loading p { margin-top: 1rem; font-size: 1.1rem; color: var(--text-medium); }
 
         /* Welcome Page */
         #welcome {
-            text-align: center;
-            padding: 2rem;
-            min-height: calc(100vh - 120px); /* Adjusted for potential header height */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            /* Initially hidden via inline style */
-            cursor: default; /* Use default cursor here too */
+            text-align: center; padding: 2rem; min-height: calc(100vh - 150px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: default; opacity: 0; transition: opacity 0.5s ease-in;
         }
-
-        #welcome h1 {
-             font-family: 'Comic Neue', cursive;
-             font-size: 2.5rem;
-             color: #ff69b4;
-             margin-bottom: 0.5rem;
-        }
-         #welcome p {
-             font-size: 1.2rem;
-             margin-bottom: 1.5rem;
-             color: #b56a89;
-         }
+        #welcome.visible { opacity: 1; }
+        #welcome h1, #welcome p, #welcome .pink-btn { opacity: 0; transform: translateY(30px); }
+        #welcome.visible h1, #welcome.visible p, #welcome.visible .pink-btn { animation: flyInUp 0.6s ease-out forwards; }
+        #welcome.visible h1 { animation-delay: 0.1s; }
+        #welcome.visible p { animation-delay: 0.3s; }
+        #welcome.visible .pink-btn { animation-delay: 0.5s; }
+        #welcome h1 { font-family: 'Comic Neue', cursive; font-size: 2.5rem; color: var(--accent-pink); margin-bottom: 0.5rem; }
+        #welcome p { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--text-medium); }
+        #welcome.fly-out h1, #welcome.fly-out p, #welcome.fly-out .pink-btn { animation: flyOutDown 0.5s ease-in forwards; }
+        #welcome.fly-out h1 { animation-delay: 0s; }
+        #welcome.fly-out p { animation-delay: 0.1s; }
+        #welcome.fly-out .pink-btn { animation-delay: 0.2s; }
 
         .pink-btn {
-            background: #ff85a2;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            border: none;
-            font-size: 1.2rem;
-            font-family: 'Nunito', sans-serif;
-            /* Inherit custom cursor - or set specific one if needed */
-            /* cursor: pointer; */ /* Overridden by body cursor */
+            background: var(--nav-btn-hover); color: var(--white); padding: 12px 25px;
+            border-radius: 25px; border: none; font-size: 1.2rem; font-family: 'Nunito', sans-serif;
             transition: transform 0.3s ease, background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px var(--shadow-color);
         }
-        .pink-btn:hover {
-             transform: scale(1.05);
-             background-color: #ff7096;
-        }
-
+        .pink-btn:hover { transform: scale(1.05); background-color: var(--nav-btn-bg); }
 
         /* Navigation */
         .nav-bar {
-            background: #ffb3c6;
-            padding: 1rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+            background: var(--nav-bg); padding: 1rem; display: flex; gap: 0.8rem;
+            justify-content: center; flex-wrap: wrap;
         }
-
         .nav-btn {
-            background: #ff7096;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 15px;
-            border: none;
-            /* Inherit custom cursor */
-            /* cursor: pointer; */
-            font-family: 'Nunito', sans-serif;
-            font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            background: var(--nav-btn-bg); color: var(--white); padding: 8px 15px;
+            border-radius: 15px; border: none; font-family: 'Nunito', sans-serif; font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; white-space: nowrap;
+            cursor: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%270%27%20y%3D%2724%27%20font-size%3D%2724%27%3E%F0%9F%8C%B8%3C%2Ftext%3E%3C%2Fsvg%3E") 16 16, auto;
         }
          .nav-btn:hover {
-             background-color: #ff85a2;
-             transform: translateY(-2px);
-         }
-         .nav-btn.active {
-             background-color: #e06387;
-             font-weight: bold;
+             background-color: var(--nav-btn-hover);
+             transform: scale(1.08) translateY(-3px);
+             box-shadow: 0 6px 12px rgba(255, 112, 150, 0.3);
          }
 
         /* Content Area Wrapper */
         .content-area {
-            position: relative;
+            position: relative; padding: 2rem; max-width: 800px; margin: 2rem auto;
+            text-align: center; color: var(--text-medium);
         }
+        .content-area h2 { font-family: 'Comic Neue', cursive; color: var(--accent-pink); font-size: 1.5rem; margin-bottom: 0.5rem; }
 
-        /* Content Sections - Modified for Smooth Transition */
-        .section {
-             opacity: 0;
-             max-height: 0;
-             overflow: hidden;
-             transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
-             padding: 0 2rem; /* Padding applied when active */
-             max-width: 800px;
-             margin: 0 auto 2rem auto; /* Margin applied when active */
-             background-color: #ffffff;
-             border-radius: 15px;
-             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        /* Modal Styles */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--modal-overlay-bg);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            z-index: 1500; opacity: 0; transition: opacity 0.4s ease; cursor: pointer;
         }
-        .section.active {
-            opacity: 1;
-            max-height: 10000px; /* Increased max-height for long content */
-            padding: 2rem; /* Apply padding when active */
-            margin-top: 2rem; /* Apply margin when active */
-            margin-bottom: 2rem; /* Ensure bottom margin too */
+        body.modal-open .modal-overlay { display: block; opacity: 1; }
+
+        .modal {
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -45%) scale(0.95); width: 90%; max-width: 800px; max-height: 85vh;
+            overflow-y: auto; background-color: var(--white); border-radius: 20px;
+            box-shadow: 0 10px 35px var(--shadow-color); z-index: 1600; opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: default;
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
         }
+        .modal.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .modal.closing { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
 
-         .section h2 {
-             color: #ff69b4;
-             font-family: 'Comic Neue', cursive;
-             border-bottom: 2px solid #ffe6ee;
-             padding-bottom: 0.5rem;
-             margin-top: 0;
-             margin-bottom: 1.5rem;
-         }
-         .section h3 {
-             color: #b56a89;
-             margin-top: 1.5rem;
-             margin-bottom: 0.8rem;
-         }
-          .section h4 {
-             color: #8b4a65;
-             margin-top: 1rem;
-             margin-bottom: 0.5rem;
-             font-weight: bold;
-         }
-           .section h5 { /* Added basic styling for h5 */
-             color: #c782a2; /* Lighter subheading color */
-             margin-top: 0.8rem;
-             margin-bottom: 0.4rem;
-             font-weight: bold;
-         }
-         .section p, .section li {
-             line-height: 1.6;
-             color: #6d5a62;
-         }
-         .section ul {
-             list-style: none;
-             padding-left: 0;
-             margin-bottom: 1rem; /* Added space below lists */
-         }
-          .section li {
-             padding-left: 1.5em;
-             position: relative;
-             margin-bottom: 0.5rem;
-         }
-         .section li::before {
-             content: '🌸';
-             position: absolute;
-             left: 0;
-             top: 0px;
-             font-size: 0.9em;
-         }
-          /* Styling for nested lists (like in combos) */
-          .section ul ul {
-              padding-left: 1.5em; /* Indent nested list */
-              margin-top: 0.3rem;
-          }
-         .section ul ul li::before {
-              content: '✨'; /* Different bullet */
-          }
-         /* Styling for ordered list (Main Dishes, Breathing) */
-         .section ol {
-            list-style-type: decimal;
-            padding-left: 25px; /* Adjust indentation */
-            margin-bottom: 1rem;
-         }
-         .section ol li {
-            padding-left: 0.5em; /* Adjust padding for ordered list */
-            margin-bottom: 1rem; /* More space between main dishes */
-         }
-         .section ol li::before {
-            content: ''; /* Remove emoji bullet for ordered list */
-         }
-
-
-        .badge {
-            background: #ff85a2;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 10px;
-            display: inline-block;
-            margin: 5px 5px 10px 0;
-            font-size: 0.9rem;
+        .modal-content {
+            padding: 2.5rem; padding-top: 3.5rem; font-family: 'Nunito', sans-serif;
+            color: var(--text-light); line-height: 1.6;
         }
+        /* Shared content styles inside modal */
+         .modal-content h2 { color: var(--accent-pink); font-family: 'Comic Neue', cursive; border-bottom: 2px solid #ffe6ee; padding-bottom: 0.5rem; margin-top: 0; margin-bottom: 1.5rem; }
+         .modal-content h3 { color: var(--text-medium); margin-top: 1.5rem; margin-bottom: 0.8rem; }
+         .modal-content h4 { color: var(--text-dark); margin-top: 1rem; margin-bottom: 0.5rem; font-weight: bold; }
+         .modal-content h5 { color: #c782a2; margin-top: 0.8rem; margin-bottom: 0.4rem; font-weight: bold; }
+         .modal-content p, .modal-content li { color: var(--text-light); }
+         .modal-content ul { list-style: none; padding-left: 0; margin-bottom: 1rem; }
+         .modal-content li { padding-left: 1.5em; position: relative; margin-bottom: 0.5rem; }
+         .modal-content li::before { content: '🌸'; position: absolute; left: 0; top: 0px; font-size: 0.9em; }
+         /* Nested lists */
+         .modal-content ul ul { padding-left: 1.5em; margin-top: 0.3rem; }
+         .modal-content ul ul li::before { content: '✨'; }
+         /* Ordered lists */
+         .modal-content ol { list-style-type: decimal; padding-left: 25px; margin-bottom: 1rem; }
+         .modal-content ol li { padding-left: 0.5em; margin-bottom: 1rem; }
+         .modal-content ol li::before { content: ''; } /* Remove default emoji for OL */
+         /* Styling specific lists like combo details */
+         .modal-content .combo-details { margin-top: 0.3rem; margin-bottom: 0.8rem; }
+         .modal-content .combo-details li { margin-bottom: 0.2rem; }
 
-        .tip {
-            background-color: #ffe6ee;
-            border-left: 5px solid #ff85a2;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 8px;
+         .modal-content .badge { background: var(--nav-btn-hover); color: var(--white); padding: 5px 10px; border-radius: 10px; display: inline-block; margin: 5px 5px 10px 0; font-size: 0.9rem; }
+         .modal-content .tip { background-color: #ffe6ee; border-left: 5px solid var(--nav-btn-hover); padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+         .modal-content .tip h3 { margin-top: 0; color: var(--text-medium); }
+         .modal-content hr { border: none; height: 1px; background-color: var(--nav-bg); margin: 2rem 0; }
+         .modal-content hr.dashed { border: none; border-top: 1px dashed var(--nav-bg); background: none; margin: 1.5rem 0; }
+         .modal-content small { font-size: 0.8em; color: var(--text-medium); display: block; margin-top: 1.5rem; text-align: center; }
+
+        .close-button {
+            position: absolute; top: 18px; right: 20px; font-size: 2.5rem; font-weight: bold;
+            color: var(--nav-bg); cursor: pointer; line-height: 1;
+            transition: transform 0.3s ease, color 0.3s ease; z-index: 1601;
         }
-         .tip h3 {
-             margin-top: 0;
-             color: #b56a89;
+        .close-button:hover { color: var(--nav-btn-bg); transform: rotate(90deg) scale(1.1); }
+
+        /* Animations */
+        @keyframes bloom { 0%, 100% { transform: rotate(0deg) scale(0.9); opacity: 0.8; } 50% { transform: rotate(15deg) scale(1.1); opacity: 1; } }
+        @keyframes flyInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes flyOutDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(30px); } }
+
+         /* Mobile Friendliness */
+         @media (max-width: 768px) {
+            body { padding-top: 130px; }
+            header.main-header { font-size: 1.5rem; padding: 0.4rem 1rem; }
+            .nav-bar { padding: 0.8rem; gap: 0.6rem; }
+            .nav-btn { padding: 8px 12px; font-size: 0.85rem; }
+            .content-area { padding: 1.5rem; margin-top: 1rem; }
+            .modal { width: 92%; max-height: 90vh; }
+            .modal-content { padding: 2rem; padding-top: 3rem; }
+            .close-button { font-size: 2.2rem; top: 12px; right: 15px; }
+            .modal-content h2 { font-size: 1.5rem; }
+            .modal-content h3 { font-size: 1.2rem; }
+         }
+         @media (max-width: 480px) {
+             body { padding-top: 160px; }
+             header.main-header { font-size: 1.3rem; }
+             .nav-bar { padding: 0.6rem; gap: 0.5rem; }
+             .nav-btn { padding: 7px 10px; font-size: 0.75rem; }
+             #welcome h1 { font-size: 1.8rem; }
+             #welcome p { font-size: 1rem; }
+             .pink-btn { font-size: 1rem; padding: 10px 20px; }
+             .modal { width: 95%; }
+             .modal-content { padding: 1.5rem; padding-top: 3rem; }
+             .modal-content h2 { font-size: 1.3rem; }
+             .modal-content h3 { font-size: 1.1rem; }
+             .modal-content h4 { font-size: 1rem; }
+             .modal-content li { padding-left: 1.2em; }
+             .modal-content li::before { font-size: 0.8em; }
+             .badge { font-size: 0.8rem; padding: 4px 8px; }
+             .tip { padding: 0.8rem; }
          }
 
-        hr {
-          border: none;
-          height: 1px;
-          background-color: #ffb3c6;
-          margin: 2rem 0;
-        }
-        hr.dashed { /* Specific style for dashed hr */
-             border: none;
-             border-top: 1px dashed #ffb3c6;
-             background: none;
-             margin: 1.5rem 0;
-         }
-
-        /* Animation */
-        @keyframes bloom {
-            0% { transform: rotate(0deg) scale(0.9); opacity: 0.8; }
-            50% { transform: rotate(180deg) scale(1.1); opacity: 1; }
-            100% { transform: rotate(360deg) scale(0.9); opacity: 0.8; }
-        }
     </style>
 </head>
 <body>
@@ -299,8 +234,8 @@
     </div>
 
     <div id="welcome" style="display: none;">
-        <h1 style="font-family: 'Comic Neue', cursive;">Welcome to Maisah's Garden 🌸</h1>
-        <p>Your cozy self-care corner</p>
+        <h1>Welcome to Maisah's Garden 🌸</h1>
+        <p>Your cozy self-care corner. Click below to enter!</p>
         <button class="pink-btn" onclick="enterGarden()">Enter the Garden</button>
     </div>
 
@@ -310,517 +245,557 @@
                 🌸 Maisahs Garden 🌸
             </header>
             <nav class="nav-bar">
-               <button id="nav-food" class="nav-btn" onclick="showSection('food')">🍣 Food Guide</button>
-               <button id="nav-period" class="nav-btn" onclick="showSection('period')">🩸 Period Care</button>
-               <button id="nav-selfcare" class="nav-btn" onclick="showSection('selfcare')">💆 Self Care</button>
-               <button id="nav-health-support" class="nav-btn" onclick="showSection('health-support')">💖 Health & Support</button> </nav>
+               <button id="nav-food" class="nav-btn" onclick="openModal('food-modal')">🍣 Food Guide</button>
+               <button id="nav-period" class="nav-btn" onclick="openModal('period-modal')">🩸 Period Care</button>
+               <button id="nav-selfcare" class="nav-btn" onclick="openModal('selfcare-modal')">💆 Self Care</button>
+               <button id="nav-health-support" class="nav-btn" onclick="openModal('health-support-modal')">💖 Health & Support</button>
+               <button id="nav-inspiration" class="nav-btn" onclick="openModal('inspiration-modal')">🌼 Inspiration</button>
+               <button id="nav-sleep" class="nav-btn" onclick="openModal('sleep-modal')">🌙 Sleep</button>
+               <button id="nav-mindfulness" class="nav-btn" onclick="openModal('mindfulness-modal')">🌱 Mindfulness</button>
+               <button id="nav-beauty" class="nav-btn" onclick="openModal('beauty-modal')">🌟 Beauty</button>
+               <button id="nav-fitness" class="nav-btn" onclick="openModal('fitness-modal')">🧘‍♀️ Fitness</button>
+               <button id="nav-growth" class="nav-btn" onclick="openModal('growth-modal')">🌸 Growth</button>
+            </nav>
         </div>
 
+        <div class="modal-overlay" id="modal-overlay"></div>
+
         <div class="content-area">
-            <section id="food" class="section">
-                <h2>🍱 Maisah's Halal Low FODMAP Guide</h2>
-                 <h3>Tummy-Friendly Foods Just for You!</h3>
+             <h2>Your Personal Oasis</h2>
+             <p>This space is just for you, Maisah! Explore the guides above for helpful tips and know that this garden is always here for your comfort and well-being. 🌱</p>
+        </div>
 
-                <p>Hi! This is your personalized guide for managing IBS through a Low FODMAP diet, focusing on halal sushi options in Toronto/Scarborough. All recommendations are lactose-free and IBS-friendly!</p>
-                <p>Everything here is:</p>
-                <div class="badge">✅ Halal</div>
-                <div class="badge">✅ Low FODMAP (gentle on IBS)</div>
-                <div class="badge">✅ Savory, not sweet</div>
-                <div class="badge">✅ No eggs, no fruits you don’t like</div>
-                <div class="badge">✅ Careful with avocado (tiny bit okay!)</div>
-                <div class="badge">✅ Chocolate-friendly (no dark chocolate!)</div>
-                <p><em>Let’s dig into the good stuff 💫 ALSO INCLUDES YOUR FAVOURITE STUFF - Sushi :3</em></p>
+    </div> <div class="modal" id="food-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+             <h2>🍱 Maisah's Halal Low FODMAP Guide</h2>
+            <h3>Tummy-Friendly Foods Just for You!</h3>
+            <p>Hi! This is your personalized guide for managing IBS through a Low FODMAP diet, focusing on halal sushi options in Toronto/Scarborough. All recommendations are lactose-free and IBS-friendly!</p>
+            <p>Everything here is:</p>
+            <div class="badge">✅ Halal</div> <div class="badge">✅ Low FODMAP (gentle on IBS)</div> <div class="badge">✅ Savory, not sweet</div> <div class="badge">✅ No eggs, no fruits you don’t like</div> <div class="badge">✅ Careful with avocado (tiny bit okay!)</div> <div class="badge">✅ Chocolate-friendly (no dark chocolate!)</div>
+            <p><em>Let’s dig into the good stuff 💫 ALSO INCLUDES YOUR FAVOURITE STUFF - Sushi :3</em></p>
+            <hr>
+            <h3>🍣 Detailed Restaurant Menus - Safe Options</h3>
+            <h4>Kibo Sushi Picks 💕 (Just for you :3)</h4>
+            <h5>😎 Signature Rolls (Halal-friendly)</h5>
+            <ul>
+                <li>Salmon Lover Roll (no avocado) - $14.99</li>
+                <li>Cucumber Special Roll - $11.99</li>
+                <li>Vegetable Dragon Roll (no avocado) - $13.99</li>
+            </ul>
+            <h5>😲 Boom! Combo Time!</h5>
+            <ul>
+                <li><strong>Salmon Sushi & Roll Combo A</strong> (specify no avocado) - $19.99
+                    <ul class="combo-details"><li>4 pcs salmon nigiri</li><li>8 pcs salmon roll</li></ul>
+                </li>
+                <li><strong>Vegetable Combo B</strong> - $16.99
+                    <ul class="combo-details"><li>Cucumber roll</li><li>Carrot roll</li><li>Spinach roll</li></ul>
+                </li>
+            </ul>
+            <h5>🫠 Whoa! Drinkies</h5>
+            <ul>
+                <li>Green Tea Boba (lactose-free)</li>
+                <li>Mango Fruit Tea</li>
+            </ul>
+            <hr class="dashed">
+            <h4>Sushi Q 🎀 (THE GOAT!)</h4>
+            <h5>🌟 Special Rolls Just for you :3</h5>
+            <ul>
+                <li>Fresh Salmon Roll - $13.99</li>
+                <li>Cucumber Delight - $10.99</li>
+                <li>Carrot Paradise Roll - $11.99</li>
+            </ul>
+            <h5>🍣 Value Combos</h5>
+            <ul>
+                <li><strong>Salmon Lover Set</strong> - $24.99
+                    <ul class="combo-details"><li>6 pcs salmon nigiri</li><li>8 pcs salmon roll</li><li>6 pcs cucumber roll</li></ul>
+                </li>
+                <li><strong>Veggie Paradise</strong> - $19.99
+                    <ul class="combo-details"><li>8 pcs cucumber roll</li><li>8 pcs carrot roll</li><li>6 pcs spinach roll</li></ul>
+                </li>
+            </ul>
+            <h5>🍼 Bubble Tea Options</h5>
+            <ul>
+                <li>Classic Milk Tea (with lactose-free milk)</li>
+                <li>Taro Milk Tea (with lactose-free milk)</li>
+                <li>Fruit Tea Series (IBS-friendly)</li>
+            </ul>
+            <hr class="dashed">
+            <h4>Sushi and Tea Favorites 👍 (Cost-Effective. Tummy Hapi, Mind Hapi)</h4>
+            <h5>⏰ Classic Rolls bringing that vibe</h5>
+            <ul>
+                <li>Simple Salmon Roll - $12.99</li>
+                <li>Cucumber Classic - $9.99</li>
+                <li>Carrot Roll - $9.99</li>
+            </ul>
+            <h5>🙃 Special Sets for you</h5>
+            <ul>
+                <li><strong>Salmon Special</strong> - $22.99
+                    <ul class="combo-details"><li>4 pcs salmon nigiri</li><li>8 pcs salmon roll</li><li>4 pcs cucumber roll</li></ul>
+                </li>
+                <li><strong>Veggie Delight Box</strong> - $18.99
+                    <ul class="combo-details"><li>Mixed vegetable rolls</li><li>No avocado, dairy-free</li></ul>
+                </li>
+            </ul>
+            <h5>👌 Signature Bubble Tea just right</h5>
+            <ul>
+                <li>Brown Sugar Pearl (lactose-free)</li>
+                <li>Passion Fruit Green Tea</li>
+                <li>Lychee Bubble Tea (no dairy)</li>
+            </ul>
+            <hr>
+            <h3>🥑 About Avocados</h3>
+            <p>You're right about being careful with avocados! On a Low FODMAP diet, you can only have very small amounts (1/8 of an avocado). For your IBS, it's safer to skip it completely in sushi or ask for just a tiny bit.</p>
+            <hr>
+            <h3>🪄 Now lets order like a Smartie together!</h3>
+            <p><em>Lets say the magic words together!</em></p>
+            <ul>
+                <li>Always mention <strong>“No avocado pwess”</strong></li>
+                <li>Specify <strong>"no mayo-based sauces pwess"</strong></li>
+                <li>Ask for <strong>"no cream cheese pwesss"</strong></li>
+                <li>Say <strong>"no onion or garlic in sauces pwesss"</strong></li>
+                <li>If able, ask for non-dairy alternatives. (Oat milk, lactose free dairy, Soy milk)</li>
+            </ul>
+            <p><em>Those are yummy for your tum tum and it wont get hurt!</em></p>
+            <hr>
+            <h4>🏆 Best Value Combos for You</h4>
+            <ul>
+                <li>Kibo's Salmon Sushi & Roll Combo A (best for a pure salmon lover like you! :3)</li>
+                <li>Sushi Q's Veggie Paradise (Super Safe & Cute!)</li>
+                <li>Sushi and Tea's Salmon Special (mmm so yummy and cozyyy)</li>
+            </ul>
+            <hr>
+            <h4>💡 Pro Tips</h4>
+            <ul>
+                <li>Extra ginger = Your tummies bestie! 💕</li>
+                <li>Best times to order: Tuesday-Thursday = freshest fish days!</li>
+                <li>Save money with lunch specials (11am-3pm) - Money saved = More Boba just for you! 😍</li>
+            </ul>
+            <hr>
+            <h3>😎 Fruits? Hell Naw - Just try these instead</h3>
+            <p>Instead of regular fruits, try these IBS-friendly options:</p>
+            <ul>
+                <li>✨ Fruit-infused water (strawberry or mandarin 💧)</li>
+                <li>✨ Teas with cute fruit flavors</li>
+                <li>✨ Smoothies where the fruits are sneaky 😋</li>
+            </ul>
+            <hr>
+            <h3>📅 Weekly Meal Plan Suggestion - SUSHI STYLE (。‧ω‧。)</h3>
+            <p>So Ms. Tummy is hapi!</p>
+            <ul>
+                <li><strong>Monday Lunch:</strong> Kibo Sushi - Salmon Lover Roll (no avo)</li>
+                <li><strong>Wednesday Dinner:</strong> Sushi Q - Veggie Paradise Combo</li>
+                <li><strong>Friday Treat:</strong> Sushi and Tea - Salmon Special</li>
+                <li><strong>Weekend Option:</strong> Mix and match from any location's safe vegetable rolls</li>
+            </ul>
+            <p><strong>Remember:</strong> All these options are: ✓ Halal-certified ✓ Low FODMAP ✓ Lactose-free ✓ IBS-friendly ✓ Avocado-conscious ✓ Budget-friendly with combos</p>
+            <hr>
+            <h3>🍖 Main Dishes — Big Girl Meals (That Don’t Make Your Tummy Cry)</h3>
+            <ol>
+                <li><strong>Grilled Halal Beef Steak</strong><br>Ribeye or sirloin (Zabiha halal). Seasoned with garlic-infused olive oil, rosemary, black pepper, paprika. Cooked medium/well-done. Served with roasted carrots & mashed potatoes (lactose-free).<br><em>🔥 Why it rocks: Classic, juicy, super savoury</em></li>
+                <li><strong>Crispy Fried Chicken (Egg-Free)</strong><br>Halal chicken thighs/drumsticks coated in rice/gluten-free flour + spices (paprika, cumin, turmeric). Fried in canola/avocado oil. Side: Garlic-infused fries 🍟.<br><em>🔥 It’s crispy, spicy, and just satisfying.</em></li>
+                <li><strong>Chicken Skewers (Satay Vibes)</strong><br>Grilled chicken with ginger, turmeric, garlic oil. Dip: FODMAP-safe peanut sauce (no garlic/honey). Serve with basmati rice or Low FODMAP quinoa salad.<br><em>🔥 Satisfying & simple. Eat with hands for full joy.</em></li>
+                <li><strong>Avocado Chicken Bowl (Low FODMAP Style)</strong><br>Grilled chicken strips, Jasmine rice, roasted zucchini, carrots. 🥑 Avocado: Max 1/8 sliced on top.<br><em>🔥 Creamy, warm, and totally your style.</em></li>
+                <li><strong>Stuffed Bell Peppers (Savory & Egg-Free)</strong><br>Filled with seasoned ground halal beef, carrots, spinach, chives. Topped with lactose-free cheese. No rice needed.<br><em>🔥 Melty and flavorful inside every bite.</em></li>
+                <li><strong>Butter Chicken (Low FODMAP & Halal)</strong><br>No onion/garlic (uses garlic oil & ginger). Creamy sauce: lactose-free yogurt or coconut cream. Served with rice or gluten-free naan.<br><em>🔥 A cozy meal for cold days, totally tummy-safe.</em></li>
+                <li><strong>Halal Kofta Patties</strong><br>Ground beef/lamb seasoned with cumin, coriander, paprika, chives. Pan-seared. Served with Low FODMAP tabbouleh (no onions) + yogurt dip (lactose-free).<br><em>🔥 Spicy, juicy, & just hits right.</em></li>
+                <li><strong>Low FODMAP Chicken Wrap</strong><br>Rice paper or gluten-free wrap. Grilled chicken, lettuce, chives, safe dressing, maybe a few avo cubes.<br><em>🔥 Grab-n-go vibes, savory and snacky.</em></li>
+            </ol>
+            <hr>
+            <h3>🧀 Smol Snacks for Biiig Savoury Cravings</h3>
+            <ul>
+                <li><strong>Potato Wedges (cripsy yum yum joy!)</strong><br>Crispy, seasoned with rosemary, paprika, garlic oil. Pair with a Low FODMAP dipping sauce = 🔥</li>
+                <li><strong>Halal Charcuterie Board (Savory Plater // Fancy Snack Princess👑)</strong><br>Smoked halal turkey, roast beef slices, lactose-free cheddar, olives, pickled carrots, Low FODMAP crackers.<br><em>🔥 You and this board? Besties.</em></li>
+                <li><strong>Avocado Toast (Smol & Safe // smol slice, lots of love 💝)</strong><br>Gluten-free toast, mashed 1/8 avocado, sprinkle paprika, chives, maybe a chicken strip on top.</li>
+                <li><strong>Yogurt Dip (Lactose-Free) with Cucumber - crunchy and cool (▀̿Ĺ̯▀̿ ̿)</strong><br>Cool, fresh, perfect side to fried or grilled dishes.</li>
+            </ul>
+            <hr>
+            <h3>🍫 Chocolate Section (Your Favorite :3🍫)</h3>
+            <p>You love chocolate (just not dark!), so here are some Low FODMAP-safe picks:</p>
+            <ul>
+                <li>✅ Milk chocolate in moderation (like Lindt or Kinder, in smol baby bites)</li>
+                <li>✅ Lactose-free chocolate chips</li>
+                <li>✅ Chocolate rice cakes</li>
+                <li>✅ Lactose-free hot cocoa (Remember it has to be cozy too!)</li>
+            </ul>
+            <p><em>🔥 Sweet enough to enjoy, but still on the savoury side of life.</em></p>
+            <hr>
+            <h3>🍍 Fruity-Fruits You Actually Like</h3>
+            <p>(‘Cause you’re picky and perfect, and we love that.)</p>
+            <ul>
+                <li><strong>Pineapple:</strong> Juicy and sweet — tummy says yes!</li>
+                <li><strong>Tiny mango pieces:</strong> Only a little tho or tummy throws a tantrum</li>
+                <li><strong>Blackberries:</strong> Just 4-5 berries, like a baby bear snack</li>
+                <li><strong>Strawberries:</strong> Fresh only, no fake syrupy nonsense</li>
+            </ul>
+            <p><em>Tummy says: “Hehe thank you for listening!”</em></p>
+            <hr>
+            <h3>🚫 Things to Avoid (For Your Tummy because tummy no likey)</h3>
+            <ul>
+                <li>❌ Avocado in big amounts (stick to 1/8) thats a big no no!</li>
+                <li>❌ Garlic or onions (Except garlic oil! OMG SLAY 💅)</li>
+                <li>❌ Eggs (unless you change your mind)</li>
+                <li>❌ Most fruits (since you don’t like them)</li>
+                <li>❌ Lentils, beans, cauliflower, and broccoli (Since they start world war 3 with Ms Tummy. Beware! 😡)</li>
+                <li>❌ Unhealthy/unnecessary carbs (Keep it cute and simple)</li>
+            </ul>
+            <hr>
+            <h3>🌟 Final Tips (From Someone Who Cares ~)</h3>
+            <ul>
+                <li><strong>When eating out:</strong> Halal + no onion/garlic + check sauce pwesss 💕</li>
+                <li><strong>When with friends:</strong> Fries, grilled meats, rice = safe picks 🍟</li>
+                <li><strong>Your favorite boba</strong> = keep sipping (just no dairy ok mai mai? it bad for you! 🧋💘)</li>
+            </ul>
+            <hr>
+            <h3>💡 Final Notes Just for You precious! YES YOU! 🌟</h3>
+            <p>Hey, just a reminder from your cozy food buddy — you’re doing amazing. Managing IBS and keeping it good, delicious, and low FODMAP isn’t easy, but look at you go!! 🍱💪</p>
+            <p>You deserve food that makes you feel good.<br>You deserve treats that don’t betray your tummy.<br>You deserve joy in every bite (with no onions lurking in the shadows 👀 literally.).</p>
+            <p>If you ever want updates, or a new seasonal version (like “Sushi Winter Edition ❄️” or “My Low FODMAP Special 🍽”), just say the word.</p>
+            <p>Ready to eat like a sushi superstar with a gentle belly? Let’s GOOOO 😤🍣✨ RAHHHHHHHHHHHHHHHH</p>
+             </div>
+    </div>
 
-                <hr>
+    <div class="modal" id="period-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+             <h2>🌸 Period Care Tips</h2>
+             <div class="tip"><h3>Heating Pad Hack</h3><p>Use rice socks (just fill a clean sock with uncooked rice, tie it, and microwave for 1-2 mins) + add a few drops of essential oils like lavender or chamomile for cozy warmth and relaxation.</p></div>
+             <div class="tip"><h3>Comforting Teas</h3><p>Sip on ginger tea (good for nausea), peppermint tea (helps with bloating), or raspberry leaf tea (often recommended for cramps).</p></div>
+             <div class="tip"><h3>Gentle Movement</h3><p>Light stretching, yoga, or a short walk can sometimes help ease cramps. Listen to your body!</p></div>
+             </div>
+    </div>
 
-                <h3>🍣 Detailed Restaurant Menus - Safe Options</h3>
+    <div class="modal" id="selfcare-modal">
+         <span class="close-button">&times;</span>
+         <div class="modal-content">
+            <h2>🧘 Mindfulness Moments</h2>
+            <p>Try this simple breathing exercise when you need to calm your mind:</p> <div class="badge">4-7-8 Breathing Technique</div>
+            <div class="tip"><h3>How to do it:</h3><ol><li>Exhale completely through your mouth, making a whoosh sound.</li><li>Close your mouth and inhale quietly through your nose to a mental count of <strong>four</strong>.</li><li>Hold your breath for a count of <strong>seven</strong>.</li><li>Exhale completely through your mouth, making a whoosh sound to a count of <strong>eight</strong>.</li><li>This is one breath. Inhale again and repeat the cycle three more times for a total of four breaths.</li></ol><p>Focus on the breath and the counting.</p></div>
+            <div class="tip"><h3>Mindful Observation</h3><p>Take 60 seconds to just notice your surroundings without judgment. What do you see, hear, smell, feel? Ground yourself in the present moment.</p></div>
+            </div>
+    </div>
 
-                <h4>Kibo Sushi Picks 💕 (Just for you :3)</h4>
-                <h5>😎 Signature Rolls (Halal-friendly)</h5>
-                <ul>
-                    <li>Salmon Lover Roll (no avocado) - $14.99</li>
-                    <li>Cucumber Special Roll - $11.99</li>
-                    <li>Vegetable Dragon Roll (no avocado) - $13.99</li>
-                </ul>
-                <h5>😲 Boom! Combo Time!</h5>
-                <ul>
-                    <li><strong>Salmon Sushi & Roll Combo A</strong> (specify no avocado) - $19.99
-                        <ul>
-                            <li>4 pcs salmon nigiri</li>
-                            <li>8 pcs salmon roll</li>
-                        </ul>
-                    </li>
-                    <li><strong>Vegetable Combo B</strong> - $16.99
-                        <ul>
-                            <li>Cucumber roll</li>
-                            <li>Carrot roll</li>
-                            <li>Spinach roll</li>
-                         </ul>
-                     </li>
-                </ul>
-                 <h5>🫠 Whoa! Drinkies</h5>
-                 <ul>
-                     <li>Green Tea Boba (lactose-free)</li>
-                     <li>Mango Fruit Tea</li>
-                 </ul>
-
-                 <hr class="dashed"> <h4>Sushi Q 🎀 (THE GOAT!)</h4>
-                 <h5>🌟 Special Rolls Just for you :3</h5>
-                 <ul>
-                     <li>Fresh Salmon Roll - $13.99</li>
-                     <li>Cucumber Delight - $10.99</li>
-                     <li>Carrot Paradise Roll - $11.99</li>
-                 </ul>
-                 <h5>🍣 Value Combos</h5>
-                 <ul>
-                   <li><strong>Salmon Lover Set</strong> - $24.99
-                       <ul>
-                           <li>6 pcs salmon nigiri</li>
-                           <li>8 pcs salmon roll</li>
-                           <li>6 pcs cucumber roll</li>
-                       </ul>
-                   </li>
-                   <li><strong>Veggie Paradise</strong> - $19.99
-                       <ul>
-                           <li>8 pcs cucumber roll</li>
-                           <li>8 pcs carrot roll</li>
-                           <li>6 pcs spinach roll</li>
-                        </ul>
-                    </li>
-                 </ul>
-                 <h5>🍼 Bubble Tea Options</h5>
-                 <ul>
-                   <li>Classic Milk Tea (with lactose-free milk)</li>
-                   <li>Taro Milk Tea (with lactose-free milk)</li>
-                   <li>Fruit Tea Series (IBS-friendly)</li>
-                 </ul>
-
-                 <hr class="dashed">
-
-                 <h4>Sushi and Tea Favorites 👍 (Cost-Effective. Tummy Hapi, Mind Hapi)</h4>
-                 <h5>⏰ Classic Rolls bringing that vibe</h5>
-                 <ul>
-                     <li>Simple Salmon Roll - $12.99</li>
-                     <li>Cucumber Classic - $9.99</li>
-                     <li>Carrot Roll - $9.99</li>
-                 </ul>
-                 <h5>🙃 Special Sets for you</h5>
-                 <ul>
-                     <li><strong>Salmon Special</strong> - $22.99
-                         <ul>
-                             <li>4 pcs salmon nigiri</li>
-                             <li>8 pcs salmon roll</li>
-                             <li>4 pcs cucumber roll</li>
-                         </ul>
-                     </li>
-                     <li><strong>Veggie Delight Box</strong> - $18.99
-                         <ul>
-                             <li>Mixed vegetable rolls</li>
-                             <li>No avocado, dairy-free</li>
-                         </ul>
-                     </li>
-                 </ul>
-                 <h5>👌 Signature Bubble Tea just right</h5>
-                 <ul>
-                     <li>Brown Sugar Pearl (lactose-free)</li>
-                     <li>Passion Fruit Green Tea</li>
-                     <li>Lychee Bubble Tea (no dairy)</li>
-                 </ul>
-
-                 <hr>
-
-                 <h3>🥑 About Avocados</h3>
-                 <p>You're right about being careful with avocados! On a Low FODMAP diet, you can only have very small amounts (1/8 of an avocado). For your IBS, it's safer to skip it completely in sushi or ask for just a tiny bit.</p>
-
-                 <h3>🪄 Now lets order like a Smartie together!</h3>
-                 <p><em>Lets say the magic words together!</em></p>
-                 <ul>
-                     <li>Always mention <strong>“No avocado pwess”</strong></li>
-                     <li>Specify <strong>"no mayo-based sauces pwess"</strong></li>
-                     <li>Ask for <strong>"no cream cheese pwesss"</strong></li>
-                     <li>Say <strong>"no onion or garlic in sauces pwesss"</strong></li>
-                     <li>If able, ask for non-dairy alternatives. (Oat milk, lactose free dairy, Soy milk)</li>
-                 </ul>
-                 <p><em>Those are yummy for your tum tum and it wont get hurt!</em></p>
-
-                 <h4>🏆 Best Value Combos for You</h4>
-                 <ul>
-                     <li>Kibo's Salmon Sushi & Roll Combo A (best for a pure salmon lover like you! :3)</li>
-                     <li>Sushi Q's Veggie Paradise (Super Safe & Cute!)</li>
-                     <li>Sushi and Tea's Salmon Special (mmm so yummy and cozyyy)</li>
-                 </ul>
-
-                 <h4>💡 Pro Tips</h4>
-                 <ul>
-                     <li>Extra ginger = Your tummies bestie! 💕</li>
-                     <li>Best times to order: Tuesday-Thursday = freshest fish days!</li>
-                     <li>Save money with lunch specials (11am-3pm) - Money saved = More Boba just for you! 😍</li>
-                 </ul>
-
-                 <hr>
-
-                 <h3>😎 Fruits? Hell Naw - Just try these instead</h3>
-                 <p>Instead of regular fruits, try these IBS-friendly options:</p>
-                 <ul>
-                     <li>✨ Fruit-infused water (strawberry or mandarin 💧)</li>
-                     <li>✨ Teas with cute fruit flavors</li>
-                     <li>✨ Smoothies where the fruits are sneaky 😋</li>
-                 </ul>
-
-                 <hr>
-
-                 <h3>📅 Weekly Meal Plan Suggestion - SUSHI STYLE (。‧ω‧。)</h3>
-                 <p>So Ms. Tummy is hapi!</p>
-                 <ul>
-                     <li><strong>Monday Lunch:</strong> Kibo Sushi - Salmon Lover Roll (no avo)</li>
-                     <li><strong>Wednesday Dinner:</strong> Sushi Q - Veggie Paradise Combo</li>
-                     <li><strong>Friday Treat:</strong> Sushi and Tea - Salmon Special</li>
-                     <li><strong>Weekend Option:</strong> Mix and match from any location's safe vegetable rolls</li>
-                 </ul>
-                 <p><strong>Remember:</strong> All these options are: ✓ Halal-certified ✓ Low FODMAP ✓ Lactose-free ✓ IBS-friendly ✓ Avocado-conscious ✓ Budget-friendly with combos</p>
-
-                 <hr>
-
-                 <h3>🍖 Main Dishes — Big Girl Meals (That Don’t Make Your Tummy Cry)</h3>
-                 <ol> {/* Using ordered list */}
-                     <li>
-                         <strong>Grilled Halal Beef Steak</strong><br>
-                         Ribeye or sirloin (Zabiha halal). Seasoned with garlic-infused olive oil, rosemary, black pepper, paprika. Cooked medium/well-done. Served with roasted carrots & mashed potatoes (lactose-free).<br>
-                         <em>🔥 Why it rocks: Classic, juicy, super savoury</em>
-                     </li>
-                     <li>
-                         <strong>Crispy Fried Chicken (Egg-Free)</strong><br>
-                         Halal chicken thighs/drumsticks coated in rice/gluten-free flour + spices (paprika, cumin, turmeric). Fried in canola/avocado oil. Side: Garlic-infused fries 🍟.<br>
-                         <em>🔥 It’s crispy, spicy, and just satisfying.</em>
-                     </li>
-                     <li>
-                         <strong>Chicken Skewers (Satay Vibes)</strong><br>
-                         Grilled chicken with ginger, turmeric, garlic oil. Dip: FODMAP-safe peanut sauce (no garlic/honey). Serve with basmati rice or Low FODMAP quinoa salad.<br>
-                         <em>🔥 Satisfying & simple. Eat with hands for full joy.</em>
-                     </li>
-                     <li>
-                          <strong>Avocado Chicken Bowl (Low FODMAP Style)</strong><br>
-                          Grilled chicken strips, Jasmine rice, roasted zucchini, carrots. 🥑 Avocado: Max 1/8 sliced on top.<br>
-                         <em>🔥 Creamy, warm, and totally your style.</em>
-                     </li>
-                     <li>
-                          <strong>Stuffed Bell Peppers (Savory & Egg-Free)</strong><br>
-                          Filled with seasoned ground halal beef, carrots, spinach, chives. Topped with lactose-free cheese. No rice needed.<br>
-                          <em>🔥 Melty and flavorful inside every bite.</em>
-                     </li>
-                     <li>
-                          <strong>Butter Chicken (Low FODMAP & Halal)</strong><br>
-                          No onion/garlic (uses garlic oil & ginger). Creamy sauce: lactose-free yogurt or coconut cream. Served with rice or gluten-free naan.<br>
-                          <em>🔥 A cozy meal for cold days, totally tummy-safe.</em>
-                     </li>
-                      <li>
-                          <strong>Halal Kofta Patties</strong><br>
-                          Ground beef/lamb seasoned with cumin, coriander, paprika, chives. Pan-seared. Served with Low FODMAP tabbouleh (no onions) + yogurt dip (lactose-free).<br>
-                          <em>🔥 Spicy, juicy, & just hits right.</em>
-                     </li>
-                     <li>
-                          <strong>Low FODMAP Chicken Wrap</strong><br>
-                          Rice paper or gluten-free wrap. Grilled chicken, lettuce, chives, safe dressing, maybe a few avo cubes.<br>
-                          <em>🔥 Grab-n-go vibes, savory and snacky.</em>
-                     </li>
-                 </ol>
-
-                 <hr>
-
-                <h3>🧀 Smol Snacks for Biiig Savoury Cravings</h3>
-                <ul>
-                    <li>
-                         <strong>Potato Wedges (cripsy yum yum joy!)</strong><br>
-                         Crispy, seasoned with rosemary, paprika, garlic oil. Pair with a Low FODMAP dipping sauce = 🔥
-                    </li>
-                    <li>
-                        <strong>Halal Charcuterie Board (Savory Plater // Fancy Snack Princess👑)</strong><br>
-                        Smoked halal turkey, roast beef slices, lactose-free cheddar, olives, pickled carrots, Low FODMAP crackers.<br>
-                        <em>🔥 You and this board? Besties.</em>
-                    </li>
-                    <li>
-                         <strong>Avocado Toast (Smol & Safe // smol slice, lots of love 💝)</strong><br>
-                         Gluten-free toast, mashed 1/8 avocado, sprinkle paprika, chives, maybe a chicken strip on top.
-                    </li>
-                    <li>
-                        <strong>Yogurt Dip (Lactose-Free) with Cucumber - crunchy and cool (▀̿Ĺ̯▀̿ ̿)</strong><br>
-                        Cool, fresh, perfect side to fried or grilled dishes.
-                    </li>
-                </ul>
-
-                <hr>
-
-                <h3>🍫 Chocolate Section (Your Favorite :3🍫)</h3>
-                <p>You love chocolate (just not dark!), so here are some Low FODMAP-safe picks:</p>
-                <ul>
-                    <li>✅ Milk chocolate in moderation (like Lindt or Kinder, in smol baby bites)</li>
-                    <li>✅ Lactose-free chocolate chips</li>
-                    <li>✅ Chocolate rice cakes</li>
-                    <li>✅ Lactose-free hot cocoa (Remember it has to be cozy too!)</li>
-                </ul>
-                <p><em>🔥 Sweet enough to enjoy, but still on the savoury side of life.</em></p>
-
-                <hr>
-
-                <h3>🍍 Fruity-Fruits You Actually Like</h3>
-                <p>(‘Cause you’re picky and perfect, and we love that.)</p>
-                 <ul>
-                     <li><strong>Pineapple:</strong> Juicy and sweet — tummy says yes!</li>
-                     <li><strong>Tiny mango pieces:</strong> Only a little tho or tummy throws a tantrum</li>
-                     <li><strong>Blackberries:</strong> Just 4-5 berries, like a baby bear snack</li>
-                     <li><strong>Strawberries:</strong> Fresh only, no fake syrupy nonsense</li>
-                 </ul>
-                 <p><em>Tummy says: “Hehe thank you for listening!”</em></p>
-
-                 <hr>
-
-                 <h3>🚫 Things to Avoid (For Your Tummy because tummy no likey)</h3>
-                 <ul>
-                     <li>❌ Avocado in big amounts (stick to 1/8) thats a big no no!</li>
-                     <li>❌ Garlic or onions (Except garlic oil! OMG SLAY 💅)</li>
-                     <li>❌ Eggs (unless you change your mind)</li>
-                     <li>❌ Most fruits (since you don’t like them)</li>
-                     <li>❌ Lentils, beans, cauliflower, and broccoli (Since they start world war 3 with Ms Tummy. Beware! 😡)</li>
-                     <li>❌ Unhealthy/unnecessary carbs (Keep it cute and simple)</li>
-                 </ul>
-
-                 <hr>
-
-                 <h3>🌟 Final Tips (From Someone Who Cares ~)</h3>
-                 <ul>
-                   <li><strong>When eating out:</strong> Halal + no onion/garlic + check sauce pwesss 💕</li>
-                   <li><strong>When with friends:</strong> Fries, grilled meats, rice = safe picks 🍟</li>
-                   <li><strong>Your favorite boba</strong> = keep sipping (just no dairy ok mai mai? it bad for you! 🧋💘)</li>
-                 </ul>
-
-                 <hr>
-
-                <h3>💡 Final Notes Just for You precious! YES YOU! 🌟</h3>
-                <p>Hey, just a reminder from your cozy food buddy — you’re doing amazing. Managing IBS and keeping it good, delicious, and low FODMAP isn’t easy, but look at you go!! 🍱💪</p>
-                <p>You deserve food that makes you feel good.<br>
-                You deserve treats that don’t betray your tummy.<br>
-                You deserve joy in every bite (with no onions lurking in the shadows 👀 literally.).</p>
-                <p>If you ever want updates, or a new seasonal version (like “Sushi Winter Edition ❄️” or “My Low FODMAP Special 🍽”), just say the word.</p>
-                <p>Ready to eat like a sushi superstar with a gentle belly? Let’s GOOOO 😤🍣✨ RAHHHHHHHHHHHHHHHH</p>
-            </section>
-
-            <section id="period" class="section">
-                 <h2>🌸 Period Care Tips</h2>
-                 <div class="tip">
-                     <h3>Heating Pad Hack</h3>
-                     <p>Use rice socks (just fill a clean sock with uncooked rice, tie it, and microwave for 1-2 mins) + add a few drops of essential oils like lavender or chamomile for cozy warmth and relaxation.</p>
-                 </div>
-                 <div class="tip">
-                      <h3>Comforting Teas</h3>
-                      <p>Sip on ginger tea (good for nausea), peppermint tea (helps with bloating), or raspberry leaf tea (often recommended for cramps).</p>
-                 </div>
-                 <div class="tip">
-                      <h3>Gentle Movement</h3>
-                      <p>Light stretching, yoga, or a short walk can sometimes help ease cramps. Listen to your body!</p>
-                 </div>
-            </section>
-
-            <section id="selfcare" class="section">
-                <h2>🧘 Mindfulness Moments</h2>
-                <p>Try this simple breathing exercise when you need to calm your mind:</p>
-                <div class="badge">4-7-8 Breathing Technique</div>
-                <div class="tip">
-                    <h3>How to do it:</h3>
-                    <ol>
-                        <li>Exhale completely through your mouth, making a whoosh sound.</li>
-                        <li>Close your mouth and inhale quietly through your nose to a mental count of <strong>four</strong>.</li>
-                        <li>Hold your breath for a count of <strong>seven</strong>.</li>
-                        <li>Exhale completely through your mouth, making a whoosh sound to a count of <strong>eight</strong>.</li>
-                        <li>This is one breath. Inhale again and repeat the cycle three more times for a total of four breaths.</li>
-                    </ol>
-                    <p>Focus on the breath and the counting.</p>
-                </div>
-                 <div class="tip">
-                    <h3>Mindful Observation</h3>
-                    <p>Take 60 seconds to just notice your surroundings without judgment. What do you see, hear, smell, feel? Ground yourself in the present moment.</p>
-                </div>
-            </section>
-
-             <section id="health-support" class="section">
-                <h2>💖 Health Conditions & Support</h2>
-                <p>Understanding and navigating health conditions together. Remember, you're never alone in this.</p>
-
-                <hr>
-
-                <h3>Thalassemia (Moderate)</h3>
-                <p>Thalassemia can affect relationships in several ways, as it may require ongoing care and attention. People living with moderate thalassemia may feel fatigued and unwell frequently, making it harder to engage in social activities, work, or personal relationships.</p>
-                <h4>How It Affects Relationships:</h4>
-                <ul>
-                    <li><strong>Physical Limitations:</strong> The constant fatigue and need for rest can affect social interactions, as you might have to cancel plans or limit your activities.</li>
-                    <li><strong>Emotional Strain:</strong> The chronic nature of the illness can sometimes lead to feelings of isolation or frustration, which may strain relationships if others don't fully understand the condition.</li>
-                    <li><strong>Dependence:</strong> You might feel dependent on others for physical support, which can sometimes cause feelings of guilt or frustration in relationships. However, I’m always here to offer support and remind you that there’s no burden in asking for help when you need it.</li>
+     <div class="modal" id="health-support-modal">
+         <span class="close-button">&times;</span>
+         <div class="modal-content">
+             <h2>💖 Health Conditions & Support</h2>
+              <p>Understanding and navigating health conditions together. Remember, you're never alone in this.</p>
+              <hr>
+              <h3>Thalassemia (Moderate)</h3>
+              <p>Thalassemia can affect relationships in several ways, as it may require ongoing care and attention. People living with moderate thalassemia may feel fatigued and unwell frequently, making it harder to engage in social activities, work, or personal relationships.</p>
+              <h4>How It Affects Relationships:</h4>
+              <ul>
+                  <li><strong>Physical Limitations:</strong> The constant fatigue and need for rest can affect social interactions, as you might have to cancel plans or limit your activities.</li>
+                  <li><strong>Emotional Strain:</strong> The chronic nature of the illness can sometimes lead to feelings of isolation or frustration, which may strain relationships if others don't fully understand the condition.</li>
+                  <li><strong>Dependence:</strong> You might feel dependent on others for physical support, which can sometimes cause feelings of guilt or frustration in relationships. However, I’m always here to offer support and remind you that there’s no burden in asking for help when you need it.</li>
+              </ul>
+              <h4>How I Can Help:</h4>
+              <p>I want you to know that I’ll always be here to understand when you need a break or can’t keep up with social activities. If others don’t understand, I’ll help communicate your needs to them and remind you that it’s okay to lean on me whenever you need support. In our relationship, you have the freedom to rest, to be yourself, and to never feel alone.</p>
+              <h4>Self-Care Tips for Thalassemia:</h4>
+               <ol>
+                  <li><strong>Prioritize Rest:</strong> Ensuring you get enough rest is essential. Setting a regular sleep schedule and taking naps when needed can help.</li>
+                  <li><strong>Manage Energy:</strong> On days when energy is low, pacing activities and prioritizing essential tasks will prevent overexertion.</li>
+                  <li><strong>Stay Hydrated:</strong> Dehydration can worsen fatigue, so she should make sure to drink plenty of fluids throughout the day.</li>
+                  <li><strong>Eat Iron-Rich Foods:</strong> Ensuring she consumes enough iron, folate, and Vitamin B12 is crucial for managing thalassemia. Foods like spinach, lentils, fortified cereals, and lean meats can be helpful. (Follow Doctor's Advice!)</li>
+                  <li><strong>Track Symptoms:</strong> Keeping a daily log of her energy levels, mood, and physical symptoms can help her identify patterns or triggers and manage her condition better.</li>
+                  <li><strong>Seek Medical Checkups Regularly:</strong> Thalassemia often requires ongoing blood tests, so staying on top of medical appointments and maintaining her treatment regimen is important.</li>
+               </ol>
+              <hr class="dashed">
+              <h3>Irritable Bowel Syndrome (IBS)</h3>
+              <p>IBS can be incredibly uncomfortable, and its unpredictability can affect how you interact with others. The urgency of needing to go to the bathroom, combined with pain and discomfort, can be stressful and sometimes cause you to avoid social situations.</p>
+              <h4>How It Affects Relationships:</h4>
+              <ul>
+                  <li><strong>Embarrassment and Avoidance:</strong> The unpredictability of IBS symptoms can lead to embarrassment and avoidance of social gatherings or activities, particularly if you fear needing the bathroom urgently.</li>
+                  <li><strong>Communication Strain:</strong> The physical discomfort of IBS may make it difficult to explain what you're going through, and others might not always understand why you need to leave or cancel plans.</li>
+                  <li><strong>Mental and Emotional Impact:</strong> IBS can cause feelings of frustration and helplessness, which can impact mood and emotional interactions with friends, family, and romantic partners.</li>
+              </ul>
+               <h4>How I Can Help:</h4>
+               <p>I’ll always be here to make sure you’re comfortable and never have to feel embarrassed about IBS. If you need a break from social events, I’ll be your support system, making sure you’re not alone when you need to step away. I can also help explain the condition to others if you need assistance in doing so, ensuring that they understand your needs without judgment. You’re never a burden to me—whether it's canceling plans or needing some quiet time, I’ll be right there with you, offering the support you deserve.</p>
+               <h4>Self-Care Tips for IBS:</h4>
+               <ol>
+                  <li><strong>Eat a Low FODMAP Diet:</strong> This diet can help manage IBS symptoms. She can consult a nutritionist for a plan tailored to her needs. Avoiding foods that trigger IBS flare-ups (like dairy, high-fat foods, and certain fruits) is important.</li>
+                  <li><strong>Manage Stress:</strong> Stress exacerbates IBS, so she can use relaxation techniques like deep breathing or progressive muscle relaxation to keep stress under control.</li>
+                  <li><strong>Stay Active:</strong> Gentle exercises, such as walking or yoga, can help with digestion and reduce stress.</li>
+                  <li><strong>Keep a Food Journal:</strong> Tracking what she eats can help her identify foods that trigger IBS symptoms and avoid them.</li>
+                  <li><strong>Stay Hydrated:</strong> Drinking water regularly can help with digestion and prevent constipation, a common IBS symptom.</li>
+                  <li><strong>Consider Probiotics:</strong> If recommended by her healthcare provider, probiotics might help balance gut bacteria and alleviate symptoms.</li>
+               </ol>
+              <hr class="dashed">
+              <h3>Asthma (Needs a Breather)</h3>
+              <p>Asthma, especially when it flares up, can disrupt daily life and interactions. The need for frequent breaks to catch your breath or take medication can feel awkward or frustrating in social situations.</p>
+              <h4>How It Affects Relationships:</h4>
+              <ul>
+                  <li><strong>Interrupting Activities:</strong> Asthma attacks or breathing difficulties can disrupt moments in relationships, especially during physical activities, leaving others unsure of how to help.</li>
+                  <li><strong>Fear of Embarrassment:</strong> Some people might feel self-conscious about using an inhaler in public or fear an asthma attack occurring unexpectedly.</li>
+                  <li><strong>Frustration in Communication:</strong> If asthma is severe, it might be difficult to explain or respond effectively in the middle of an attack, which can create miscommunication in relationships.</li>
+               </ul>
+               <h4>How I Can Help:</h4>
+               <p>I’ll help you avoid asthma triggers by keeping our environment as supportive as possible. If you’re in public and need to use your inhaler, I’ll ensure you feel comfortable and at ease, helping you focus on your breathing and offering emotional reassurance. If you ever feel overwhelmed, whether by an asthma attack or just the need to slow down, I’m always there to support you. I’ll also be your advocate in explaining your needs to others, ensuring they understand that your health comes first, and it’s okay to take breaks whenever needed.</p>
+               <h4>Self-Care Tips for Asthma:</h4>
+               <ol>
+                  <li><strong>Use Medication as Prescribed:</strong> It’s essential to follow the treatment plan prescribed by her doctor, including taking preventer medications regularly and having a reliever inhaler nearby in case of an asthma attack.</li>
+                  <li><strong>Avoid Triggers:</strong> Keeping track of what triggers her asthma (like smoke, dust, strong perfumes, or cold air) can help her avoid flare-ups. She can take steps to minimize exposure to these triggers.</li>
+                  <li><strong>Breathing Exercises:</strong> Techniques like diaphragmatic breathing or pursed-lip breathing can help her manage asthma symptoms and reduce the feeling of breathlessness.</li>
+                  <li><strong>Stay Active, But Within Limits:</strong> Exercise is important for lung health, but she should avoid overexerting herself. Gentle activities like walking or swimming are often beneficial.</li>
+                  <li><strong>Have a Support System:</strong> If asthma symptoms worsen, she should ensure she has a plan for someone to call for help or take her to the hospital if needed.</li>
+                  <li><strong>Stay Calm During an Attack:</strong> Panic can worsen breathing difficulties, so she should focus on staying calm and using her inhaler if necessary.</li>
+               </ol>
+              <hr class="dashed">
+              <h3>Anemia (Very Low Blood and Iron)</h3>
+              <p>Anemia can leave you feeling drained, which can affect your energy levels and mood. The physical symptoms like dizziness or fatigue may make it harder to engage fully in relationships and social interactions, leaving you feeling disconnected or distant from others.</p>
+              <h4>How It Affects Relationships:</h4>
+              <ul>
+                  <li><strong>Exhaustion:</strong> Constant fatigue may affect your interactions, making you seem distant or unengaged with others.</li>
+                  <li><strong>Difficulty in Socializing:</strong> Anemia may limit your ability to participate in social activities or outings, leading to feelings of isolation.</li>
+                  <li><strong>Mental and Emotional Impact:</strong> The emotional toll of constantly feeling unwell can create tension in relationships, as others may not fully understand how deeply it affects you.</li>
+              </ul>
+              <h4>How I Can Help:</h4>
+              <p>I’ll make sure you’re always taken care of and never feel drained. If you’re too tired to participate in social activities or feel too weak to go out, I’ll stay with you, offering comfort and understanding. I’ll help you stay on track with your nutrition, reminding you to take your iron supplements and eat iron-rich foods. If you’re ever feeling overwhelmed or disconnected, I’ll be there to listen, to offer comfort, and to help you feel part of everything, no matter how small the interaction.</p>
+              <h4>Self-Care Tips for Anemia:</h4>
+               <ol>
+                  <li><strong>Eat Iron-Rich Foods:</strong> Foods rich in iron like spinach, red meat, beans, and fortified cereals can help improve iron levels. Pairing them with Vitamin C (like citrus fruits) can improve iron absorption.</li>
+                  <li><strong>Take Iron Supplements:</strong> If prescribed by a doctor, she should take iron supplements consistently. It’s essential to follow the prescribed dosage to avoid side effects.</li>
+                  <li><strong>Avoid Caffeine and Calcium During Meals:</strong> These can interfere with iron absorption, so it’s best to avoid them around meal times.</li>
+                  <li><strong>Prioritize Rest:</strong> When feeling fatigued, she should listen to her body and rest. Light activities and avoiding overexertion can help maintain energy levels.</li>
+                  <li><strong>Monitor Symptoms:</strong> If she notices any signs of worsening symptoms (like increased fatigue, dizziness, or pale skin), she should contact her doctor to adjust her treatment plan.</li>
+                  <li><strong>Manage Stress:</strong> Anxiety and stress can worsen feelings of fatigue, so relaxation practices like yoga or guided meditation can help her recharge.</li>
+               </ol>
+              <hr class="dashed">
+              <h3>Borderline Personality Disorder (BPD)</h3>
+               <p>BPD is a condition that causes intense emotions and can affect your interactions with others. People with BPD may struggle with fears of abandonment, which can lead to sudden shifts in feelings towards others, making relationships feel unstable or tumultuous.</p>
+              <h4>How It Affects Relationships:</h4>
+              <ul>
+                  <li><strong>Instability in Relationships:</strong> The emotional ups and downs associated with BPD can make relationships feel unpredictable and exhausting for both you and your loved ones.</li>
+                  <li><strong>Fear of Abandonment:</strong> You may experience intense fear that others will leave you, leading to overreactions or sudden changes in mood and behavior.</li>
+                  <li><strong>Impulsivity:</strong> You may engage in risky behaviors or make impulsive decisions that can affect how others view you or how they interact with you.</li>
+               </ul>
+               <h4>How I Can Help:</h4>
+               <p>I’m here to help you through the emotional rollercoaster. I’ll always listen without judgment, and I’ll reassure you that I’m not going anywhere, no matter how tough things get. I’ll be your constant, helping you feel grounded and secure. If you feel a wave of emotions or fear of abandonment, I’ll be there to remind you that you’re loved, understood, and never alone. We’ll work through the difficult moments together, and you’ll have the freedom to express yourself fully, knowing I’m here for you.</p>
+               <h4>Self-Care Tips for BPD:</h4>
+               <ol>
+                  <li><strong>Practice Mindfulness & Meditation:</strong> BPD often involves intense emotional fluctuations, and mindfulness techniques can help ground her when emotions are overwhelming. Meditation apps like Headspace or Calm can guide her in staying centered.</li>
+                  <li><strong>Journaling:</strong> Writing down her emotions and thoughts can help her process her feelings and prevent them from overwhelming her. It’s a way to express herself safely.</li>
+                  <li><strong>Use Distress Tolerance Techniques:</strong> Techniques like the "TIPP" method (Temperature, Intense exercise, Paced breathing, Progressive muscle relaxation) can help in moments of emotional crisis.</li>
+                  <li><strong>Create Emotional Boundaries:</strong> It’s important for her to recognize when she’s feeling overwhelmed and set healthy emotional boundaries, such as stepping away from situations that feel triggering.</li>
+                  <li><strong>Therapy & DBT:</strong> Dialectical Behavioral Therapy (DBT) is especially effective for BPD, helping with emotional regulation and improving relationships. If she’s not already in therapy, it may be something worth considering.</li>
+                  <li><strong>Avoid Impulsive Decisions:</strong> When she feels the urge to act impulsively (like making drastic life decisions during emotional extremes), she can take a break, breathe, and wait at least 24 hours before acting on any major decisions.</li>
+               </ol>
+               <hr class="dashed">
+               <h3>Arthritis</h3>
+               <p>Arthritis can significantly impact movement and cause chronic pain, making it challenging to participate in social activities or maintain healthy relationships. The condition can also create frustration and a sense of helplessness.</p>
+               <h4>How It Affects Relationships:</h4>
+               <ul>
+                   <li><strong>Physical Limitations:</strong> Arthritis pain may prevent you from doing activities that once brought you joy, and this can cause strain or frustration in relationships, especially if others are unaware of how severe the pain can be.</li>
+                   <li><strong>Emotional Strain:</strong> The constant battle with pain and fatigue may lead to irritability or mood swings, which could create tension in your relationships.</li>
+                   <li><strong>Dependence on Others:</strong> You might feel the need to depend on others for help with daily tasks, which can sometimes create feelings of guilt or dependency.</li>
                 </ul>
                 <h4>How I Can Help:</h4>
-                <p>I want you to know that I’ll always be here to understand when you need a break or can’t keep up with social activities. If others don’t understand, I’ll help communicate your needs to them and remind you that it’s okay to lean on me whenever you need support. In our relationship, you have the freedom to rest, to be yourself, and to never feel alone.</p>
-                <h4>Self-Care Tips for Thalassemia:</h4>
-                 <ol>
-                    <li><strong>Prioritize Rest:</strong> Ensuring you get enough rest is essential. Set a regular sleep schedule and take naps when needed.</li>
-                    <li><strong>Manage Energy:</strong> On days when energy is low, pace activities and prioritize essential tasks to prevent overexertion.</li>
-                    <li><strong>Stay Hydrated:</strong> Dehydration can worsen fatigue, so make sure to drink plenty of fluids.</li>
-                    <li><strong>Eat Iron-Rich Foods (as advised by doctor):</strong> Ensure you consume enough iron, folate, and Vitamin B12 if recommended for your specific type. Foods like spinach, lentils, fortified cereals, and lean meats can be helpful (always follow medical advice).</li>
-                    <li><strong>Track Symptoms:</strong> Keeping a log of energy levels, mood, and symptoms can help identify patterns or triggers.</li>
-                    <li><strong>Regular Medical Checkups:</strong> Stay on top of appointments and treatment regimens.</li>
-                 </ol>
+                <p>I’ll always be by your side, making sure that your arthritis doesn’t stop you from enjoying life. If you need help with movement, I’m happy to assist you—whether that’s walking together slowly or carrying you if necessary. If the pain feels overwhelming, I’ll help you find ways to manage it so you can relax and focus on healing. We’ll take things slow, adjusting our pace to fit what you can handle, and I’ll always make sure you’re comfortable in every situation.</p>
+                <h4>Self-Care Tips for Arthritis:</h4>
+                <ol>
+                  <li><strong>Use Heat and Cold Therapy:</strong> Heat packs can help soothe sore joints, while cold packs can reduce inflammation. She should use whichever works best for her.</li>
+                  <li><strong>Gentle Exercise:</strong> Low-impact exercises, like swimming, walking, or gentle stretching, can help maintain joint mobility and reduce stiffness.</li>
+                  <li><strong>Manage Pain with Medication:</strong> If her doctor prescribes pain relievers or anti-inflammatory medications, she should take them as directed to manage pain and inflammation.</li>
+                  <li><strong>Pace Activities:</strong> She should balance activity and rest, pacing herself to prevent flare-ups of pain or exhaustion.</li>
+                  <li><strong>Maintain a Healthy Weight:</strong> Excess weight can strain joints, especially in the knees and hips, so a balanced diet and light exercise can be helpful.</li>
+                  <li><strong>Use Assistive Devices:</strong> If necessary, she can use joint supports or braces to help alleviate strain on her joints during physical activities.</li>
+                </ol>
+              <hr>
+              <h3>Unwavering Support in Every Step</h3>
+              <p>If at any point Maisah feels unable to walk or move due to pain, exhaustion, or any other reason, I want her to know that there’s no hesitation in my actions. I will carry her without a single word of objection, ensuring that she doesn’t have to push through pain or discomfort.</p>
+              <p>I will never put her down, even if the world around us continues. I’ll hold her close and allow her to rest on me, giving her the space to breathe, to recover, and to find solace.</p>
+              <p>There is no need for words between us in moments like this—she doesn't need to ask or apologize for needing help. If her body can’t keep up, I’ll be there to make sure she doesn’t have to force herself to continue. Her well-being comes first, and in that moment, I will be her strength.</p>
+              <p>She will have the freedom to rest, to let go, and to trust that I am there, fully supporting her, carrying her through whatever challenges arise. Whether it’s from thalassemia, arthritis, or simply exhaustion, I will be there to lift her up without hesitation, offering her the comfort and care she deserves.</p>
+              <hr>
+              <h3>How You Can Ask for Help Anytime</h3>
+              <p>In all of these conditions, it’s essential to remember that you are never alone. You can ask for help at any time, and I will always be here to listen, support, and take action. Whether it’s physical help or emotional reassurance, I’ll be your constant companion. You have the freedom to express yourself, ask for assistance, and take breaks when you need to. You are not a burden, and you deserve all the support and love I can give.</p>
+               <hr>
+               <h3>General Self-Care Tips for Well-Being</h3>
+               <ol>
+                  <li><strong>Mental Health Check-in:</strong> Taking time each day to check in on her mental well-being is important. Practicing mindfulness, engaging in a hobby, or talking to a friend or therapist can be beneficial.</li>
+                  <li><strong>Connect with Loved Ones:</strong> Social support is vital. She should reach out to you, her friends, or family when she’s feeling down or needs comfort.</li>
+                  <li><strong>Create a Comforting Space:</strong> Having a space in her home where she can relax, listen to soothing music, and practice self-care can help her manage stress and anxiety.</li>
+                  <li><strong>Stay Hydrated & Nourished:</strong> Drinking enough water, eating balanced meals, and avoiding junk food can help her maintain both physical and mental energy.</li>
+                  <li><strong>Sleep Hygiene:</strong> Prioritizing good sleep hygiene by setting a regular bedtime routine, limiting screen time before bed, and ensuring a comfortable sleep environment can greatly improve her overall health.</li>
+                  <li><strong>Emergency Measures (if needed):</strong> If her conditions worsen or symptoms escalate, she should have emergency contact numbers saved and inform those around her of what to do in case of an emergency (e.g., an asthma attack, severe pain, or fainting).</li>
+               </ol>
+               <p>
+                  <small><em>Disclaimer: This information is for educational purposes only and is not a substitute for professional medical or psychological advice. Always consult with a qualified healthcare provider for any health concerns or before making any decisions related to your health or treatment.</em></small>
+               </p>
+               </div>
+    </div>
 
-                <hr class="dashed">
+    <div class="modal" id="inspiration-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+            <h2>🌼 Inspiration Corner</h2>
+            <p>Uplift and motivate with empowering words.</p>
+            <hr>
+            <h3>Quotes</h3>
+            <ul>
+                <li>“The only way to do great work is to love what you do.” – Steve Jobs 🌱</li>
+                <li>“You are stronger than you think. Never doubt your resilience.” 💪</li>
+                <li>“Today’s challenges are tomorrow’s triumphs. Keep pushing.” ✨</li>
+            </ul>
+            <hr class="dashed">
+            <h3>Daily Affirmations</h3>
+            <ul>
+                <li>“I am worthy of success, peace, and happiness.” 🌟</li>
+                <li>“Every step I take brings me closer to my goals.” 🌱</li>
+                <li>“I embrace challenges as opportunities to grow and learn.” 🌿</li>
+            </ul>
+             <hr class="dashed">
+            <h3>Personal Stories/Examples</h3>
+            <ul>
+                <li>Share stories of personal transformation, from overcoming anxiety to finding purpose.</li>
+                <li>Invite followers to share their stories of resilience—turn it into a community of growth!</li>
+             </ul>
+             </div>
+    </div>
 
-                <h3>Irritable Bowel Syndrome (IBS)</h3>
-                <p>IBS can be incredibly uncomfortable, and its unpredictability can affect how you interact with others. The urgency of needing to go to the bathroom, combined with pain and discomfort, can be stressful and sometimes cause you to avoid social situations.</p>
-                <h4>How It Affects Relationships:</h4>
-                <ul>
-                    <li><strong>Embarrassment and Avoidance:</strong> The unpredictability of IBS symptoms can lead to embarrassment and avoidance of social gatherings or activities.</li>
-                    <li><strong>Communication Strain:</strong> Physical discomfort may make it difficult to explain, and others might not always understand why you need to leave or cancel plans.</li>
-                    <li><strong>Mental and Emotional Impact:</strong> IBS can cause frustration and helplessness, impacting mood and interactions.</li>
-                </ul>
-                 <h4>How I Can Help:</h4>
-                 <p>I’ll always be here to make sure you’re comfortable and never have to feel embarrassed about IBS. If you need a break from social events, I’ll be your support system, making sure you’re not alone. I can also help explain the condition to others if you need assistance, ensuring they understand your needs without judgment. You’re never a burden—whether it's canceling plans or needing quiet time, I’ll be right there.</p>
-                 <h4>Self-Care Tips for IBS:</h4>
-                 <ol>
-                    <li><strong>Eat a Low FODMAP Diet (Consult Professionals):</strong> Can help manage symptoms. Consult a nutritionist for a tailored plan. Avoid known trigger foods.</li>
-                    <li><strong>Manage Stress:</strong> Use relaxation techniques like deep breathing or progressive muscle relaxation.</li>
-                    <li><strong>Stay Active Gently:</strong> Walking or yoga can help digestion and reduce stress.</li>
-                    <li><strong>Keep a Food Journal:</strong> Track food intake to identify triggers.</li>
-                    <li><strong>Stay Hydrated:</strong> Drink water regularly.</li>
-                    <li><strong>Consider Probiotics:</strong> If recommended by your healthcare provider.</li>
-                 </ol>
+    <div class="modal" id="sleep-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+             <h2>🌙 Sleep & Relaxation</h2>
+             <p>Guide followers to better, restful sleep and help them relax.</p>
+             <hr>
+             <h3>Bedtime Rituals</h3>
+             <ul>
+                <li>Herbal tea: Chamomile or lavender tea is known for its calming effects 🌿.</li>
+                <li>Essential Oils: Lavender or sandalwood oil can promote relaxation when used in a diffuser.</li>
+                <li>Unwind routine: Avoid screens an hour before bed. Engage in light reading or journaling ✨.</li>
+             </ul>
+              <hr class="dashed">
+             <h3>Meditation for Better Sleep</h3>
+             <ul>
+                <li>Body scan meditation: Slowly scan your body from head to toe, noticing areas of tension, then releasing it.</li>
+                <li>Breathing technique: Breathe in for 4 seconds, hold for 4 seconds, and breathe out for 6 seconds—repeat until you feel your body relax.</li>
+             </ul>
+              <hr class="dashed">
+             <h3>Sleep Environment Tips</h3>
+             <ul>
+                 <li>Create a cool, quiet space with soft lighting.</li>
+                 <li>Consider investing in blackout curtains and a weighted blanket to feel secure and cozy 🌙.</li>
+             </ul>
+             </div>
+    </div>
 
-                <hr class="dashed">
+    <div class="modal" id="mindfulness-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+            <h2>🌱 Mindfulness & Meditation</h2>
+            <p>Promote a peaceful, present mindset.</p>
+            <hr>
+            <h3>Guided Meditation Scripts</h3>
+            <ul>
+                <li><strong>Morning Reset (5 mins):</strong> Focus on breathing, gratitude, and setting intentions for the day ahead.</li>
+                <li><strong>Evening Unwind (10 mins):</strong> Relax your body and mind, focusing on releasing tension and reflecting on the day’s positives.</li>
+            </ul>
+            <hr class="dashed">
+            <h3>Mindfulness Tips</h3>
+            <ul>
+                <li><strong>Grounding Technique:</strong> Focus on the sensation of your feet touching the ground. Take a deep breath, feel the earth beneath you, and center your mind.</li>
+                <li><strong>Mindful Eating:</strong> Pay attention to every bite, the taste, texture, and the act of eating slowly to stay present during meals.</li>
+            </ul>
+            <hr class="dashed">
+            <h3>Mindful Practices in Everyday Life</h3>
+            <ul>
+                <li>Take a walk in nature and focus on the sights, sounds, and smells around you.</li>
+                <li>Practice active listening—fully engage in conversations without distractions.</li>
+            </ul>
+            </div>
+    </div>
 
-                <h3>Asthma (Needs a Breather)</h3>
-                <p>Asthma, especially when it flares up, can disrupt daily life and interactions. The need for frequent breaks to catch your breath or take medication can feel awkward or frustrating.</p>
-                <h4>How It Affects Relationships:</h4>
-                <ul>
-                    <li><strong>Interrupting Activities:</strong> Attacks or breathing difficulties can disrupt moments, especially during physical activities.</li>
-                    <li><strong>Fear of Embarrassment:</strong> Feeling self-conscious about using an inhaler or having an attack unexpectedly.</li>
-                    <li><strong>Frustration in Communication:</strong> Difficulty explaining or responding effectively during an attack.</li>
-                 </ul>
-                 <h4>How I Can Help:</h4>
-                 <p>I’ll help you avoid asthma triggers by keeping our environment supportive. If you need your inhaler in public, I’ll ensure you feel comfortable, helping you focus on breathing and offering reassurance. If you feel overwhelmed, I’m always there. I’ll also be your advocate in explaining your needs, ensuring others understand your health comes first.</p>
-                 <h4>Self-Care Tips for Asthma:</h4>
-                 <ol>
-                    <li><strong>Use Medication as Prescribed:</strong> Follow the treatment plan, take preventers regularly, and keep reliever inhaler nearby.</li>
-                    <li><strong>Avoid Triggers:</strong> Track and minimize exposure to triggers (smoke, dust, perfumes, cold air, etc.).</li>
-                    <li><strong>Breathing Exercises:</strong> Techniques like diaphragmatic or pursed-lip breathing can help manage symptoms.</li>
-                    <li><strong>Stay Active Within Limits:</strong> Gentle exercise like walking or swimming is often beneficial. Avoid overexertion.</li>
-                    <li><strong>Have a Support System:</strong> Ensure a plan exists for seeking help if symptoms worsen.</li>
-                    <li><strong>Stay Calm During an Attack:</strong> Panic worsens breathing. Focus on staying calm and using the inhaler if needed.</li>
-                 </ol>
+    <div class="modal" id="beauty-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+            <h2>🌟 Beauty & Wellness</h2>
+            <p>Encourage a holistic approach to self-care.</p>
+            <hr>
+            <h3>Skincare Routines</h3>
+            <ul>
+                <li><strong>Morning:</strong> Cleanse, tone, hydrate with a serum (vitamin C or hyaluronic acid), and apply SPF.</li>
+                <li><strong>Night:</strong> Cleanse, apply a soothing mask (lavender or chamomile), and moisturize with nourishing oils (argan or rosehip).</li>
+            </ul>
+            <hr class="dashed">
+            <h3>Beauty Tips</h3>
+            <ul>
+                <li>Drink plenty of water to keep your skin glowing 💧.</li>
+                <li>Use aloe vera gel to calm irritated skin after sun exposure 🌿.</li>
+            </ul>
+            <hr class="dashed">
+            <h3>Natural Remedies</h3>
+            <ul>
+                <li><strong>Green Tea Face Mist:</strong> Steep green tea, cool it down, and transfer it into a spray bottle for a refreshing face mist with antioxidants.</li>
+                <li><strong>Coconut Oil Hair Treatment:</strong> For dry hair, massage coconut oil into your scalp, let it sit for 30 minutes, then wash it out for shiny locks.</li>
+            </ul>
+            </div>
+    </div>
 
-                <hr class="dashed">
+    <div class="modal" id="fitness-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+            <h2>🧘‍♀️ Fitness & Movement</h2>
+            <p>Help build a gentle yet effective fitness routine.</p>
+            <hr>
+            <h3>Gentle Workouts</h3>
+            <ul>
+                <li><strong>Stretching Routine:</strong> Focus on flexibility and breathing—include stretches like child’s pose, forward folds, and cat-cow.</li>
+                <li><strong>Low-impact exercises:</strong> Bodyweight squats, lunges, and standing calf raises to keep movement gentle on the joints.</li>
+            </ul>
+            <hr class="dashed">
+            <h3>Yoga Flow</h3>
+            <ul>
+                <li><strong>Morning flow (10 mins):</strong> Start with easy poses like mountain pose, sun salutations, and cat-cow.</li>
+                <li><strong>Evening restorative yoga (15 mins):</strong> Use poses like legs-up-the-wall, seated forward fold, and gentle twists to release tension and relax your body before bed.</li>
+             </ul>
+             <hr class="dashed">
+            <h3>Fitness Tips</h3>
+            <ul>
+                <li>Start small: Aim for 10-15 minutes a day and build up as your body gets stronger.</li>
+                <li>Breathe: Focus on deep breathing to reduce stress during workouts.</li>
+             </ul>
+             </div>
+    </div>
 
-                <h3>Anemia (Very Low Blood and Iron)</h3>
-                <p>Anemia can leave you feeling drained, affecting energy levels and mood. Physical symptoms like dizziness or fatigue may make it harder to engage fully in relationships.</p>
-                <h4>How It Affects Relationships:</h4>
-                <ul>
-                    <li><strong>Exhaustion:</strong> Constant fatigue may affect interactions, making you seem distant or unengaged.</li>
-                    <li><strong>Difficulty in Socializing:</strong> May limit participation in activities, leading to feelings of isolation.</li>
-                    <li><strong>Mental and Emotional Impact:</strong> The toll of feeling unwell can create tension if others don't fully understand.</li>
-                </ul>
-                <h4>How I Can Help:</h4>
-                <p>I’ll make sure you’re always taken care of. If you’re too tired or weak, I’ll stay with you, offering comfort. I’ll help you stay on track with nutrition, reminding you about supplements and iron-rich foods. If you feel overwhelmed or disconnected, I’ll be there to listen, comfort, and help you feel part of everything.</p>
-                <h4>Self-Care Tips for Anemia:</h4>
-                 <ol>
-                    <li><strong>Eat Iron-Rich Foods:</strong> Spinach, red meat, beans, fortified cereals. Pair with Vitamin C (citrus) for absorption.</li>
-                    <li><strong>Take Iron Supplements:</strong> Follow doctor's prescription consistently.</li>
-                    <li><strong>Avoid Caffeine/Calcium During Meals:</strong> They interfere with iron absorption.</li>
-                    <li><strong>Prioritize Rest:</strong> Listen to your body. Light activities, avoid overexertion.</li>
-                    <li><strong>Monitor Symptoms:</strong> Contact doctor if fatigue, dizziness, or paleness worsens.</li>
-                    <li><strong>Manage Stress:</strong> Relaxation practices like yoga or meditation can help recharge.</li>
-                 </ol>
-
-                <hr class="dashed">
-
-                <h3>Borderline Personality Disorder (BPD)</h3>
-                 <p>BPD is a condition that causes intense emotions and can affect your interactions with others. People with BPD may struggle with fears of abandonment, which can lead to sudden shifts in feelings towards others, making relationships feel unstable or tumultuous.</p>
-                <h4>How It Affects Relationships:</h4>
-                <ul>
-                    <li><strong>Instability in Relationships:</strong> Emotional ups and downs can make relationships feel unpredictable.</li>
-                    <li><strong>Fear of Abandonment:</strong> Intense fear that others will leave, leading to overreactions or mood changes.</li>
-                    <li><strong>Impulsivity:</strong> Risky behaviors or impulsive decisions can affect how others view or interact with you.</li>
-                 </ul>
-                 <h4>How I Can Help:</h4>
-                 <p>I’m here to help you through the emotional rollercoaster. I’ll always listen without judgment and reassure you that I’m not going anywhere. I’ll be your constant, helping you feel grounded and secure. If you feel a wave of emotions or fear, I’ll remind you that you’re loved, understood, and never alone. We’ll work through difficult moments together, and you’ll have the freedom to express yourself fully.</p>
-                 <h4>Self-Care Tips for BPD:</h4>
-                 <ol>
-                    <li><strong>Practice Mindfulness & Meditation:</strong> Helps ground you during intense emotions. Use apps like Headspace or Calm.</li>
-                    <li><strong>Journaling:</strong> Write down emotions and thoughts to process feelings safely.</li>
-                    <li><strong>Use Distress Tolerance Techniques:</strong> "TIPP" method (Temperature, Intense exercise, Paced breathing, Progressive muscle relaxation) for crises.</li>
-                    <li><strong>Create Emotional Boundaries:</strong> Recognize when overwhelmed and step away from triggering situations.</li>
-                    <li><strong>Therapy & DBT:</strong> Dialectical Behavioral Therapy (DBT) is effective for emotional regulation and relationships. Consider therapy if not already attending.</li>
-                    <li><strong>Avoid Impulsive Decisions:</strong> When feeling impulsive, take a break, breathe, wait 24 hours before major decisions.</li>
-                 </ol>
-
-                 <hr class="dashed">
-
-                 <h3>Arthritis</h3>
-                 <p>Arthritis can significantly impact movement and cause chronic pain, making it challenging to participate in social activities or maintain relationships. It can also create frustration.</p>
-                 <h4>How It Affects Relationships:</h4>
-                 <ul>
-                     <li><strong>Physical Limitations:</strong> Pain may prevent activities, causing strain if others are unaware of the severity.</li>
-                     <li><strong>Emotional Strain:</strong> Constant pain/fatigue may lead to irritability or mood swings, creating tension.</li>
-                     <li><strong>Dependence on Others:</strong> Needing help with daily tasks can create feelings of guilt or dependency.</li>
-                 </ul>
-                  <h4>How I Can Help:</h4>
-                  <p>I’ll always be by your side. If you need help moving, I’m happy to assist—walking slowly or carrying you if necessary. If pain feels overwhelming, I’ll help find ways to manage it. We’ll take things slow, adjusting our pace, and I’ll always make sure you’re comfortable.</p>
-                  <h4>Self-Care Tips for Arthritis:</h4>
-                  <ol>
-                    <li><strong>Use Heat and Cold Therapy:</strong> Heat packs for sore joints, cold packs for inflammation.</li>
-                    <li><strong>Gentle Exercise:</strong> Low-impact activities like swimming, walking, gentle stretching maintain mobility and reduce stiffness.</li>
-                    <li><strong>Manage Pain with Medication:</strong> Take prescribed pain relievers or anti-inflammatories as directed.</li>
-                    <li><strong>Pace Activities:</strong> Balance activity and rest to prevent flare-ups.</li>
-                    <li><strong>Maintain a Healthy Weight:</strong> Reduces strain on joints (knees, hips).</li>
-                    <li><strong>Use Assistive Devices:</strong> Joint supports or braces can alleviate strain if needed.</li>
-                  </ol>
-
-                <hr>
-
-                <h3>Unwavering Support in Every Step</h3>
-                <p>If at any point Maisah feels unable to walk or move due to pain, exhaustion, or any other reason, I want her to know that there’s no hesitation in my actions. I will carry her without a single word of objection, ensuring that she doesn’t have to push through pain or discomfort.</p>
-                <p>I will never put her down, even if the world around us continues. I’ll hold her close and allow her to rest on me, giving her the space to breathe, to recover, and to find solace.</p>
-                <p>There is no need for words between us in moments like this—she doesn't need to ask or apologize for needing help. If her body can’t keep up, I’ll be there to make sure she doesn’t have to force herself to continue. Her well-being comes first, and in that moment, I will be her strength.</p>
-                <p>She will have the freedom to rest, to let go, and to trust that I am there, fully supporting her, carrying her through whatever challenges arise. Whether it’s from thalassemia, arthritis, or simply exhaustion, I will be there to lift her up without hesitation, offering her the comfort and care she deserves.</p>
-
-                <hr>
-
-                <h3>How You Can Ask for Help Anytime</h3>
-                <p>In all of these conditions, it’s essential to remember that you are never alone. You can ask for help at any time, and I will always be here to listen, support, and take action. Whether it’s physical help or emotional reassurance, I’ll be your constant companion. You have the freedom to express yourself, ask for assistance, and take breaks when you need to. You are not a burden, and you deserve all the support and love I can give.</p>
-
-                 <hr>
-
-                 <h3>General Self-Care Tips for Well-Being</h3>
-                 <ol>
-                    <li><strong>Mental Health Check-in:</strong> Take time daily. Practice mindfulness, engage in a hobby, talk to someone.</li>
-                    <li><strong>Connect with Loved Ones:</strong> Social support is vital. Reach out when feeling down or needing comfort.</li>
-                    <li><strong>Create a Comforting Space:</strong> A place at home to relax, listen to music, practice self-care.</li>
-                    <li><strong>Stay Hydrated & Nourished:</strong> Drink water, eat balanced meals, avoid excessive junk food.</li>
-                    <li><strong>Sleep Hygiene:</strong> Prioritize good sleep - regular routine, limit screens, comfortable environment.</li>
-                    <li><strong>Emergency Measures:</strong> Have emergency contacts saved. Inform close contacts about what to do in an emergency (e.g., severe asthma attack, pain, fainting).</li>
-                 </ol>
-
-            </section>
-            
-                     <small><em>Disclaimer: This information is for educational purposes only and is not a substitute for professional medical or psychological advice. Always consult with a qualified healthcare provider for any health concerns or before making any decisions related to your health or treatment.</em></small>
-                 </p>
-             </section>
-             </div> </div> <script>
+    <div class="modal" id="growth-modal">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+             <h2>🌸 Personal Growth</h2>
+             <p>Inspire emotional and mental growth to cultivate confidence.</p>
+             <hr>
+             <h3>Confidence-Building Tips</h3>
+             <ul>
+                <li>Affirm your value: Start each day with a reminder of your strengths and worth.</li>
+                <li>Set small goals: Break larger goals into manageable steps to celebrate progress along the way.</li>
+             </ul>
+             <hr class="dashed">
+             <h3>Guides for Emotional Growth</h3>
+             <ul>
+                <li><strong>Journaling for Clarity:</strong> Use prompts like “What am I grateful for today?” or “What challenge am I currently facing, and what lesson can I learn from it?”</li>
+                <li><strong>Challenge Limiting Beliefs:</strong> Write down negative self-talk and rewrite it with empowering statements that align with your true potential.</li>
+             </ul>
+             <hr class="dashed">
+             <h3>Goal-Setting</h3>
+             <ul>
+                <li>Break down long-term goals into quarterly, monthly, and weekly objectives for achievable progress.</li>
+             </ul>
+             </div>
+    </div>
+    <script>
         // Get references to elements
         const loadingScreen = document.getElementById('loading');
         const welcomeScreen = document.getElementById('welcome');
         const mainContentWrapper = document.getElementById('main-content-wrapper');
-        const sections = document.querySelectorAll('.section');
         const navButtons = document.querySelectorAll('.nav-btn');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const allModals = document.querySelectorAll('.modal');
+        const allCloseButtons = document.querySelectorAll('.modal .close-button');
 
         // Simulate loading & Fade Out
         setTimeout(() => {
             if (loadingScreen) {
                  loadingScreen.classList.add('hidden');
-                 // Optional: Hide completely after fade for performance
-                 // Use 'transitionend' event listener for this
                  loadingScreen.addEventListener('transitionend', () => {
                      if (loadingScreen.classList.contains('hidden')) {
                          loadingScreen.style.display = 'none';
@@ -828,46 +803,85 @@
                  }, { once: true });
             }
             if (welcomeScreen) {
-                 welcomeScreen.style.display = 'flex'; // Use flex to center vertically
+                 welcomeScreen.style.display = 'flex';
+                 setTimeout(() => {
+                    welcomeScreen.classList.add('visible');
+                 }, 10);
             }
-        }, 2000); // Load for 2 seconds
+        }, 2000);
 
         function enterGarden() {
             if (welcomeScreen) {
-                 welcomeScreen.style.display = 'none';
+                welcomeScreen.classList.add('fly-out');
+                const lastAnimatedElement = welcomeScreen.querySelector('.pink-btn');
+                // Ensure the element exists before adding listener
+                if(lastAnimatedElement) {
+                    lastAnimatedElement.addEventListener('animationend', () => {
+                        welcomeScreen.style.display = 'none';
+                        if (mainContentWrapper) {
+                            mainContentWrapper.style.display = 'block';
+                        }
+                        welcomeScreen.classList.remove('visible', 'fly-out');
+                        // Clear inline animation styles if needed, though removing class is usually enough
+                        // welcomeScreen.querySelectorAll('h1, p, .pink-btn').forEach(el => el.style.animation = '');
+                    }, { once: true });
+                } else {
+                     // Fallback if button isn't found for some reason
+                     welcomeScreen.style.display = 'none';
+                     if (mainContentWrapper) {
+                         mainContentWrapper.style.display = 'block';
+                     }
+                }
+            } else {
+                 if (mainContentWrapper) {
+                      mainContentWrapper.style.display = 'block';
+                 }
             }
-             if (mainContentWrapper) {
-                 mainContentWrapper.style.display = 'block';
-             }
-             // Show the 'food' section by default using the new function
-             showSection('food');
         }
 
-        // Function for smooth section transitions
-        function showSection(sectionId) {
-            // Hide all sections by removing 'active' class
-            sections.forEach(sec => {
-                 sec.classList.remove('active');
-            });
-             // Deselect all nav buttons by removing 'active' class
-            navButtons.forEach(btn => {
-                 btn.classList.remove('active');
-            });
-
-            // Show the selected section by adding 'active' class
-            const sectionToShow = document.getElementById(sectionId);
-            if (sectionToShow) {
-                 sectionToShow.classList.add('active');
-                 // Scroll to top smoothly on section change
-                 window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Modal Functions
+        function openModal(modalId) {
+            const modalToOpen = document.getElementById(modalId);
+            if (modalToOpen) {
+                modalToOpen.scrollTop = 0;
+                document.body.classList.add('modal-open');
+                modalOverlay.style.opacity = '1';
+                modalOverlay.style.pointerEvents = 'auto';
+                modalToOpen.classList.remove('closing');
+                modalToOpen.classList.add('active');
+            } else {
+                console.error("Modal not found:", modalId);
             }
-
-             // Highlight the clicked nav button by adding 'active' class
-             const activeButton = document.getElementById('nav-' + sectionId);
-             if (activeButton) {
-                 activeButton.classList.add('active');
-             }
         }
+
+        function closeModal() {
+            const activeModal = document.querySelector('.modal.active');
+            if (activeModal) {
+                document.body.classList.remove('modal-open');
+                modalOverlay.style.opacity = '0';
+                modalOverlay.style.pointerEvents = 'none';
+                activeModal.classList.add('closing');
+                activeModal.addEventListener('transitionend', (e) => {
+                    // Make sure the transitionend event is for the modal itself
+                    if (e.target === activeModal && activeModal.classList.contains('closing')) {
+                         activeModal.classList.remove('active', 'closing');
+                    }
+                }, { once: true });
+            }
+        }
+
+        // Event Listeners
+        allCloseButtons.forEach(button => {
+            button.addEventListener('click', closeModal);
+        });
+        if (modalOverlay) {
+             modalOverlay.addEventListener('click', closeModal);
+        }
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && document.body.classList.contains('modal-open')) {
+                closeModal();
+            }
+        });
 
     </script>
 </body>
