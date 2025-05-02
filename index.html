@@ -15,7 +15,7 @@
             --nav-bg: #ffb3c6;
             --nav-btn-bg: #ff7096;
             --nav-btn-hover: #ff85a2;
-            --nav-btn-active: #e06387;
+            --nav-btn-active: #e06387; /* Keep for potential future use */
             --text-dark: #8b4a65;
             --text-medium: #b56a89;
             --text-light: #6d5a62;
@@ -129,6 +129,17 @@
         }
         .content-area h2 { font-family: 'Comic Neue', cursive; color: var(--accent-pink); font-size: 1.5rem; margin-bottom: 0.5rem; }
 
+        /* --- NEW: Styles for dynamic affirmation --- */
+         .dynamic-affirmation {
+            font-style: italic; color: var(--text-dark); font-size: 1.1rem;
+            margin-top: 1.5rem; margin-bottom: 1.5rem; min-height: 1.5em; /* Prevent layout shift */
+            transition: opacity 0.5s ease-in-out; /* Fade effect for changes */
+         }
+         /* Class to apply during text fade */
+         .fade-out { opacity: 0; }
+         .fade-in { opacity: 1; }
+
+
         /* Modal Styles */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -163,17 +174,13 @@
          .modal-content ul { list-style: none; padding-left: 0; margin-bottom: 1rem; }
          .modal-content li { padding-left: 1.5em; position: relative; margin-bottom: 0.5rem; }
          .modal-content li::before { content: '🌸'; position: absolute; left: 0; top: 0px; font-size: 0.9em; }
-         /* Nested lists */
          .modal-content ul ul { padding-left: 1.5em; margin-top: 0.3rem; }
          .modal-content ul ul li::before { content: '✨'; }
-         /* Ordered lists */
          .modal-content ol { list-style-type: decimal; padding-left: 25px; margin-bottom: 1rem; }
          .modal-content ol li { padding-left: 0.5em; margin-bottom: 1rem; }
-         .modal-content ol li::before { content: ''; } /* Remove default emoji for OL */
-         /* Styling specific lists like combo details */
+         .modal-content ol li::before { content: ''; }
          .modal-content .combo-details { margin-top: 0.3rem; margin-bottom: 0.8rem; }
          .modal-content .combo-details li { margin-bottom: 0.2rem; }
-
          .modal-content .badge { background: var(--nav-btn-hover); color: var(--white); padding: 5px 10px; border-radius: 10px; display: inline-block; margin: 5px 5px 10px 0; font-size: 0.9rem; }
          .modal-content .tip { background-color: #ffe6ee; border-left: 5px solid var(--nav-btn-hover); padding: 1rem; margin: 1rem 0; border-radius: 8px; }
          .modal-content .tip h3 { margin-top: 0; color: var(--text-medium); }
@@ -205,6 +212,8 @@
             .close-button { font-size: 2.2rem; top: 12px; right: 15px; }
             .modal-content h2 { font-size: 1.5rem; }
             .modal-content h3 { font-size: 1.2rem; }
+            /* NEW */
+            .dynamic-affirmation { font-size: 1rem; }
          }
          @media (max-width: 480px) {
              body { padding-top: 160px; }
@@ -223,6 +232,8 @@
              .modal-content li::before { font-size: 0.8em; }
              .badge { font-size: 0.8rem; padding: 4px 8px; }
              .tip { padding: 0.8rem; }
+              /* NEW */
+             .dynamic-affirmation { font-size: 0.9rem; }
          }
 
     </style>
@@ -263,7 +274,9 @@
         <div class="content-area">
              <h2>Your Personal Oasis</h2>
              <p>This space is just for you, Maisah! Explore the guides above for helpful tips and know that this garden is always here for your comfort and well-being. 🌱</p>
-        </div>
+             <div id="dynamic-affirmation" class="dynamic-affirmation">
+                 </div>
+             </div>
 
     </div> <div class="modal" id="food-modal">
         <span class="close-button">&times;</span>
@@ -452,7 +465,7 @@
             <p>You deserve food that makes you feel good.<br>You deserve treats that don’t betray your tummy.<br>You deserve joy in every bite (with no onions lurking in the shadows 👀 literally.).</p>
             <p>If you ever want updates, or a new seasonal version (like “Sushi Winter Edition ❄️” or “My Low FODMAP Special 🍽”), just say the word.</p>
             <p>Ready to eat like a sushi superstar with a gentle belly? Let’s GOOOO 😤🍣✨ RAHHHHHHHHHHHHHHHH</p>
-             </div>
+        </div>
     </div>
 
     <div class="modal" id="period-modal">
@@ -462,7 +475,7 @@
              <div class="tip"><h3>Heating Pad Hack</h3><p>Use rice socks (just fill a clean sock with uncooked rice, tie it, and microwave for 1-2 mins) + add a few drops of essential oils like lavender or chamomile for cozy warmth and relaxation.</p></div>
              <div class="tip"><h3>Comforting Teas</h3><p>Sip on ginger tea (good for nausea), peppermint tea (helps with bloating), or raspberry leaf tea (often recommended for cramps).</p></div>
              <div class="tip"><h3>Gentle Movement</h3><p>Light stretching, yoga, or a short walk can sometimes help ease cramps. Listen to your body!</p></div>
-             </div>
+        </div>
     </div>
 
     <div class="modal" id="selfcare-modal">
@@ -472,13 +485,13 @@
             <p>Try this simple breathing exercise when you need to calm your mind:</p> <div class="badge">4-7-8 Breathing Technique</div>
             <div class="tip"><h3>How to do it:</h3><ol><li>Exhale completely through your mouth, making a whoosh sound.</li><li>Close your mouth and inhale quietly through your nose to a mental count of <strong>four</strong>.</li><li>Hold your breath for a count of <strong>seven</strong>.</li><li>Exhale completely through your mouth, making a whoosh sound to a count of <strong>eight</strong>.</li><li>This is one breath. Inhale again and repeat the cycle three more times for a total of four breaths.</li></ol><p>Focus on the breath and the counting.</p></div>
             <div class="tip"><h3>Mindful Observation</h3><p>Take 60 seconds to just notice your surroundings without judgment. What do you see, hear, smell, feel? Ground yourself in the present moment.</p></div>
-            </div>
+         </div>
     </div>
 
      <div class="modal" id="health-support-modal">
          <span class="close-button">&times;</span>
          <div class="modal-content">
-             <h2>💖 Health Conditions & Support</h2>
+              <h2>💖 Health Conditions & Support</h2>
               <p>Understanding and navigating health conditions together. Remember, you're never alone in this.</p>
               <hr>
               <h3>Thalassemia (Moderate)</h3>
@@ -622,7 +635,7 @@
                <p>
                   <small><em>Disclaimer: This information is for educational purposes only and is not a substitute for professional medical or psychological advice. Always consult with a qualified healthcare provider for any health concerns or before making any decisions related to your health or treatment.</em></small>
                </p>
-               </div>
+         </div>
     </div>
 
     <div class="modal" id="inspiration-modal">
@@ -650,7 +663,7 @@
                 <li>Share stories of personal transformation, from overcoming anxiety to finding purpose.</li>
                 <li>Invite followers to share their stories of resilience—turn it into a community of growth!</li>
              </ul>
-             </div>
+        </div>
     </div>
 
     <div class="modal" id="sleep-modal">
@@ -677,7 +690,7 @@
                  <li>Create a cool, quiet space with soft lighting.</li>
                  <li>Consider investing in blackout curtains and a weighted blanket to feel secure and cozy 🌙.</li>
              </ul>
-             </div>
+        </div>
     </div>
 
     <div class="modal" id="mindfulness-modal">
@@ -703,7 +716,7 @@
                 <li>Take a walk in nature and focus on the sights, sounds, and smells around you.</li>
                 <li>Practice active listening—fully engage in conversations without distractions.</li>
             </ul>
-            </div>
+        </div>
     </div>
 
     <div class="modal" id="beauty-modal">
@@ -729,7 +742,7 @@
                 <li><strong>Green Tea Face Mist:</strong> Steep green tea, cool it down, and transfer it into a spray bottle for a refreshing face mist with antioxidants.</li>
                 <li><strong>Coconut Oil Hair Treatment:</strong> For dry hair, massage coconut oil into your scalp, let it sit for 30 minutes, then wash it out for shiny locks.</li>
             </ul>
-            </div>
+        </div>
     </div>
 
     <div class="modal" id="fitness-modal">
@@ -755,7 +768,7 @@
                 <li>Start small: Aim for 10-15 minutes a day and build up as your body gets stronger.</li>
                 <li>Breathe: Focus on deep breathing to reduce stress during workouts.</li>
              </ul>
-             </div>
+        </div>
     </div>
 
     <div class="modal" id="growth-modal">
@@ -780,8 +793,10 @@
              <ul>
                 <li>Break down long-term goals into quarterly, monthly, and weekly objectives for achievable progress.</li>
              </ul>
-             </div>
+        </div>
     </div>
+
+
     <script>
         // Get references to elements
         const loadingScreen = document.getElementById('loading');
@@ -791,9 +806,62 @@
         const modalOverlay = document.getElementById('modal-overlay');
         const allModals = document.querySelectorAll('.modal');
         const allCloseButtons = document.querySelectorAll('.modal .close-button');
+         const affirmationEl = document.getElementById('dynamic-affirmation');
 
-        // Simulate loading & Fade Out
-        setTimeout(() => {
+         const affirmations = [
+            "You are beautiful inside and out.",
+            "You are strong, capable, and resilient.",
+            "You are worthy of love and happiness.",
+            "You handle challenges with grace.",
+            "You are intelligent and creative.",
+            "You radiate positivity and kindness.",
+            "You deserve peace and comfort.",
+            "You are enough, exactly as you are.",
+            "You are doing your best, and that is wonderful.",
+            "You are cute and cherished!",
+            "Your presence makes the world brighter.",
+            "You have a kind and gentle heart.",
+            "You are courageous and brave.",
+            "You inspire others with your strength.",
+            "You deserve all the good things life has to offer."
+         ];
+
+         function getRandomItem(arr) {
+            if (!arr || arr.length === 0) return '';
+            return arr[Math.floor(Math.random() * arr.length)];
+         }
+
+          function updateTextWithFade(element, newContentHTML) {
+            if (!element) return;
+            element.classList.add('fade-out');
+             setTimeout(() => {
+                element.innerHTML = newContentHTML;
+                element.classList.remove('fade-out');
+             }, 500);          }
+
+
+         let affirmationInterval;
+
+         function startAffirmationUpdates() {
+              if (affirmationEl) {
+                 const randomAffirmation = getRandomItem(affirmations);
+                 affirmationEl.innerHTML = `"${randomAffirmation}"`;              }
+
+              clearInterval(affirmationInterval);
+
+              if(affirmationEl) {
+                affirmationInterval = setInterval(() => {
+                     const randomAffirmation = getRandomItem(affirmations);
+                     updateTextWithFade(affirmationEl, `"${randomAffirmation}"`);
+                 }, 15000);          }
+         }
+
+         function stopAffirmationUpdates() {
+            clearInterval(affirmationInterval);
+         }
+
+
+         setTimeout(() => {
             if (loadingScreen) {
                  loadingScreen.classList.add('hidden');
                  loadingScreen.addEventListener('transitionend', () => {
@@ -814,33 +882,31 @@
             if (welcomeScreen) {
                 welcomeScreen.classList.add('fly-out');
                 const lastAnimatedElement = welcomeScreen.querySelector('.pink-btn');
-                // Ensure the element exists before adding listener
                 if(lastAnimatedElement) {
                     lastAnimatedElement.addEventListener('animationend', () => {
                         welcomeScreen.style.display = 'none';
                         if (mainContentWrapper) {
                             mainContentWrapper.style.display = 'block';
+                             startAffirmationUpdates();
                         }
                         welcomeScreen.classList.remove('visible', 'fly-out');
-                        // Clear inline animation styles if needed, though removing class is usually enough
-                        // welcomeScreen.querySelectorAll('h1, p, .pink-btn').forEach(el => el.style.animation = '');
-                    }, { once: true });
+                     }, { once: true });
                 } else {
-                     // Fallback if button isn't found for some reason
                      welcomeScreen.style.display = 'none';
                      if (mainContentWrapper) {
                          mainContentWrapper.style.display = 'block';
+                         startAffirmationUpdates();
                      }
                 }
             } else {
                  if (mainContentWrapper) {
                       mainContentWrapper.style.display = 'block';
+                      startAffirmationUpdates();
                  }
             }
         }
 
-        // Modal Functions
-        function openModal(modalId) {
+         function openModal(modalId) {
             const modalToOpen = document.getElementById(modalId);
             if (modalToOpen) {
                 modalToOpen.scrollTop = 0;
@@ -849,12 +915,13 @@
                 modalOverlay.style.pointerEvents = 'auto';
                 modalToOpen.classList.remove('closing');
                 modalToOpen.classList.add('active');
+                 stopAffirmationUpdates();
             } else {
                 console.error("Modal not found:", modalId);
             }
-        }
+         }
 
-        function closeModal() {
+         function closeModal() {
             const activeModal = document.querySelector('.modal.active');
             if (activeModal) {
                 document.body.classList.remove('modal-open');
@@ -862,16 +929,17 @@
                 modalOverlay.style.pointerEvents = 'none';
                 activeModal.classList.add('closing');
                 activeModal.addEventListener('transitionend', (e) => {
-                    // Make sure the transitionend event is for the modal itself
-                    if (e.target === activeModal && activeModal.classList.contains('closing')) {
-                         activeModal.classList.remove('active', 'closing');
-                    }
+                     if (e.target === activeModal && activeModal.classList.contains('closing')) {
+                           activeModal.classList.remove('active', 'closing');
+                            if (!document.querySelector('.modal.active')) {
+                               startAffirmationUpdates();
+                           }
+                     }
                 }, { once: true });
             }
-        }
+         }
 
-        // Event Listeners
-        allCloseButtons.forEach(button => {
+         allCloseButtons.forEach(button => {
             button.addEventListener('click', closeModal);
         });
         if (modalOverlay) {
