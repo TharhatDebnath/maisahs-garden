@@ -33,6 +33,7 @@
             background: linear-gradient(to bottom, #fff7fa, var(--bg-color));
             margin: 0;
             padding-top: 150px; /* Adjust based on final nav height */
+            padding-bottom: 30px; /* Reduced bottom padding slightly */
             color: var(--text-dark);
             cursor: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%270%27%20y%3D%2724%27%20font-size%3D%2724%27%3E%F0%9F%8C%B8%3C%2Ftext%3E%3C%2Fsvg%3E") 16 16, auto;
             overflow-x: hidden;
@@ -128,14 +129,12 @@
             text-align: center; color: var(--text-medium);
         }
         .content-area h2 { font-family: 'Comic Neue', cursive; color: var(--accent-pink); font-size: 1.5rem; margin-bottom: 0.5rem; }
-
-        /* --- NEW: Styles for dynamic affirmation --- */
+         /* Styles for dynamic affirmation */
          .dynamic-affirmation {
             font-style: italic; color: var(--text-dark); font-size: 1.1rem;
-            margin-top: 1.5rem; margin-bottom: 1.5rem; min-height: 1.5em; /* Prevent layout shift */
-            transition: opacity 0.5s ease-in-out; /* Fade effect for changes */
+            margin-top: 1.5rem; margin-bottom: 1.5rem; min-height: 1.5em;
+            transition: opacity 0.5s ease-in-out;
          }
-         /* Class to apply during text fade */
          .fade-out { opacity: 0; }
          .fade-in { opacity: 1; }
 
@@ -174,13 +173,20 @@
          .modal-content ul { list-style: none; padding-left: 0; margin-bottom: 1rem; }
          .modal-content li { padding-left: 1.5em; position: relative; margin-bottom: 0.5rem; }
          .modal-content li::before { content: '🌸'; position: absolute; left: 0; top: 0px; font-size: 0.9em; }
+         /* Nested lists */
          .modal-content ul ul { padding-left: 1.5em; margin-top: 0.3rem; }
          .modal-content ul ul li::before { content: '✨'; }
+         /* Ordered lists */
          .modal-content ol { list-style-type: decimal; padding-left: 25px; margin-bottom: 1rem; }
          .modal-content ol li { padding-left: 0.5em; margin-bottom: 1rem; }
          .modal-content ol li::before { content: ''; }
+         /* Styling specific lists like combo details */
          .modal-content .combo-details { margin-top: 0.3rem; margin-bottom: 0.8rem; }
          .modal-content .combo-details li { margin-bottom: 0.2rem; }
+         /* Style for numbered list items */
+         .modal-content .numbered-list-item { margin-bottom: 1.5rem; }
+         .modal-content .numbered-emoji { display: inline-block; margin-right: 0.5em; }
+
          .modal-content .badge { background: var(--nav-btn-hover); color: var(--white); padding: 5px 10px; border-radius: 10px; display: inline-block; margin: 5px 5px 10px 0; font-size: 0.9rem; }
          .modal-content .tip { background-color: #ffe6ee; border-left: 5px solid var(--nav-btn-hover); padding: 1rem; margin: 1rem 0; border-radius: 8px; }
          .modal-content .tip h3 { margin-top: 0; color: var(--text-medium); }
@@ -212,7 +218,6 @@
             .close-button { font-size: 2.2rem; top: 12px; right: 15px; }
             .modal-content h2 { font-size: 1.5rem; }
             .modal-content h3 { font-size: 1.2rem; }
-            /* NEW */
             .dynamic-affirmation { font-size: 1rem; }
          }
          @media (max-width: 480px) {
@@ -232,7 +237,6 @@
              .modal-content li::before { font-size: 0.8em; }
              .badge { font-size: 0.8rem; padding: 4px 8px; }
              .tip { padding: 0.8rem; }
-              /* NEW */
              .dynamic-affirmation { font-size: 0.9rem; }
          }
 
@@ -276,7 +280,7 @@
              <p>This space is just for you, Maisah! Explore the guides above for helpful tips and know that this garden is always here for your comfort and well-being. 🌱</p>
              <div id="dynamic-affirmation" class="dynamic-affirmation">
                  </div>
-             </div>
+        </div>
 
     </div> <div class="modal" id="food-modal">
         <span class="close-button">&times;</span>
@@ -465,17 +469,117 @@
             <p>You deserve food that makes you feel good.<br>You deserve treats that don’t betray your tummy.<br>You deserve joy in every bite (with no onions lurking in the shadows 👀 literally.).</p>
             <p>If you ever want updates, or a new seasonal version (like “Sushi Winter Edition ❄️” or “My Low FODMAP Special 🍽”), just say the word.</p>
             <p>Ready to eat like a sushi superstar with a gentle belly? Let’s GOOOO 😤🍣✨ RAHHHHHHHHHHHHHHHH</p>
-        </div>
+             </div>
     </div>
 
     <div class="modal" id="period-modal">
         <span class="close-button">&times;</span>
         <div class="modal-content">
-             <h2>🌸 Period Care Tips</h2>
-             <div class="tip"><h3>Heating Pad Hack</h3><p>Use rice socks (just fill a clean sock with uncooked rice, tie it, and microwave for 1-2 mins) + add a few drops of essential oils like lavender or chamomile for cozy warmth and relaxation.</p></div>
-             <div class="tip"><h3>Comforting Teas</h3><p>Sip on ginger tea (good for nausea), peppermint tea (helps with bloating), or raspberry leaf tea (often recommended for cramps).</p></div>
-             <div class="tip"><h3>Gentle Movement</h3><p>Light stretching, yoga, or a short walk can sometimes help ease cramps. Listen to your body!</p></div>
-        </div>
+             <h2>🌸 Period + IBS Self-Care — For Maisah 💖</h2>
+            <p>Because your body deserves tenderness, not pressure.</p>
+            <hr>
+            <h3>🌿 What You Can Do for Yourself</h3>
+            <p>Periods and IBS together can be exhausting. You’re not “too sensitive” — your body is just doing a lot. Let’s work with it, not against it.</p>
+
+            <div class="numbered-list-item">
+                 <h4><span class="numbered-emoji">💆‍♀️ 1.</span> Gentle, Non-Triggering Comfort</h4>
+                 <p>IBS + period tip: Your gut is extra sensitive now.</p>
+                 <h5>What helps:</h5>
+                 <ul>
+                     <li>Warm herbal teas: peppermint, chamomile, or fennel</li>
+                     <li>Avoid high-fat and spicy foods during flares</li>
+                     <li>Eat small, soft meals (oatmeal, rice, bananas, toast)</li>
+                     <li>Heating pad over your belly (helps cramps and gut)</li>
+                 </ul>
+            </div>
+
+            <div class="numbered-list-item">
+                 <h4><span class="numbered-emoji">🧘‍♀️ 2.</span> Reduce Stress = Reduce IBS Pain</h4>
+                 <p>Emotions affect IBS. That’s not weakness — it’s just how it works.</p>
+                 <h5>What helps:</h5>
+                 <ul>
+                     <li>Deep breathing (inhale 4, hold 4, exhale 6)</li>
+                     <li>Calm playlists or rain sounds</li>
+                     <li>Gentle movement like stretching</li>
+                     <li>Journaling emotions (releases gut tension too)</li>
+                 </ul>
+            </div>
+
+             <div class="numbered-list-item">
+                 <h4><span class="numbered-emoji">🚽 3.</span> Listen to Your Tummy</h4>
+                 <p>It’s okay to go slow. IBS can bring pain, bloating, or urgent trips.</p>
+                 <h5>What helps:</h5>
+                 <ul>
+                     <li>Don’t force food — go light and safe</li>
+                     <li>Sit with a pillow against your belly</li>
+                     <li>Magnesium (natural stool relaxer) if needed (Consult Doctor!)</li>
+                     <li>Avoid dairy or gluten if they cause flare-ups</li>
+                 </ul>
+             </div>
+
+            <div class="numbered-list-item">
+                <h4><span class="numbered-emoji">🛌 4.</span> Comfort Is Your Right</h4>
+                <p>Softness isn’t laziness — it’s healing.</p>
+                <h5>What helps:</h5>
+                <ul>
+                    <li>Loose clothes (no pressure on belly)</li>
+                    <li>Lying curled up or in child’s pose</li>
+                    <li>Minimal talking if you’re overstimulated</li>
+                    <li>Low lights, clean sheets, essential oils nearby</li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <h3><span class="numbered-emoji">💙</span> What I Can Do to Help You — as someone who deeply cares</h3>
+            <p>I know I can’t take your pain away. But I’ll do everything I can to make it easier, softer, and more peaceful for you.</p>
+
+            <div class="numbered-list-item">
+                <h4><span class="numbered-emoji">🫱 1.</span> Never Judge, Only Support</h4>
+                <p>If you need to cancel plans, take a break, or rest — I will never complain.</p>
+                <p><strong>Your health comes first. Always.</strong></p>
+                <p>Even if you just want to lie down in silence, I’ll protect that space for you.</p>
+            </div>
+
+             <div class="numbered-list-item">
+                <h4><span class="numbered-emoji">🫖 2.</span> Bring You IBS-Safe Snacks</h4>
+                <p>I’ll remember what helps your tummy and bring:</p>
+                <ul>
+                    <li>Herbal teas (peppermint, ginger, fennel)</li>
+                    <li>Warm water bottle or heat pad</li>
+                    <li>IBS-safe food (soft rice, toast, bananas)</li>
+                    <li>Chocolate only if it doesn’t trigger flares</li>
+                </ul>
+             </div>
+
+            <div class="numbered-list-item">
+                <h4><span class="numbered-emoji">🧠 3.</span> Be Calm When You’re Anxious</h4>
+                <p>IBS flares can feel overwhelming. I won’t say “it’s just stress.”</p>
+                <h5>Instead, I’ll gently say:</h5>
+                <ul>
+                    <li>“Take your time.”</li>
+                    <li>“You’re not a burden.”</li>
+                    <li>“It’s okay to slow down.”</li>
+                    <li>“You don’t have to explain everything. I’m here.”</li>
+                </ul>
+             </div>
+
+             <div class="numbered-list-item">
+                 <h4><span class="numbered-emoji">🌌 4.</span> Offer Peace, Not Pressure</h4>
+                 <ul>
+                     <li>No pressure to reply fast</li>
+                     <li>No need to be cheerful when you’re not</li>
+                     <li>Just soft company, no fixing</li>
+                     <li>I'll protect your energy when you're drained</li>
+                 </ul>
+            </div>
+
+             <hr>
+
+            <h3>🌷 Maisah, this is for you:</h3>
+            <p>IBS and periods are both hard — and together, they’re brutal. But you’re still here. You’re still trying. That makes you strong in quiet, beautiful ways.</p>
+            <p>You don’t need to “be okay.” You just need space, rest, and someone who understands. I promise to be that person. 💙</p>
+             </div>
     </div>
 
     <div class="modal" id="selfcare-modal">
